@@ -7,7 +7,12 @@ Generate massive amounts of fake (but realistic) data for testing and developmen
 
 ## Usage
 
-![images/usage.gif](images/usage.gif)
+<p align="center">
+    <img
+        src="https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images/usage.gif"
+        style="max-width: 500px"
+    />
+</p>
 
 ## Installation
 
@@ -15,7 +20,12 @@ Generate massive amounts of fake (but realistic) data for testing and developmen
 1. Type `Extensions: Install Extensions` and press `Enter` to open marketplace (a.k.a extension view);
 1. Search `Faker.js` extension and install it.
 
-![images/installation.gif](images/installation.gif)
+<p align="center">
+    <img
+        src="https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images/install.gif"
+        style="max-width: 500px"
+    />
+</p>
 
 ## Faker.js Locales
 
