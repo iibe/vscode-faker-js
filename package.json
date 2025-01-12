@@ -3,7 +3,7 @@
     "sideEffects": false,
     "name": "vscode-faker-js",
     "version": "9.3.4",
-    "description": "Generate fake with Faker.js data in VSCode.",
+    "description": "Generate fake data with Faker.js in VSCode.",
     "license": "MIT",
     "author": "Roman Narvatov <kjiibe@gmail.com> (https://iibe.github.io)",
     "maintainers": [
@@ -18,11 +18,9 @@
         "extension",
         "faker",
         "faker-js",
+        "data",
         "data-sources",
-        "data-types",
-        "fake",
         "fake-data",
-        "mock",
         "mock-data"
     ],
     "homepage": "https://github.com/iibe/vscode-faker-js#readme",

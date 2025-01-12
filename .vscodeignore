@@ -1,7 +1,10 @@
 .vscode/**
 .vscode-test/**
 
-# Dotfiles
+dist/
+src/
+test/
+
 .editorconfig
 .env
 .gitignore
@@ -9,6 +12,7 @@
 .prettierignore
 .prettierrc
 .vscode-test.mjs
+
 Makefile
 eslint.config.mjs
 package.contrib.json
@@ -17,8 +21,3 @@ pnpm-workspace.yaml
 tsconfig.json
 tsup.config.*.ts
 vsc-extension-quickstart.md
-
-# Folders
-src/
-dist/
-test/

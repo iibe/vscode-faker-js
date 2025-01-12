@@ -3,7 +3,16 @@
 
 # Faker.js for Visual Studio Code
 
-Generate massive amounts of fake (but realistic) data for testing and development with [Faker.js][url-faker].
+<p align="center">
+    <img
+        src="https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images/logo128x128.png"
+        height="64"
+    />
+</p>
+
+<p align="center" >
+    Generate massive amounts of fake (but realistic) data for testing and development with <a src="https://github.com/faker-js/faker">Faker.js</a>.
+</p>
 
 ## Usage
 

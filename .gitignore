@@ -7,12 +7,13 @@
 
 # Local History for Visual Studio Code
 .history/
-.env
 
 # Built Visual Studio Code Extensions
 *.vsix
 
-# Folders
+# Custom
 dist/
 node_modules/
 out/
+vsc-extension-quickstart.md
+.env
