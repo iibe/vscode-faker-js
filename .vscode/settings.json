@@ -1,0 +1,19 @@
+{
+    "files.exclude": {
+        "./out": false
+    },
+    "search.exclude": {
+        "./out": true
+    },
+    // Turn off tsc task auto detection since we have the necessary tasks as NPM scripts
+    "typescript.tsc.autoDetect": "off",
+
+    // Add VSCode Portable entry to `echo %PATH%` (Windows)
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PATH};${execPath}${/}..${/}bin"
+    },
+    // Add VSCode Portable entry to `echo $PATH` (Linux)
+    "terminal.integrated.env.linux": {
+        "PATH": "${env:PATH};${execPath}${/}..${/}bin"
+    }
+}
