@@ -2,6 +2,7 @@
 .vscode-test/**
 
 dist/
+images/**/*.svg
 src/
 test/
 
@@ -15,7 +16,7 @@ test/
 
 Makefile
 eslint.config.mjs
-package.contrib.json
+package.vscode.json
 pnpm-lock.yaml
 pnpm-workspace.yaml
 tsconfig.json

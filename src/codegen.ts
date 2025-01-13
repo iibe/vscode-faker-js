@@ -1,9 +1,9 @@
 import { writeFileSync } from 'fs';
 import { fakerAtoms, fakerLocales } from './constants';
-import type { ICommand, IConfigProps, IContributes } from './types/extension';
+import type { ICommand, IConfigProps } from './types/extension';
 
 /**
- * Generates commands for `package.json` extension-specific key `contributes.commands`.
+ * Generates `package.json` extension-specific key `contributes.commands`.
  */
 function getCommands() {
     const commands: ICommand[] = [];
@@ -19,11 +19,8 @@ function getCommands() {
     return commands;
 }
 
-// type x = vscode.Contru;
-
 /**
- * Generate settings for `package.json` extension-specific key `configuration.properties`.
- * Note: use can use following configuration in VSCode user `settings.json` file.
+ * Generates `package.json` extension-specific key `contributes.configuration.properties`.
  */
 function getConfiguration() {
     const settings: IConfigProps = {
@@ -38,8 +35,31 @@ function getConfiguration() {
     return settings;
 }
 
+/**
+ * Generates `package.json` extension-specific key `activationEvents`.
+ */
+function getActivationEvents() {
+    // inferred from `contributes.commands`
+    const events: string[] = [];
+
+    return events;
+}
+
+interface IPackageJson {
+    activationEvents: string[];
+    contributes: {
+        configuration: {
+            type: string;
+            title: string;
+            properties: IConfigProps;
+        };
+        commands: ICommand[];
+    };
+}
+
 function codegen() {
-    const contribs: IContributes = {
+    const dump: IPackageJson = {
+        activationEvents: getActivationEvents(),
         contributes: {
             configuration: {
                 type: 'object',
@@ -48,11 +68,9 @@ function codegen() {
             },
             commands: getCommands(),
         },
-    } as const;
+    };
 
-    const json = JSON.stringify(contribs, null, 4);
-
-    writeFileSync('./package.contrib.json', json);
+    writeFileSync('./package.vscode.json', JSON.stringify(dump, null, 4));
 }
 
 codegen();

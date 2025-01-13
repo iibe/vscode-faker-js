@@ -17,14 +17,3 @@ export type ICommand = Command & {
     command: ICommandId;
     category?: string;
 };
-
-export interface IContributes {
-    contributes: {
-        configuration: {
-            type: string;
-            title: string;
-            properties: IConfigProps;
-        };
-        commands: ICommand[];
-    };
-}
