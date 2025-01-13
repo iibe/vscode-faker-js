@@ -1,12 +1,12 @@
 import { writeFileSync } from 'fs';
 import { fakerAtoms, fakerLocales } from './constants';
-import type { IContribCommand, IContribConfigProps, IContributes } from './types/extension';
+import type { ICommand, IConfigProps, IContributes } from './types/extension';
 
 /**
  * Generates commands for `package.json` extension-specific key `contributes.commands`.
  */
 function getCommands() {
-    const commands: IContribCommand[] = [];
+    const commands: ICommand[] = [];
 
     for (const atom of fakerAtoms) {
         commands.push({
@@ -26,7 +26,7 @@ function getCommands() {
  * Note: use can use following configuration in VSCode user `settings.json` file.
  */
 function getConfiguration() {
-    const settings: IContribConfigProps = {
+    const settings: IConfigProps = {
         'faker-js.locale': {
             type: 'string',
             enum: fakerLocales,

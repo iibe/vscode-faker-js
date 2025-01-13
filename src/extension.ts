@@ -3,7 +3,7 @@ import type { ExtensionContext } from 'vscode';
 import { commands, Range, window, workspace } from 'vscode';
 import { fakerAtoms } from './constants';
 import { getFakerAsync, getFakerFunc } from './faker';
-import type { IContribCommandId } from './types/extension';
+import type { ICommandId } from './types/extension';
 import type { IFakerLocale } from './types/faker';
 
 export async function activate(context: ExtensionContext) {
@@ -17,7 +17,7 @@ export async function activate(context: ExtensionContext) {
         const faker = imported.faker as unknown as Faker;
 
         for (const atom of fakerAtoms) {
-            const commandId: IContribCommandId = `vscode-faker-js.run.${atom}`;
+            const commandId: ICommandId = `vscode-faker-js.run.${atom}`;
 
             const disposable = commands.registerCommand(commandId, () => {
                 const editor = window.activeTextEditor;

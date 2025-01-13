@@ -2,20 +2,19 @@ import type { Command } from 'vscode';
 import type { IFakerApiAtom, IFakerLocale } from './faker';
 import type { Flatten } from './flatten';
 
-interface IExtensionSettingsType {
+interface IConfigType {
     'faker-js': {
         locale: IFakerLocale;
     };
 }
 
-export type IExtensionSettings = Flatten<IExtensionSettingsType>;
-export type IExtensionSettingsKey = keyof IExtensionSettings;
+export type IConfig = Flatten<IConfigType>;
+export type IConfigKey = keyof IConfig;
+export type IConfigProps = Record<IConfigKey, object>;
 
-export type IContribConfigProps = Record<IExtensionSettingsKey, object>;
-
-export type IContribCommandId = `vscode-faker-js.run.${IFakerApiAtom}`;
-export type IContribCommand = Command & {
-    command: IContribCommandId;
+export type ICommandId = `vscode-faker-js.run.${IFakerApiAtom}`;
+export type ICommand = Command & {
+    command: ICommandId;
     category?: string;
 };
 
@@ -24,8 +23,8 @@ export interface IContributes {
         configuration: {
             type: string;
             title: string;
-            properties: IContribConfigProps;
+            properties: IConfigProps;
         };
-        commands: IContribCommand[];
+        commands: ICommand[];
     };
 }

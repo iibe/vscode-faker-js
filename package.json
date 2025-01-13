@@ -2,7 +2,7 @@
     "private": true,
     "sideEffects": false,
     "name": "vscode-faker-js",
-    "version": "9.3.4",
+    "version": "9.3.5",
     "description": "Generate fake data with Faker.js in VSCode.",
     "license": "MIT",
     "author": "Roman Narvatov <kjiibe@gmail.com> (https://iibe.github.io)",
@@ -90,8 +90,7 @@
     "publisher": "iibe",
     "icon": "images/logo128x128.png",
     "categories": [
-        "Testing",
-        "Other"
+        "Testing"
     ],
     "activationEvents": [],
     "contributes": {
@@ -108,14 +107,13 @@
                         "base",
                         "cs_CZ",
                         "da",
-                        "de",
                         "de_AT",
                         "de_CH",
+                        "de",
                         "dv",
                         "el",
-                        "en",
-                        "en_AU",
                         "en_AU_ocker",
+                        "en_AU",
                         "en_BORK",
                         "en_CA",
                         "en_GB",
@@ -126,17 +124,18 @@
                         "en_NG",
                         "en_US",
                         "en_ZA",
+                        "en",
                         "eo",
-                        "es",
                         "es_MX",
+                        "es",
                         "fa",
                         "fi",
-                        "fr",
                         "fr_BE",
                         "fr_CA",
                         "fr_CH",
                         "fr_LU",
                         "fr_SN",
+                        "fr",
                         "he",
                         "hr",
                         "hu",
@@ -150,13 +149,13 @@
                         "mk",
                         "nb_NO",
                         "ne",
-                        "nl",
                         "nl_BE",
+                        "nl",
                         "pl",
                         "pt_BR",
                         "pt_PT",
-                        "ro",
                         "ro_MD",
+                        "ro",
                         "ru",
                         "sk",
                         "sr_RS_latin",
@@ -179,8 +178,18 @@
         },
         "commands": [
             {
+                "command": "vscode-faker-js.run.airline.aircraftType",
+                "title": "airline.aircraftType",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.airline.airline",
                 "title": "airline.airline",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.airline.airplane",
+                "title": "airline.airplane",
                 "category": "Faker"
             },
             {
@@ -189,8 +198,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.airline.airplane",
-                "title": "airline.airplane",
+                "command": "vscode-faker-js.run.airline.flightNumber",
+                "title": "airline.flightNumber",
                 "category": "Faker"
             },
             {
@@ -204,48 +213,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.airline.aircraftType",
-                "title": "airline.aircraftType",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.airline.flightNumber",
-                "title": "airline.flightNumber",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.dog",
-                "title": "animal.dog",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.cat",
-                "title": "animal.cat",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.snake",
-                "title": "animal.snake",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.animal.bear",
                 "title": "animal.bear",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.lion",
-                "title": "animal.lion",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.cetacean",
-                "title": "animal.cetacean",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.horse",
-                "title": "animal.horse",
                 "category": "Faker"
             },
             {
@@ -254,13 +223,18 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.animal.cow",
-                "title": "animal.cow",
+                "command": "vscode-faker-js.run.animal.cat",
+                "title": "animal.cat",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.animal.fish",
-                "title": "animal.fish",
+                "command": "vscode-faker-js.run.animal.cetacean",
+                "title": "animal.cetacean",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.animal.cow",
+                "title": "animal.cow",
                 "category": "Faker"
             },
             {
@@ -269,8 +243,33 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.animal.dog",
+                "title": "animal.dog",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.animal.fish",
+                "title": "animal.fish",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.animal.horse",
+                "title": "animal.horse",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.animal.insect",
                 "title": "animal.insect",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.animal.lion",
+                "title": "animal.lion",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.animal.petName",
+                "title": "animal.petName",
                 "category": "Faker"
             },
             {
@@ -284,13 +283,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.animal.type",
-                "title": "animal.type",
+                "command": "vscode-faker-js.run.animal.snake",
+                "title": "animal.snake",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.animal.petName",
-                "title": "animal.petName",
+                "command": "vscode-faker-js.run.animal.type",
+                "title": "animal.type",
                 "category": "Faker"
             },
             {
@@ -324,13 +323,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.color.human",
-                "title": "color.human",
+                "command": "vscode-faker-js.run.color.cmyk",
+                "title": "color.cmyk",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.color.space",
-                "title": "color.space",
+                "command": "vscode-faker-js.run.color.colorByCSSColorSpace",
+                "title": "color.colorByCSSColorSpace",
                 "category": "Faker"
             },
             {
@@ -344,18 +343,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.color.rgb",
-                "title": "color.rgb",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.color.cmyk",
-                "title": "color.cmyk",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.color.hsl",
                 "title": "color.hsl",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.color.human",
+                "title": "color.human",
                 "category": "Faker"
             },
             {
@@ -374,8 +368,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.color.colorByCSSColorSpace",
-                "title": "color.colorByCSSColorSpace",
+                "command": "vscode-faker-js.run.color.rgb",
+                "title": "color.rgb",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.color.space",
+                "title": "color.space",
                 "category": "Faker"
             },
             {
@@ -384,8 +383,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.commerce.productName",
-                "title": "commerce.productName",
+                "command": "vscode-faker-js.run.commerce.isbn",
+                "title": "commerce.isbn",
                 "category": "Faker"
             },
             {
@@ -394,18 +393,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.commerce.productAdjective",
-                "title": "commerce.productAdjective",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.productMaterial",
-                "title": "commerce.productMaterial",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.commerce.product",
                 "title": "commerce.product",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.commerce.productAdjective",
+                "title": "commerce.productAdjective",
                 "category": "Faker"
             },
             {
@@ -414,23 +408,38 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.commerce.isbn",
-                "title": "commerce.isbn",
+                "command": "vscode-faker-js.run.commerce.productMaterial",
+                "title": "commerce.productMaterial",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.company.name",
-                "title": "company.name",
+                "command": "vscode-faker-js.run.commerce.productName",
+                "title": "commerce.productName",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.company.catchPhrase",
-                "title": "company.catchPhrase",
+                "command": "vscode-faker-js.run.company.buzzAdjective",
+                "title": "company.buzzAdjective",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.company.buzzNoun",
+                "title": "company.buzzNoun",
                 "category": "Faker"
             },
             {
                 "command": "vscode-faker-js.run.company.buzzPhrase",
                 "title": "company.buzzPhrase",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.company.buzzVerb",
+                "title": "company.buzzVerb",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.company.catchPhrase",
+                "title": "company.catchPhrase",
                 "category": "Faker"
             },
             {
@@ -449,33 +458,18 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.company.buzzAdjective",
-                "title": "company.buzzAdjective",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.company.buzzVerb",
-                "title": "company.buzzVerb",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.company.buzzNoun",
-                "title": "company.buzzNoun",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.database.type",
-                "title": "database.type",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.database.column",
-                "title": "database.column",
+                "command": "vscode-faker-js.run.company.name",
+                "title": "company.name",
                 "category": "Faker"
             },
             {
                 "command": "vscode-faker-js.run.database.collation",
                 "title": "database.collation",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.database.column",
+                "title": "database.column",
                 "category": "Faker"
             },
             {
@@ -489,33 +483,18 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.date.month",
-                "title": "date.month",
+                "command": "vscode-faker-js.run.database.type",
+                "title": "database.type",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.date.weekday",
-                "title": "date.weekday",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.date.timeZone",
-                "title": "date.timeZone",
+                "command": "vscode-faker-js.run.datatype.boolean",
+                "title": "datatype.boolean",
                 "category": "Faker"
             },
             {
                 "command": "vscode-faker-js.run.date.anytime",
                 "title": "date.anytime",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.date.past",
-                "title": "date.past",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.date.future",
-                "title": "date.future",
                 "category": "Faker"
             },
             {
@@ -529,6 +508,26 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.date.birthdate",
+                "title": "date.birthdate",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.date.future",
+                "title": "date.future",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.date.month",
+                "title": "date.month",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.date.past",
+                "title": "date.past",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.date.recent",
                 "title": "date.recent",
                 "category": "Faker"
@@ -539,13 +538,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.date.birthdate",
-                "title": "date.birthdate",
+                "command": "vscode-faker-js.run.date.timeZone",
+                "title": "date.timeZone",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.finance.accountNumber",
-                "title": "finance.accountNumber",
+                "command": "vscode-faker-js.run.date.weekday",
+                "title": "date.weekday",
                 "category": "Faker"
             },
             {
@@ -554,13 +553,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.finance.routingNumber",
-                "title": "finance.routingNumber",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.maskedNumber",
-                "title": "finance.maskedNumber",
+                "command": "vscode-faker-js.run.finance.accountNumber",
+                "title": "finance.accountNumber",
                 "category": "Faker"
             },
             {
@@ -569,8 +563,28 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.finance.transactionType",
-                "title": "finance.transactionType",
+                "command": "vscode-faker-js.run.finance.bic",
+                "title": "finance.bic",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.bitcoinAddress",
+                "title": "finance.bitcoinAddress",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.creditCardCVV",
+                "title": "finance.creditCardCVV",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.creditCardIssuer",
+                "title": "finance.creditCardIssuer",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.creditCardNumber",
+                "title": "finance.creditCardNumber",
                 "category": "Faker"
             },
             {
@@ -594,36 +608,6 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.finance.bitcoinAddress",
-                "title": "finance.bitcoinAddress",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.litecoinAddress",
-                "title": "finance.litecoinAddress",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.creditCardNumber",
-                "title": "finance.creditCardNumber",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.creditCardCVV",
-                "title": "finance.creditCardCVV",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.creditCardIssuer",
-                "title": "finance.creditCardIssuer",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.pin",
-                "title": "finance.pin",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.finance.ethereumAddress",
                 "title": "finance.ethereumAddress",
                 "category": "Faker"
@@ -634,13 +618,33 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.finance.bic",
-                "title": "finance.bic",
+                "command": "vscode-faker-js.run.finance.litecoinAddress",
+                "title": "finance.litecoinAddress",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.maskedNumber",
+                "title": "finance.maskedNumber",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.pin",
+                "title": "finance.pin",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.routingNumber",
+                "title": "finance.routingNumber",
                 "category": "Faker"
             },
             {
                 "command": "vscode-faker-js.run.finance.transactionDescription",
                 "title": "finance.transactionDescription",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.finance.transactionType",
+                "title": "finance.transactionType",
                 "category": "Faker"
             },
             {
@@ -694,6 +698,11 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.git.commitDate",
+                "title": "git.commitDate",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.git.commitEntry",
                 "title": "git.commitEntry",
                 "category": "Faker"
@@ -704,18 +713,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.git.commitDate",
-                "title": "git.commitDate",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.git.commitSha",
                 "title": "git.commitSha",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.adjective",
-                "title": "hacker.adjective",
                 "category": "Faker"
             },
             {
@@ -724,13 +723,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.hacker.noun",
-                "title": "hacker.noun",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.verb",
-                "title": "hacker.verb",
+                "command": "vscode-faker-js.run.hacker.adjective",
+                "title": "hacker.adjective",
                 "category": "Faker"
             },
             {
@@ -739,78 +733,23 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.hacker.noun",
+                "title": "hacker.noun",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.hacker.phrase",
                 "title": "hacker.phrase",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.helpers.fake",
-                "title": "helpers.fake",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.slugify",
-                "title": "helpers.slugify",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.replaceSymbols",
-                "title": "helpers.replaceSymbols",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.replaceCreditCardSymbols",
-                "title": "helpers.replaceCreditCardSymbols",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.fromRegExp",
-                "title": "helpers.fromRegExp",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.shuffle",
-                "title": "helpers.shuffle",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.uniqueArray",
-                "title": "helpers.uniqueArray",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.mustache",
-                "title": "helpers.mustache",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.maybe",
-                "title": "helpers.maybe",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.objectKey",
-                "title": "helpers.objectKey",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.objectValue",
-                "title": "helpers.objectValue",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.objectEntry",
-                "title": "helpers.objectEntry",
+                "command": "vscode-faker-js.run.hacker.verb",
+                "title": "hacker.verb",
                 "category": "Faker"
             },
             {
                 "command": "vscode-faker-js.run.helpers.arrayElement",
                 "title": "helpers.arrayElement",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.weightedArrayElement",
-                "title": "helpers.weightedArrayElement",
                 "category": "Faker"
             },
             {
@@ -824,13 +763,78 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.helpers.rangeToNumber",
-                "title": "helpers.rangeToNumber",
+                "command": "vscode-faker-js.run.helpers.fake",
+                "title": "helpers.fake",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.fromRegExp",
+                "title": "helpers.fromRegExp",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.maybe",
+                "title": "helpers.maybe",
                 "category": "Faker"
             },
             {
                 "command": "vscode-faker-js.run.helpers.multiple",
                 "title": "helpers.multiple",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.mustache",
+                "title": "helpers.mustache",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.objectEntry",
+                "title": "helpers.objectEntry",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.objectKey",
+                "title": "helpers.objectKey",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.objectValue",
+                "title": "helpers.objectValue",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.rangeToNumber",
+                "title": "helpers.rangeToNumber",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.replaceCreditCardSymbols",
+                "title": "helpers.replaceCreditCardSymbols",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.replaceSymbols",
+                "title": "helpers.replaceSymbols",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.shuffle",
+                "title": "helpers.shuffle",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.slugify",
+                "title": "helpers.slugify",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.uniqueArray",
+                "title": "helpers.uniqueArray",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.helpers.weightedArrayElement",
+                "title": "helpers.weightedArrayElement",
                 "category": "Faker"
             },
             {
@@ -846,6 +850,11 @@
             {
                 "command": "vscode-faker-js.run.image.avatarLegacy",
                 "title": "image.avatarLegacy",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.image.dataUri",
+                "title": "image.dataUri",
                 "category": "Faker"
             },
             {
@@ -869,58 +878,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.image.dataUri",
-                "title": "image.dataUri",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.internet.color",
                 "title": "internet.color",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.internet.url",
-                "title": "internet.url",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.email",
-                "title": "internet.email",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.exampleEmail",
-                "title": "internet.exampleEmail",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.userName",
-                "title": "internet.userName",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.username",
-                "title": "internet.username",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.internet.displayName",
                 "title": "internet.displayName",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.protocol",
-                "title": "internet.protocol",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.httpMethod",
-                "title": "internet.httpMethod",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.httpStatusCode",
-                "title": "internet.httpStatusCode",
                 "category": "Faker"
             },
             {
@@ -939,6 +903,31 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.internet.email",
+                "title": "internet.email",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.internet.emoji",
+                "title": "internet.emoji",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.internet.exampleEmail",
+                "title": "internet.exampleEmail",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.internet.httpMethod",
+                "title": "internet.httpMethod",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.internet.httpStatusCode",
+                "title": "internet.httpStatusCode",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.internet.ip",
                 "title": "internet.ip",
                 "category": "Faker"
@@ -954,13 +943,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.internet.port",
-                "title": "internet.port",
+                "command": "vscode-faker-js.run.internet.jwt",
+                "title": "internet.jwt",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.internet.userAgent",
-                "title": "internet.userAgent",
+                "command": "vscode-faker-js.run.internet.jwtAlgorithm",
+                "title": "internet.jwtAlgorithm",
                 "category": "Faker"
             },
             {
@@ -974,33 +963,33 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.internet.emoji",
-                "title": "internet.emoji",
+                "command": "vscode-faker-js.run.internet.port",
+                "title": "internet.port",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.internet.jwtAlgorithm",
-                "title": "internet.jwtAlgorithm",
+                "command": "vscode-faker-js.run.internet.protocol",
+                "title": "internet.protocol",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.internet.jwt",
-                "title": "internet.jwt",
+                "command": "vscode-faker-js.run.internet.url",
+                "title": "internet.url",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.timeZone",
-                "title": "location.timeZone",
+                "command": "vscode-faker-js.run.internet.userAgent",
+                "title": "internet.userAgent",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.zipCode",
-                "title": "location.zipCode",
+                "command": "vscode-faker-js.run.internet.username",
+                "title": "internet.username",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.city",
-                "title": "location.city",
+                "command": "vscode-faker-js.run.internet.userName",
+                "title": "internet.userName",
                 "category": "Faker"
             },
             {
@@ -1009,28 +998,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.street",
-                "title": "location.street",
+                "command": "vscode-faker-js.run.location.cardinalDirection",
+                "title": "location.cardinalDirection",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.streetAddress",
-                "title": "location.streetAddress",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.location.secondaryAddress",
-                "title": "location.secondaryAddress",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.location.county",
-                "title": "location.county",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.location.country",
-                "title": "location.country",
+                "command": "vscode-faker-js.run.location.city",
+                "title": "location.city",
                 "category": "Faker"
             },
             {
@@ -1039,13 +1013,23 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.location.country",
+                "title": "location.country",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.location.countryCode",
                 "title": "location.countryCode",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.state",
-                "title": "location.state",
+                "command": "vscode-faker-js.run.location.county",
+                "title": "location.county",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.location.direction",
+                "title": "location.direction",
                 "category": "Faker"
             },
             {
@@ -1059,13 +1043,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.direction",
-                "title": "location.direction",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.location.cardinalDirection",
-                "title": "location.cardinalDirection",
+                "command": "vscode-faker-js.run.location.nearbyGPSCoordinate",
+                "title": "location.nearbyGPSCoordinate",
                 "category": "Faker"
             },
             {
@@ -1074,33 +1053,38 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.location.nearbyGPSCoordinate",
-                "title": "location.nearbyGPSCoordinate",
+                "command": "vscode-faker-js.run.location.secondaryAddress",
+                "title": "location.secondaryAddress",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.lorem.word",
-                "title": "lorem.word",
+                "command": "vscode-faker-js.run.location.state",
+                "title": "location.state",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.lorem.words",
-                "title": "lorem.words",
+                "command": "vscode-faker-js.run.location.street",
+                "title": "location.street",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.lorem.sentence",
-                "title": "lorem.sentence",
+                "command": "vscode-faker-js.run.location.streetAddress",
+                "title": "location.streetAddress",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.lorem.slug",
-                "title": "lorem.slug",
+                "command": "vscode-faker-js.run.location.timeZone",
+                "title": "location.timeZone",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.lorem.sentences",
-                "title": "lorem.sentences",
+                "command": "vscode-faker-js.run.location.zipCode",
+                "title": "location.zipCode",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.lorem.lines",
+                "title": "lorem.lines",
                 "category": "Faker"
             },
             {
@@ -1114,18 +1098,33 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.lorem.sentence",
+                "title": "lorem.sentence",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.lorem.sentences",
+                "title": "lorem.sentences",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.lorem.slug",
+                "title": "lorem.slug",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.lorem.text",
                 "title": "lorem.text",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.lorem.lines",
-                "title": "lorem.lines",
+                "command": "vscode-faker-js.run.lorem.word",
+                "title": "lorem.word",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.music.genre",
-                "title": "music.genre",
+                "command": "vscode-faker-js.run.lorem.words",
+                "title": "lorem.words",
                 "category": "Faker"
             },
             {
@@ -1139,23 +1138,58 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.music.genre",
+                "title": "music.genre",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.music.songName",
                 "title": "music.songName",
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.number.bigInt",
+                "title": "number.bigInt",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.number.binary",
+                "title": "number.binary",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.number.float",
+                "title": "number.float",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.number.hex",
+                "title": "number.hex",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.number.int",
+                "title": "number.int",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.number.octal",
+                "title": "number.octal",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.number.romanNumeral",
+                "title": "number.romanNumeral",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.person.bio",
+                "title": "person.bio",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.person.firstName",
                 "title": "person.firstName",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.person.lastName",
-                "title": "person.lastName",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.person.middleName",
-                "title": "person.middleName",
                 "category": "Faker"
             },
             {
@@ -1169,6 +1203,41 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.person.jobArea",
+                "title": "person.jobArea",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.person.jobDescriptor",
+                "title": "person.jobDescriptor",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.person.jobTitle",
+                "title": "person.jobTitle",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.person.jobType",
+                "title": "person.jobType",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.person.lastName",
+                "title": "person.lastName",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.person.middleName",
+                "title": "person.middleName",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.person.prefix",
+                "title": "person.prefix",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.person.sex",
                 "title": "person.sex",
                 "category": "Faker"
@@ -1179,38 +1248,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.person.bio",
-                "title": "person.bio",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.person.prefix",
-                "title": "person.prefix",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.person.suffix",
                 "title": "person.suffix",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobTitle",
-                "title": "person.jobTitle",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobDescriptor",
-                "title": "person.jobDescriptor",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobArea",
-                "title": "person.jobArea",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobType",
-                "title": "person.jobType",
                 "category": "Faker"
             },
             {
@@ -1219,13 +1258,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.phone.number",
-                "title": "phone.number",
+                "command": "vscode-faker-js.run.phone.imei",
+                "title": "phone.imei",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.phone.imei",
-                "title": "phone.imei",
+                "command": "vscode-faker-js.run.phone.number",
+                "title": "phone.number",
                 "category": "Faker"
             },
             {
@@ -1239,23 +1278,63 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.system.fileName",
-                "title": "system.fileName",
+                "command": "vscode-faker-js.run.string.alpha",
+                "title": "string.alpha",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.system.commonFileName",
-                "title": "system.commonFileName",
+                "command": "vscode-faker-js.run.string.alphanumeric",
+                "title": "string.alphanumeric",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.system.mimeType",
-                "title": "system.mimeType",
+                "command": "vscode-faker-js.run.string.binary",
+                "title": "string.binary",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.system.commonFileType",
-                "title": "system.commonFileType",
+                "command": "vscode-faker-js.run.string.fromCharacters",
+                "title": "string.fromCharacters",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.hexadecimal",
+                "title": "string.hexadecimal",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.nanoid",
+                "title": "string.nanoid",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.numeric",
+                "title": "string.numeric",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.octal",
+                "title": "string.octal",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.sample",
+                "title": "string.sample",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.symbol",
+                "title": "string.symbol",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.ulid",
+                "title": "string.ulid",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.string.uuid",
+                "title": "string.uuid",
                 "category": "Faker"
             },
             {
@@ -1264,33 +1343,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.system.fileType",
-                "title": "system.fileType",
+                "command": "vscode-faker-js.run.system.commonFileName",
+                "title": "system.commonFileName",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.system.fileExt",
-                "title": "system.fileExt",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.system.directoryPath",
-                "title": "system.directoryPath",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.system.filePath",
-                "title": "system.filePath",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.system.semver",
-                "title": "system.semver",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.system.networkInterface",
-                "title": "system.networkInterface",
+                "command": "vscode-faker-js.run.system.commonFileType",
+                "title": "system.commonFileType",
                 "category": "Faker"
             },
             {
@@ -1299,18 +1358,58 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.system.directoryPath",
+                "title": "system.directoryPath",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.system.fileExt",
+                "title": "system.fileExt",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.system.fileName",
+                "title": "system.fileName",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.system.filePath",
+                "title": "system.filePath",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.system.fileType",
+                "title": "system.fileType",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.system.mimeType",
+                "title": "system.mimeType",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.system.networkInterface",
+                "title": "system.networkInterface",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.system.semver",
+                "title": "system.semver",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.vehicle.bicycle",
+                "title": "vehicle.bicycle",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.vehicle.color",
                 "title": "vehicle.color",
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.vehicle.vehicle",
-                "title": "vehicle.vehicle",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.type",
-                "title": "vehicle.type",
+                "command": "vscode-faker-js.run.vehicle.fuel",
+                "title": "vehicle.fuel",
                 "category": "Faker"
             },
             {
@@ -1324,8 +1423,13 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.vehicle.fuel",
-                "title": "vehicle.fuel",
+                "command": "vscode-faker-js.run.vehicle.type",
+                "title": "vehicle.type",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.vehicle.vehicle",
+                "title": "vehicle.vehicle",
                 "category": "Faker"
             },
             {
@@ -1339,28 +1443,8 @@
                 "category": "Faker"
             },
             {
-                "command": "vscode-faker-js.run.vehicle.bicycle",
-                "title": "vehicle.bicycle",
-                "category": "Faker"
-            },
-            {
                 "command": "vscode-faker-js.run.word.adjective",
                 "title": "word.adjective",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.word.noun",
-                "title": "word.noun",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.word.verb",
-                "title": "word.verb",
-                "category": "Faker"
-            },
-            {
-                "command": "vscode-faker-js.run.word.words",
-                "title": "word.words",
                 "category": "Faker"
             },
             {
@@ -1379,6 +1463,11 @@
                 "category": "Faker"
             },
             {
+                "command": "vscode-faker-js.run.word.noun",
+                "title": "word.noun",
+                "category": "Faker"
+            },
+            {
                 "command": "vscode-faker-js.run.word.preposition",
                 "title": "word.preposition",
                 "category": "Faker"
@@ -1386,6 +1475,16 @@
             {
                 "command": "vscode-faker-js.run.word.sample",
                 "title": "word.sample",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.word.verb",
+                "title": "word.verb",
+                "category": "Faker"
+            },
+            {
+                "command": "vscode-faker-js.run.word.words",
+                "title": "word.words",
                 "category": "Faker"
             }
         ]

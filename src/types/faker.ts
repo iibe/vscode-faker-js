@@ -7,7 +7,9 @@ import {
     CommerceModule,
     CompanyModule,
     DatabaseModule,
+    DatatypeModule,
     DateModule,
+    Faker,
     FinanceModule,
     FoodModule,
     GitModule,
@@ -18,9 +20,14 @@ import {
     LocationModule,
     LoremModule,
     MusicModule,
+    NumberModule,
     PersonModule,
     PhoneModule,
     ScienceModule,
+    SimpleDateModule,
+    SimpleFaker,
+    SimpleHelpersModule,
+    StringModule,
     SystemModule,
     VehicleModule,
     WordModule,
@@ -28,7 +35,23 @@ import {
 import type { Flatten } from './flatten';
 import type { IsEqual, IsFunction } from './utils';
 
-interface IFakerApiType {
+export type IFakerLocale = keyof typeof allLocales;
+
+/**
+ * Contains readonly entities of {@link SimpleFaker}.
+ */
+interface ISimpleFakerApiType {
+    readonly datatype: DatatypeModule;
+    readonly date: SimpleDateModule;
+    readonly helpers: SimpleHelpersModule;
+    readonly number: NumberModule;
+    readonly string: StringModule;
+}
+
+/**
+ * Contains readonly entities of {@link Faker}.
+ */
+interface IFakerApiType extends ISimpleFakerApiType {
     readonly airline: AirlineModule;
     readonly animal: AnimalModule;
     readonly book: BookModule;
@@ -54,8 +77,6 @@ interface IFakerApiType {
     readonly vehicle: VehicleModule;
     readonly word: WordModule;
 }
-
-export type IFakerLocale = keyof typeof allLocales;
 
 type FakerApiValidator<T extends object> = {
     [K in keyof T]: K extends string ? IsFunction<T[K], T[K], never> : never;
