@@ -1,18 +1,83 @@
-import { writeFileSync } from 'fs';
-import { fakerAtoms, fakerLocales } from './constants';
-import type { ICommand, IConfigProps } from './types/extension';
+import { copyFileSync, readFileSync, writeFileSync } from 'fs';
+import path from 'path';
+import {
+    fakerApiPrimitiveAtoms,
+    fakerApiProcedureAtoms,
+    fakerApiStructureAtoms,
+    fakerLocaleAtoms,
+} from './core/atoms';
+import type { IFakerCommand, IFakerConfigProps, IPackageJsonProps } from './types/faker';
+
+codegen();
+
+function codegen() {
+    const configurationPath = path.join(__dirname, 'package.json');
+    const snapshotPath = path.join(__dirname, 'package.snapshot.json');
+
+    copyFileSync(configurationPath, snapshotPath);
+
+    const packageJson = JSON.parse(readFileSync(configurationPath, 'utf-8'));
+    const packageJsonProps: IPackageJsonProps = {
+        activationEvents: getActivationEvents(),
+        contributes: {
+            configuration: {
+                type: 'object',
+                title: 'Faker.js',
+                properties: getConfigProps(),
+            },
+            commands: getCommands(),
+        },
+    };
+
+    writeFileSync(
+        configurationPath,
+        JSON.stringify({ ...packageJson, ...packageJsonProps }, null, 4),
+        {
+            encoding: 'utf-8',
+        }
+    );
+}
+
+/**
+ * Generates `package.json` extension-specific key `activationEvents`.
+ * Usually it is inferred from `contributes.commands`.
+ */
+function getActivationEvents() {
+    const events: string[] = [];
+
+    return events;
+}
 
 /**
  * Generates `package.json` extension-specific key `contributes.commands`.
  */
 function getCommands() {
-    const commands: ICommand[] = [];
+    const commands: IFakerCommand[] = [];
 
-    for (const atom of fakerAtoms) {
+    // fakerFunc: () => Primitive
+    for (const atom of fakerApiPrimitiveAtoms) {
         commands.push({
             command: `vscode-faker-js.run.${atom}`,
             title: atom,
-            category: 'Faker',
+            category: 'Faker.js',
+        });
+    }
+
+    // fakerFunc: () => Structure
+    for (const atom of fakerApiStructureAtoms) {
+        commands.push({
+            command: `vscode-faker-js.run.${atom}`,
+            title: `${atom} (object)`,
+            category: 'Faker.js',
+        });
+    }
+
+    // fakerFunc.bind(): () => Primitive | Structure
+    for (const atom of fakerApiProcedureAtoms) {
+        commands.push({
+            command: `vscode-faker-js.run.${atom}`,
+            title: `${atom} (binding)`,
+            category: 'Faker.js',
         });
     }
 
@@ -22,55 +87,39 @@ function getCommands() {
 /**
  * Generates `package.json` extension-specific key `contributes.configuration.properties`.
  */
-function getConfiguration() {
-    const settings: IConfigProps = {
+function getConfigProps() {
+    const props: IFakerConfigProps = {
         'faker-js.locale': {
             type: 'string',
-            enum: fakerLocales,
+            enum: fakerLocaleAtoms,
             default: 'en',
             description: 'Specifies Faker.js locale.',
         },
-    };
-
-    return settings;
-}
-
-/**
- * Generates `package.json` extension-specific key `activationEvents`.
- */
-function getActivationEvents() {
-    // inferred from `contributes.commands`
-    const events: string[] = [];
-
-    return events;
-}
-
-interface IPackageJson {
-    activationEvents: string[];
-    contributes: {
-        configuration: {
-            type: string;
-            title: string;
-            properties: IConfigProps;
-        };
-        commands: ICommand[];
-    };
-}
-
-function codegen() {
-    const dump: IPackageJson = {
-        activationEvents: getActivationEvents(),
-        contributes: {
-            configuration: {
-                type: 'object',
-                title: 'Faker.js',
-                properties: getConfiguration(),
-            },
-            commands: getCommands(),
+        'faker-js.bigint.insert': {
+            type: 'string',
+            enum: ['literal', 'inline', 'wrapper'],
+            default: 'literal',
+            description: 'Either literal `123n` (by default), or wrapper object `BigInt(123)`.',
+        },
+        'faker-js.string.insert': {
+            type: 'string',
+            enum: ['literal', 'inline'],
+            default: 'literal',
+            description: 'Either literal `"string"` (by default), or inline `string`.',
+        },
+        'faker-js.string.quotes': {
+            type: 'string',
+            enum: ['single', 'double', 'backticks'],
+            default: 'single',
+            description: 'Specify string quotes type.',
+        },
+        'faker-js.symbol.quotes': {
+            type: 'string',
+            enum: ['single', 'double', 'backticks'],
+            default: 'single',
+            description: 'Specify symbol quotes type.',
         },
     };
 
-    writeFileSync('./package.vscode.json', JSON.stringify(dump, null, 4));
+    return props;
 }
-
-codegen();

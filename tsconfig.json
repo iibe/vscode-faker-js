@@ -1,20 +1,14 @@
 {
-    "include": ["./src/**/*.ts"],
-    "exclude": [
-        "./node_modules",
-        "./out",
-        "./test",
-        "./src/codegen.ts",
-        "tsup.config.extension.ts"
-    ],
     "compilerOptions": {
         "lib": ["ES2022"],
         "strict": true,
 
         "rootDir": "./src",
-        "outDir": "./out",
+        "outDir": "./dist",
         "module": "Node16",
         "target": "ES2022",
         "sourceMap": true
-    }
+    },
+    "exclude": ["./node_modules", "./dist", "./out", "./src/codegen.ts"],
+    "include": ["./src/**/*.ts"]
 }

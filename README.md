@@ -1,5 +1,4 @@
-[url-faker]: https://github.com/faker-js/faker
-[url-faker-locales]: https://github.com/faker-js/faker/blob/next/docs/guide/localization.md#available-locales
+[images]: https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images
 
 # Faker.js for Visual Studio Code
 
@@ -16,8 +15,8 @@
 
 ## Usage
 
-1. Type `CTRL+SHIFT+P` for Windows or `CMD+SHIFT+P` for Windows to launch command palette;
-1. Type `Faker: <command>` and press `Enter` to run Faker.js method.
+1. Type `CTRL+SHIFT+P` for Windows or `CMD+SHIFT+P` for MacOS to launch command palette;
+1. Type `Faker.js: <command>` and press `Enter` to run Faker.js method.
 
 <p align="center">
     <img
@@ -28,7 +27,7 @@
 
 ## Installation
 
-1. Type `CTRL+SHIFT+P` for Windows or `CMD+SHIFT+P` for Windows to launch command palette;
+1. Type `CTRL+SHIFT+P` for Windows or `CMD+SHIFT+P` for MacOS to launch command palette;
 1. Type `Extensions: Install Extensions` and press `Enter` to open marketplace (a.k.a extension view);
 1. Search `Faker.js` extension and install it.
 
@@ -41,13 +40,46 @@
 
 ## Faker.js Locales
 
-1. Type `CTRL+SHIFT+P` for Windows or `CMD+SHIFT+P` for Windows to launch command palette;
+1. Type `CTRL+SHIFT+P` for Windows or `CMD+SHIFT+P` for MacOS to launch command palette;
 1. Type `Preferences: Open User Settings (JSON)` and press `Enter` to open `setting.json` file;
-1. Pick available [locale][url-faker-locales]:
+1. Pick available [locale][https://fakerjs.dev/guide/localization.html#available-locales]:
 
 ```json
 {
     "faker-js.locale": "en"
+}
+```
+
+## Content Options
+
+These options provide additional control on how data to be inserted. It might be useful in case if you're using specific language syntax or code formatter setup. For example, in some version of ECMAScript big integer literals are not allowed `1n` and only `BigInt(1)` syntax is valid.
+
+```json
+{
+    "faker-js.bigint.insert": {
+        "type": "string",
+        "enum": ["literal", "inline", "wrapper"],
+        "default": "literal",
+        "description": "Either literal `123n` (by default), or wrapper object `BigInt(123)`."
+    },
+    "faker-js.string.insert": {
+        "type": "string",
+        "enum": ["literal", "inline"],
+        "default": "literal",
+        "description": "Either literal `\"string\"` (by default), or inline `string`."
+    },
+    "faker-js.string.quotes": {
+        "type": "string",
+        "enum": ["single", "double", "backticks"],
+        "default": "single",
+        "description": "Specify string quotes type."
+    },
+    "faker-js.symbol.quotes": {
+        "type": "string",
+        "enum": ["single", "double", "backticks"],
+        "default": "single",
+        "description": "Specify symbol quotes type."
+    }
 }
 ```
 

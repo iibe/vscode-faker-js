@@ -1,26 +1,18 @@
-import type { IsObject } from './utils';
+import type { IsObject } from '.';
 
-/**
- * Returns R (result) as a last element of splitting T with D (delimiter).
- */
+/** Returns R (result) as a last element of splitting T with D (delimiter). */
 type StringPop<T, D extends string = '.', R = T> = T extends `${string}${D}${infer S}`
     ? StringPop<S>
     : R;
 
-/**
- * Returns types of object keys i.e. types of Object.values().
- */
+/** Returns types of object keys i.e. types of Object.values(). */
 type ObjectValueTypes<T> = T[keyof T];
 
 /**
- * First step for Flatten type.
+ * First step for FlattenType<>.
  *
- * Input:
- *     type x = ApiMapInner<{ a: { b: 1; c: 2 }; d: 3; }>;
- * Output:
- *     type x = { "a.b": { b: 1; c: 2; }; "a.c": { b: 1; c: 2; }; d: 3; };
- *
- *
+ *  Input: type x = ApiMapInner<{ a: { b: 1; c: 2 }; d: 3; }>;
+ * Output: type x = { "a.b": { b: 1; c: 2; }; "a.c": { b: 1; c: 2; }; d: 3; };
  */
 type FlattenInner<T> = {
     [K in keyof T as K extends string
@@ -29,12 +21,10 @@ type FlattenInner<T> = {
 };
 
 /**
- * Second step for Flatten type.
+ * Second step for FlattenType<>.
  *
- * Input:
- *     type x = ApiMapOuter<{ "a.b": { b: 1; c: 2; }; "a.c": { b: 1; c: 2; }; d: 3; }>;
- * Output:
- *     type x = { "a.b": { b: 1 }; "a.c": { c: 2 }; };
+ *  Input: type x = ApiMapOuter<{ "a.b": { b: 1; c: 2; }; "a.c": { b: 1; c: 2; }; d: 3; }>;
+ * Output: type x = { "a.b": { b: 1 }; "a.c": { c: 2 }; };
  */
 type FlattenOuter<T> = {
     [K in keyof T]: IsObject<
@@ -45,8 +35,8 @@ type FlattenOuter<T> = {
     >;
 };
 
-// {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.c": {d: 1}}
+/** {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.c": {d: 1}} */
 type FlattenType<T> = FlattenOuter<FlattenInner<T>>;
 
-// {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.b.c.d": 1}
+/** {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.b.c.d": 1} */
 export type Flatten<T> = T extends FlattenType<T> ? T : Flatten<FlattenType<T>>;

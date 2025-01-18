@@ -1,6 +1,34 @@
-import type { IFakerApiAtom, IFakerLocale } from './types/faker';
+import type {
+    IFakerAtom,
+    IFakerLocale,
+    IFakerPrimitiveAtom,
+    IFakerProcedureAtom,
+    IFakerStructureAtom,
+} from '../types/faker';
 
-export const fakerLocales = exhaustive<IFakerLocale>()(
+/**
+ * Checks if array is exhaustive over type union items.
+ * If some items are missing, then you'll see error:
+ *
+ * > Argument of type `X` is not assignable to parameter of type `Y | Z | ...`.
+ *
+ * Where:
+ * - `X` is a first parameter of exhaustive();
+ * - `Y | Z | ...` are missing items;
+ */
+function exhaustive<T extends string>() {
+    return function <S extends [T, ...T[]]>(
+        ...array: S extends any
+            ? Exclude<T, S[number]> extends never
+                ? S
+                : Exclude<T, S[number]>[]
+            : never
+    ) {
+        return array;
+    };
+}
+
+export const fakerLocaleAtoms = exhaustive<IFakerLocale>()(
     'af_ZA',
     'ar',
     'az',
@@ -72,11 +100,8 @@ export const fakerLocales = exhaustive<IFakerLocale>()(
     'zu_ZA'
 );
 
-export const fakerAtoms = exhaustive<IFakerApiAtom>()(
+export const fakerApiPrimitiveAtoms = exhaustive<IFakerPrimitiveAtom>()(
     'airline.aircraftType',
-    'airline.airline',
-    'airline.airplane',
-    'airline.airport',
     'airline.flightNumber',
     'airline.recordLocator',
     'airline.seat',
@@ -136,15 +161,7 @@ export const fakerAtoms = exhaustive<IFakerApiAtom>()(
     'database.mongodbObjectId',
     'database.type',
     'datatype.boolean',
-    'date.anytime',
-    'date.between',
-    'date.betweens',
-    'date.birthdate',
-    'date.future',
     'date.month',
-    'date.past',
-    'date.recent',
-    'date.soon',
     'date.timeZone',
     'date.weekday',
     'finance.accountName',
@@ -155,7 +172,6 @@ export const fakerAtoms = exhaustive<IFakerApiAtom>()(
     'finance.creditCardCVV',
     'finance.creditCardIssuer',
     'finance.creditCardNumber',
-    'finance.currency',
     'finance.currencyCode',
     'finance.currencyName',
     'finance.currencySymbol',
@@ -187,24 +203,9 @@ export const fakerAtoms = exhaustive<IFakerApiAtom>()(
     'hacker.noun',
     'hacker.phrase',
     'hacker.verb',
-    'helpers.arrayElement',
-    'helpers.arrayElements',
-    'helpers.enumValue',
-    'helpers.fake',
-    'helpers.fromRegExp',
-    'helpers.maybe',
-    'helpers.multiple',
-    'helpers.mustache',
-    'helpers.objectEntry',
-    'helpers.objectKey',
-    'helpers.objectValue',
-    'helpers.rangeToNumber',
     'helpers.replaceCreditCardSymbols',
     'helpers.replaceSymbols',
-    'helpers.shuffle',
     'helpers.slugify',
-    'helpers.uniqueArray',
-    'helpers.weightedArrayElement',
     'image.avatar',
     'image.avatarGitHub',
     'image.avatarLegacy',
@@ -246,7 +247,6 @@ export const fakerAtoms = exhaustive<IFakerApiAtom>()(
     'location.direction',
     'location.latitude',
     'location.longitude',
-    'location.nearbyGPSCoordinate',
     'location.ordinalDirection',
     'location.secondaryAddress',
     'location.state',
@@ -291,12 +291,9 @@ export const fakerAtoms = exhaustive<IFakerApiAtom>()(
     'person.zodiacSign',
     'phone.imei',
     'phone.number',
-    'science.chemicalElement',
-    'science.unit',
     'string.alpha',
     'string.alphanumeric',
     'string.binary',
-    'string.fromCharacters',
     'string.hexadecimal',
     'string.nanoid',
     'string.numeric',
@@ -337,24 +334,45 @@ export const fakerAtoms = exhaustive<IFakerApiAtom>()(
     'word.words'
 );
 
-/**
- * Checks if array is exhaustive over type union items.
- * If some items are missing, then you'll see error:
- *
- * Argument of type `X` is not assignable to parameter of type `Y | Z | ...`.
- *
- * Where:
- * - `X` is a first parameter of exhaustive();
- * - `Y | Z | ...` are missing items;
- */
-function exhaustive<T extends string>() {
-    return function <S extends [T, ...T[]]>(
-        ...array: S extends any
-            ? Exclude<T, S[number]> extends never
-                ? S
-                : Exclude<T, S[number]>[]
-            : never
-    ) {
-        return array;
-    };
-}
+export const fakerApiStructureAtoms = exhaustive<IFakerStructureAtom>()(
+    'airline.airline',
+    'airline.airplane',
+    'airline.airport',
+    'date.anytime',
+    'date.birthdate',
+    'date.future',
+    'date.past',
+    'date.recent',
+    'date.soon',
+    'finance.currency',
+    'location.nearbyGPSCoordinate',
+    'science.chemicalElement',
+    'science.unit'
+);
+
+export const fakerApiProcedureAtoms = exhaustive<IFakerProcedureAtom>()(
+    'date.between',
+    'date.betweens',
+    'helpers.arrayElement',
+    'helpers.arrayElements',
+    'helpers.enumValue',
+    'helpers.fake',
+    'helpers.fromRegExp',
+    'helpers.maybe',
+    'helpers.multiple',
+    'helpers.mustache',
+    'helpers.objectEntry',
+    'helpers.objectKey',
+    'helpers.objectValue',
+    'helpers.rangeToNumber',
+    'helpers.shuffle',
+    'helpers.uniqueArray',
+    'helpers.weightedArrayElement',
+    'string.fromCharacters'
+);
+
+export const fakerApiAtoms: IFakerAtom[] = [
+    ...fakerApiPrimitiveAtoms,
+    ...fakerApiStructureAtoms,
+    ...fakerApiProcedureAtoms,
+];

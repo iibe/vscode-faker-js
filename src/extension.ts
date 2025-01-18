@@ -1,23 +1,35 @@
 import { Faker } from '@faker-js/faker';
 import type { ExtensionContext } from 'vscode';
 import { commands, Range, window, workspace } from 'vscode';
-import { fakerAtoms } from './constants';
-import { getFakerAsync, getFakerFunc } from './faker';
-import type { ICommandId } from './types/extension';
-import type { IFakerLocale } from './types/faker';
+import { fakerApiAtoms } from './core/atoms';
+import { getFakerFunction, getFakerInstance } from './core/faker';
+import { Stringify } from './stringify';
+import type { IFakerCommandId, IFakerConfigType } from './types/faker';
+
+const settings = workspace.getConfiguration('faker-js'); // from settings.json
+
+const config: IFakerConfigType = {
+    locale: settings.get('locale') ?? 'en',
+    bigint: {
+        insert: settings.get('bigint.insert') ?? 'literal',
+    },
+    string: {
+        insert: settings.get('string.insert') ?? 'literal',
+        quotes: settings.get('string.quotes') ?? 'single',
+    },
+    symbol: {
+        quotes: settings.get('symbol.quotes') ?? 'single',
+    },
+};
+
+const stringify = new Stringify(config);
 
 export async function activate(context: ExtensionContext) {
-    const config = workspace.getConfiguration('faker-js');
-
-    // We need to make sure, that `package.json` extension-specific key `configuration.properties` satisfies to `IFakerLocale` definition.
-    const locale = config.get('locale') as IFakerLocale;
-
     try {
-        const imported = await getFakerAsync(locale);
-        const faker = imported.faker as unknown as Faker;
+        const faker = (await getFakerInstance(config.locale)) as unknown as Faker;
 
-        for (const atom of fakerAtoms) {
-            const commandId: ICommandId = `vscode-faker-js.run.${atom}`;
+        for (const atom of fakerApiAtoms) {
+            const commandId: IFakerCommandId = `vscode-faker-js.run.${atom}`;
 
             const disposable = commands.registerCommand(commandId, () => {
                 const editor = window.activeTextEditor;
@@ -26,13 +38,12 @@ export async function activate(context: ExtensionContext) {
                     return;
                 }
 
-                const func = getFakerFunc(faker, atom);
+                const method = getFakerFunction(faker, atom);
 
-                if (typeof func !== 'function') {
+                if (typeof method !== 'function') {
                     window.showErrorMessage(
-                        `Error: faker.${atom} doesn't exists in '${locale}' locale`
+                        `Error: faker.${atom} doesn't exists in '${config.locale}' locale`
                     );
-
                     return;
                 }
 
@@ -42,10 +53,10 @@ export async function activate(context: ExtensionContext) {
                     selections.forEach(({ start, end }) => {
                         const range = new Range(start, end);
 
-                        const result = func();
-                        const string = stringify(result);
+                        //@ts-ignore [TS2349] Signatures of union doesn't compatible with each other
+                        const content = method();
 
-                        editBuilder.replace(range, string);
+                        editBuilder.replace(range, stringify.from(content));
                     });
                 });
             });
@@ -53,22 +64,8 @@ export async function activate(context: ExtensionContext) {
             context.subscriptions.push(disposable);
         }
     } catch (error) {
-        window.showErrorMessage('Error: Faker activation is failed');
+        window.showErrorMessage(`Faker: ${error}`);
     }
 }
 
 export function deactivate() {}
-
-/**
- * @private
- */
-function stringify(entity: any): string {
-    // prettier-ignore
-    switch (true) {
-        // case typeof entity === 'function': return stringify(entity());
-        case typeof entity === 'object': return JSON.stringify(entity, null, 2);
-        case typeof entity === 'string': return entity;
-        case typeof entity === 'symbol': return entity.toString();
-        default: return String(entity); // typeof null === 'object'
-    }
-}

@@ -5,34 +5,33 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
-## Development
-
-### Debugging
+## Debugging
 
 1. Open `./src/extension.ts` file;
 1. Press `F5` or type `Debug: Start Debugging` in command palette.
 
-### Contributing
+## Testing
 
-This section shows basic CI/CD pipeline to contribute into `vscode-faker-js`.
+1. Launch VSCode as an administrator to avoid permission issues. To do this, right-click on the Visual Studio Code icon and select `Run as administrator`.
+1. Run `test` command.
+
+## Coding
 
 1. Make code changes in `./src` directory.
-1. Run `format:fix`, `lint:check` and `typecheck` commands to ensure everything is fine with codebase styles and types.
-1. Run `release:prepare` command to bundle extension and run code generation script.
-1. Override `package.json` extension-specific key `contributes` with content in generated `package.vscode.json` file.
-1. Run `release` command to create patched release.
-1. Run `prod` command to deploy extension in Azure.
+1. Run `format:fix`, `lint:check` and `typecheck` commands to ensure everything is fine with codebase types and appearance.
+1. Run `release` command to create patched release. It automatically generates and overrides `package.json` extension-specific fields such as `contributes`, `activationEvents`, etc.
+1. Run `production` command to deploy extension in Azure.
 
-### Deployment
+## Deployment
 
-Before running `prod` command is better to test extension in local environment.
-For that, either run `stage` command or install extension manually:
+Before running `production` command is better to test extension in local environment.
+For that, either run `staging` command (for non-insider/portable version of VS Code) or install extension manually:
 
 1. Press `CTRL+SHIFT+P` to launch command palette;
 2. Type `Extensions: Install from VSIX...`;
 3. Select `*.vsix` extension.
 
-If everything is working great, then run `prod`.
+If everything is working great, then run `production`.
 
 ## Pull Request Process
 

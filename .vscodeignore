@@ -1,24 +1,11 @@
-.vscode/**
-.vscode-test/**
-
+*
+.vscode
 dist/
-images/**/*.svg
+docs/
+out/**/*.map.js
 src/
-test/
 
-.editorconfig
-.env
-.gitignore
-.npmrc
-.prettierignore
-.prettierrc
-.vscode-test.mjs
-
-Makefile
-eslint.config.mjs
-package.vscode.json
-pnpm-lock.yaml
-pnpm-workspace.yaml
-tsconfig.json
-tsup.config.*.ts
-vsc-extension-quickstart.md
+# Do not ignore
+!CHANGELOG.md
+!LICENSE
+!README.md

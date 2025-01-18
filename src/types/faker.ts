@@ -32,25 +32,27 @@ import {
     VehicleModule,
     WordModule,
 } from '@faker-js/faker';
+import { Command } from 'vscode';
+import type { IsEqual, IsFunction, ObjectFilter, ObjectStrict, Primitive, Structure } from '.';
 import type { Flatten } from './flatten';
-import type { IsEqual, IsFunction } from './utils';
 
-export type IFakerLocale = keyof typeof allLocales;
+/* TYPE DEFINITIONS */
 
-/**
- * Contains readonly entities of {@link SimpleFaker}.
- */
+/** Contains readonly entities of {@link SimpleFaker}. */
 interface ISimpleFakerApiType {
     readonly datatype: DatatypeModule;
+
+    /** @augments DateModule see {@link DateModule}. */
     readonly date: SimpleDateModule;
+
+    /** @augments HelpersModule see {@link HelpersModule}. */
     readonly helpers: SimpleHelpersModule;
+
     readonly number: NumberModule;
     readonly string: StringModule;
 }
 
-/**
- * Contains readonly entities of {@link Faker}.
- */
+/** Contains readonly entities of {@link Faker}. */
 interface IFakerApiType extends ISimpleFakerApiType {
     readonly airline: AirlineModule;
     readonly animal: AnimalModule;
@@ -78,6 +80,8 @@ interface IFakerApiType extends ISimpleFakerApiType {
     readonly word: WordModule;
 }
 
+/* TYPE GUARDS */
+
 type FakerApiValidator<T extends object> = {
     [K in keyof T]: K extends string ? IsFunction<T[K], T[K], never> : never;
 };
@@ -86,22 +90,94 @@ type FakerApiFormatter<T extends object> = {
     -readonly [K in keyof T]-?: T[K];
 };
 
-type IFakerApiRaw = Flatten<IFakerApiType>;
-type IFakerApiDry = FakerApiValidator<IFakerApiRaw>;
-
-export type IFakerApi = IsEqual<
-    IFakerApiRaw,
-    IFakerApiDry,
-    FakerApiFormatter<IFakerApiDry>,
-    unknown
+type TFakerApi = FakerApiFormatter<Flatten<IFakerApiType>>;
+type TFakerApiTypeGuard = IsEqual<TFakerApi, FakerApiValidator<TFakerApi>, TFakerApi, never>;
+type TFakerApiReturnTypeGuard = IsEqual<
+    TFakerApi,
+    ObjectStrict<TPrimitiveApi & TStructureApi & TProcedureApi>,
+    TFakerApi,
+    never
 >;
 
-export type IFakerApiAtom = keyof IFakerApi;
-export type IFakerApiFunc = IFakerApi[IFakerApiAtom];
+/* FAKER API RETURN TYPES */
 
-// export type IFakerApiFuncParameters = Parameters<IFakerApiFunc>;
-// export type IFakerApiFuncReturnType = ReturnType<IFakerApiFunc>;
-// export type IFakerApiMethod<
-//     Args extends Parameters<IFakerApiFunc>,
-//     R extends ReturnType<IFakerApiFunc>
-// > = (...args: Args) => R;
+type TCallablePrimitive = ObjectFilter<TFakerApi, () => Primitive>;
+type TCallableStructure = ObjectFilter<TFakerApi, () => Structure>;
+
+// Due function overloads, some intersection are occurs
+type TIntersections = keyof TCallablePrimitive & keyof TCallableStructure;
+
+type TPrimitiveApi = TCallablePrimitive;
+type TStructureApi = Omit<TCallableStructure, TIntersections>;
+type TProcedureApi = Omit<TFakerApi, keyof TCallablePrimitive | keyof TCallableStructure>;
+
+/* FAKER API CONFIGURATION */
+
+type WrapperObject = 'String' | 'Number' | 'Boolean' | 'BigInt' | 'Symbol';
+
+export interface IFakerConfigType {
+    locale: IFakerLocale;
+    bigint: {
+        insert: 'inline' | 'literal' | 'wrapper';
+    };
+    string: {
+        insert: 'inline' | 'literal';
+        quotes: 'single' | 'double' | 'backticks';
+    };
+    symbol: {
+        quotes: 'single' | 'double' | 'backticks';
+    };
+}
+
+type FakerConfigTransformer<T extends object> = {
+    [K in keyof T as K extends string ? `faker-js.${K}` : never]: {
+        type: 'string';
+        enum: Array<T[K]>;
+        default: T[K];
+        description?: string;
+    };
+};
+
+export type IFakerConfig = Flatten<IFakerConfigType>;
+export type IFakerConfigAtom = keyof IFakerConfig;
+export type IFakerConfigProps = FakerConfigTransformer<IFakerConfig>;
+
+/* FAKER API COMMANDS */
+
+export type IFakerCommandId = `vscode-faker-js.run.${keyof TFakerApi}`;
+export type IFakerCommand = Command & {
+    command: IFakerCommandId;
+    category: `Faker.js${string}`;
+};
+
+export interface IPackageJsonProps {
+    activationEvents: string[];
+    contributes: {
+        configuration: {
+            type: 'object';
+            title: 'Faker.js';
+            properties: IFakerConfigProps;
+        };
+        commands: IFakerCommand[];
+    };
+}
+
+/* EXPORTS */
+
+export type IFakerLocale = keyof typeof allLocales;
+
+export type IFakerApi = TFakerApi;
+export type IFakerAtom = keyof TFakerApi;
+export type IFakerFunction = TFakerApi[keyof TFakerApi];
+
+export type IFakerPrimitiveApi = TPrimitiveApi;
+export type IFakerPrimitiveAtom = keyof TPrimitiveApi;
+export type IFakerPrimitiveFunction = TPrimitiveApi[keyof TPrimitiveApi];
+
+export type IFakerStructureApi = TStructureApi;
+export type IFakerStructureAtom = keyof TStructureApi;
+export type IFakerStructureFunction = TStructureApi[keyof TStructureApi];
+
+export type IFakerProcedureApi = TProcedureApi;
+export type IFakerProcedureAtom = keyof TProcedureApi;
+export type IFakerProcedureFunction = TProcedureApi[keyof TProcedureApi];

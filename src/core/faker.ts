@@ -1,94 +1,132 @@
 import { Faker } from '@faker-js/faker';
-import type { IFakerApiAtom, IFakerApiFunc, IFakerLocale } from './types/faker';
+import type {
+    IFakerAtom,
+    IFakerLocale,
+    IFakerPrimitiveAtom,
+    IFakerPrimitiveFunction,
+    IFakerProcedureAtom,
+    IFakerProcedureFunction,
+    IFakerStructureAtom,
+    IFakerStructureFunction,
+} from '../types/faker';
+
+enum Direction {
+    Up = 'Up',
+    Down = 'Down',
+    Left = 'Left',
+    Right = 'Right',
+}
 
 /**
  * Returns Faker.js instance.
- *
- * @see https://github.com/faker-js/faker/blob/next/docs/guide/localization.md
+ * @see https://fakerjs.dev/guide/localization.html#available-locales
  */
-export async function getFakerAsync(locale: IFakerLocale) {
-    // prettier-ignore
-    switch (locale) {
-        case 'af_ZA': return import('@faker-js/faker/locale/af_ZA');
-        case 'ar': return import('@faker-js/faker/locale/ar');
-        case 'az': return import('@faker-js/faker/locale/az');
-        case 'base': return import('@faker-js/faker/locale/base');
-        case 'cs_CZ': return import('@faker-js/faker/locale/cs_CZ');
-        case 'da': return import('@faker-js/faker/locale/da');
-        case 'de_AT': return import('@faker-js/faker/locale/de_AT');
-        case 'de_CH': return import('@faker-js/faker/locale/de_CH');
-        case 'de': return import('@faker-js/faker/locale/de');
-        case 'dv': return import('@faker-js/faker/locale/dv');
-        case 'el': return import('@faker-js/faker/locale/el');
-        case 'en_AU_ocker': return import('@faker-js/faker/locale/en_AU_ocker');
-        case 'en_AU': return import('@faker-js/faker/locale/en_AU');
-        case 'en_BORK': return import('@faker-js/faker/locale/en_BORK');
-        case 'en_CA': return import('@faker-js/faker/locale/en_CA');
-        case 'en_GB': return import('@faker-js/faker/locale/en_GB');
-        case 'en_GH': return import('@faker-js/faker/locale/en_GH');
-        case 'en_HK': return import('@faker-js/faker/locale/en_HK');
-        case 'en_IE': return import('@faker-js/faker/locale/en_IE');
-        case 'en_IN': return import('@faker-js/faker/locale/en_IN');
-        case 'en_NG': return import('@faker-js/faker/locale/en_NG');
-        case 'en_US': return import('@faker-js/faker/locale/en_US');
-        case 'en_ZA': return import('@faker-js/faker/locale/en_ZA');
-        case 'en': return import('@faker-js/faker/locale/en');
-        case 'eo': return import('@faker-js/faker/locale/eo');
-        case 'es_MX': return import('@faker-js/faker/locale/es_MX');
-        case 'es': return import('@faker-js/faker/locale/es');
-        case 'fa': return import('@faker-js/faker/locale/fa');
-        case 'fi': return import('@faker-js/faker/locale/fi');
-        case 'fr_BE': return import('@faker-js/faker/locale/fr_BE');
-        case 'fr_CA': return import('@faker-js/faker/locale/fr_CA');
-        case 'fr_CH': return import('@faker-js/faker/locale/fr_CH');
-        case 'fr_LU': return import('@faker-js/faker/locale/fr_LU');
-        case 'fr_SN': return import('@faker-js/faker/locale/fr_SN');
-        case 'fr': return import('@faker-js/faker/locale/fr');
-        case 'he': return import('@faker-js/faker/locale/he');
-        case 'hr': return import('@faker-js/faker/locale/hr');
-        case 'hu': return import('@faker-js/faker/locale/hu');
-        case 'hy': return import('@faker-js/faker/locale/hy');
-        case 'id_ID': return import('@faker-js/faker/locale/id_ID');
-        case 'it': return import('@faker-js/faker/locale/it');
-        case 'ja': return import('@faker-js/faker/locale/ja');
-        case 'ka_GE': return import('@faker-js/faker/locale/ka_GE');
-        case 'ko': return import('@faker-js/faker/locale/ko');
-        case 'lv': return import('@faker-js/faker/locale/lv');
-        case 'mk': return import('@faker-js/faker/locale/mk');
-        case 'nb_NO': return import('@faker-js/faker/locale/nb_NO');
-        case 'ne': return import('@faker-js/faker/locale/ne');
-        case 'nl_BE': return import('@faker-js/faker/locale/nl_BE');
-        case 'nl': return import('@faker-js/faker/locale/nl');
-        case 'pl': return import('@faker-js/faker/locale/pl');
-        case 'pt_BR': return import('@faker-js/faker/locale/pt_BR');
-        case 'pt_PT': return import('@faker-js/faker/locale/pt_PT');
-        case 'ro_MD': return import('@faker-js/faker/locale/ro_MD');
-        case 'ro': return import('@faker-js/faker/locale/ro');
-        case 'ru': return import('@faker-js/faker/locale/ru');
-        case 'sk': return import('@faker-js/faker/locale/sk');
-        case 'sr_RS_latin': return import('@faker-js/faker/locale/sr_RS_latin');
-        case 'sv': return import('@faker-js/faker/locale/sv');
-        case 'th': return import('@faker-js/faker/locale/th');
-        case 'tr': return import('@faker-js/faker/locale/tr');
-        case 'uk': return import('@faker-js/faker/locale/uk');
-        case 'ur': return import('@faker-js/faker/locale/ur');
-        case 'uz_UZ_latin': return import('@faker-js/faker/locale/uz_UZ_latin');
-        case 'vi': return import('@faker-js/faker/locale/vi');
-        case 'yo_NG': return import('@faker-js/faker/locale/yo_NG');
-        case 'zh_CN': return import('@faker-js/faker/locale/zh_CN');
-        case 'zh_TW': return import('@faker-js/faker/locale/zh_TW');
-        case 'zu_ZA': return import('@faker-js/faker/locale/zu_ZA');
-        default: return import('@faker-js/faker/locale/en');
+export async function getFakerInstance(locale: IFakerLocale) {
+    try {
+        // prettier-ignore
+        switch (locale) {
+            case 'af_ZA': return (await import('@faker-js/faker/locale/af_ZA')).faker;
+            case 'ar': return (await import('@faker-js/faker/locale/ar')).faker;
+            case 'az': return (await import('@faker-js/faker/locale/az')).faker;
+            case 'base': return (await import('@faker-js/faker/locale/base')).faker;
+            case 'cs_CZ': return (await import('@faker-js/faker/locale/cs_CZ')).faker;
+            case 'da': return (await import('@faker-js/faker/locale/da')).faker;
+            case 'de_AT': return (await import('@faker-js/faker/locale/de_AT')).faker;
+            case 'de_CH': return (await import('@faker-js/faker/locale/de_CH')).faker;
+            case 'de': return (await import('@faker-js/faker/locale/de')).faker;
+            case 'dv': return (await import('@faker-js/faker/locale/dv')).faker;
+            case 'el': return (await import('@faker-js/faker/locale/el')).faker;
+            case 'en_AU_ocker': return (await import('@faker-js/faker/locale/en_AU_ocker')).faker;
+            case 'en_AU': return (await import('@faker-js/faker/locale/en_AU')).faker;
+            case 'en_BORK': return (await import('@faker-js/faker/locale/en_BORK')).faker;
+            case 'en_CA': return (await import('@faker-js/faker/locale/en_CA')).faker;
+            case 'en_GB': return (await import('@faker-js/faker/locale/en_GB')).faker;
+            case 'en_GH': return (await import('@faker-js/faker/locale/en_GH')).faker;
+            case 'en_HK': return (await import('@faker-js/faker/locale/en_HK')).faker;
+            case 'en_IE': return (await import('@faker-js/faker/locale/en_IE')).faker;
+            case 'en_IN': return (await import('@faker-js/faker/locale/en_IN')).faker;
+            case 'en_NG': return (await import('@faker-js/faker/locale/en_NG')).faker;
+            case 'en_US': return (await import('@faker-js/faker/locale/en_US')).faker;
+            case 'en_ZA': return (await import('@faker-js/faker/locale/en_ZA')).faker;
+            case 'en': return (await import('@faker-js/faker/locale/en')).faker;
+            case 'eo': return (await import('@faker-js/faker/locale/eo')).faker;
+            case 'es_MX': return (await import('@faker-js/faker/locale/es_MX')).faker;
+            case 'es': return (await import('@faker-js/faker/locale/es')).faker;
+            case 'fa': return (await import('@faker-js/faker/locale/fa')).faker;
+            case 'fi': return (await import('@faker-js/faker/locale/fi')).faker;
+            case 'fr_BE': return (await import('@faker-js/faker/locale/fr_BE')).faker;
+            case 'fr_CA': return (await import('@faker-js/faker/locale/fr_CA')).faker;
+            case 'fr_CH': return (await import('@faker-js/faker/locale/fr_CH')).faker;
+            case 'fr_LU': return (await import('@faker-js/faker/locale/fr_LU')).faker;
+            case 'fr_SN': return (await import('@faker-js/faker/locale/fr_SN')).faker;
+            case 'fr': return (await import('@faker-js/faker/locale/fr')).faker;
+            case 'he': return (await import('@faker-js/faker/locale/he')).faker;
+            case 'hr': return (await import('@faker-js/faker/locale/hr')).faker;
+            case 'hu': return (await import('@faker-js/faker/locale/hu')).faker;
+            case 'hy': return (await import('@faker-js/faker/locale/hy')).faker;
+            case 'id_ID': return (await import('@faker-js/faker/locale/id_ID')).faker;
+            case 'it': return (await import('@faker-js/faker/locale/it')).faker;
+            case 'ja': return (await import('@faker-js/faker/locale/ja')).faker;
+            case 'ka_GE': return (await import('@faker-js/faker/locale/ka_GE')).faker;
+            case 'ko': return (await import('@faker-js/faker/locale/ko')).faker;
+            case 'lv': return (await import('@faker-js/faker/locale/lv')).faker;
+            case 'mk': return (await import('@faker-js/faker/locale/mk')).faker;
+            case 'nb_NO': return (await import('@faker-js/faker/locale/nb_NO')).faker;
+            case 'ne': return (await import('@faker-js/faker/locale/ne')).faker;
+            case 'nl_BE': return (await import('@faker-js/faker/locale/nl_BE')).faker;
+            case 'nl': return (await import('@faker-js/faker/locale/nl')).faker;
+            case 'pl': return (await import('@faker-js/faker/locale/pl')).faker;
+            case 'pt_BR': return (await import('@faker-js/faker/locale/pt_BR')).faker;
+            case 'pt_PT': return (await import('@faker-js/faker/locale/pt_PT')).faker;
+            case 'ro_MD': return (await import('@faker-js/faker/locale/ro_MD')).faker;
+            case 'ro': return (await import('@faker-js/faker/locale/ro')).faker;
+            case 'ru': return (await import('@faker-js/faker/locale/ru')).faker;
+            case 'sk': return (await import('@faker-js/faker/locale/sk')).faker;
+            case 'sr_RS_latin': return (await import('@faker-js/faker/locale/sr_RS_latin')).faker;
+            case 'sv': return (await import('@faker-js/faker/locale/sv')).faker;
+            case 'th': return (await import('@faker-js/faker/locale/th')).faker;
+            case 'tr': return (await import('@faker-js/faker/locale/tr')).faker;
+            case 'uk': return (await import('@faker-js/faker/locale/uk')).faker;
+            case 'ur': return (await import('@faker-js/faker/locale/ur')).faker;
+            case 'uz_UZ_latin': return (await import('@faker-js/faker/locale/uz_UZ_latin')).faker;
+            case 'vi': return (await import('@faker-js/faker/locale/vi')).faker;
+            case 'yo_NG': return (await import('@faker-js/faker/locale/yo_NG')).faker;
+            case 'zh_CN': return (await import('@faker-js/faker/locale/zh_CN')).faker;
+            case 'zh_TW': return (await import('@faker-js/faker/locale/zh_TW')).faker;
+            case 'zu_ZA': return (await import('@faker-js/faker/locale/zu_ZA')).faker;
+        }
+    } catch {
+        return (await import('@faker-js/faker')).faker;
     }
 }
 
-export function getFakerFunc(faker: Faker, atom: IFakerApiAtom): IFakerApiFunc | any {
+/**
+ * Returns Faker.js function which generates fake data.
+ * @see https://fakerjs.dev/api/
+ */
+export function getFakerFunction(
+    faker: Faker,
+    atom: IFakerAtom
+): IFakerPrimitiveFunction | IFakerStructureFunction | IFakerProcedureFunction | (() => undefined) {
+    return (
+        getFakerPrimitiveFunction(faker, atom as IFakerPrimitiveAtom) ??
+        getFakerStructureFunction(faker, atom as IFakerStructureAtom) ??
+        getFakerProcedureWithArgs(faker, atom as IFakerProcedureAtom) ??
+        (() => undefined)
+    );
+}
+
+/**
+ * Returns Faker.js function which generates fake data.
+ * @see https://fakerjs.dev/api/
+ */
+export function getFakerPrimitiveFunction(
+    faker: Faker,
+    atom: IFakerPrimitiveAtom
+): IFakerPrimitiveFunction {
     // prettier-ignore
     switch (atom) {
         case 'airline.aircraftType': return faker.airline.aircraftType;
-        case 'airline.airline': return faker.airline.airline;
-        case 'airline.airplane': return faker.airline.airplane;
-        case 'airline.airport': return faker.airline.airport;
         case 'airline.flightNumber': return faker.airline.flightNumber;
         case 'airline.recordLocator': return faker.airline.recordLocator;
         case 'airline.seat': return faker.airline.seat;
@@ -148,15 +186,7 @@ export function getFakerFunc(faker: Faker, atom: IFakerApiAtom): IFakerApiFunc |
         case 'database.mongodbObjectId': return faker.database.mongodbObjectId;
         case 'database.type': return faker.database.type;
         case 'datatype.boolean': return faker.datatype.boolean;
-        case 'date.anytime': return faker.date.anytime;
-        case 'date.between': return faker.date.between;
-        case 'date.betweens': return faker.date.betweens;
-        case 'date.birthdate': return faker.date.birthdate;
-        case 'date.future': return faker.date.future;
         case 'date.month': return faker.date.month;
-        case 'date.past': return faker.date.past;
-        case 'date.recent': return faker.date.recent;
-        case 'date.soon': return faker.date.soon;
         case 'date.timeZone': return faker.date.timeZone;
         case 'date.weekday': return faker.date.weekday;
         case 'finance.accountName': return faker.finance.accountName;
@@ -167,7 +197,6 @@ export function getFakerFunc(faker: Faker, atom: IFakerApiAtom): IFakerApiFunc |
         case 'finance.creditCardCVV': return faker.finance.creditCardCVV;
         case 'finance.creditCardIssuer': return faker.finance.creditCardIssuer;
         case 'finance.creditCardNumber': return faker.finance.creditCardNumber;
-        case 'finance.currency': return faker.finance.currency;
         case 'finance.currencyCode': return faker.finance.currencyCode;
         case 'finance.currencyName': return faker.finance.currencyName;
         case 'finance.currencySymbol': return faker.finance.currencySymbol;
@@ -199,24 +228,9 @@ export function getFakerFunc(faker: Faker, atom: IFakerApiAtom): IFakerApiFunc |
         case 'hacker.noun': return faker.hacker.noun;
         case 'hacker.phrase': return faker.hacker.phrase;
         case 'hacker.verb': return faker.hacker.verb;
-        case 'helpers.arrayElement': return faker.helpers.arrayElement;
-        case 'helpers.arrayElements': return faker.helpers.arrayElements;
-        case 'helpers.enumValue': return faker.helpers.enumValue;
-        case 'helpers.fake': return faker.helpers.fake;
-        case 'helpers.fromRegExp': return faker.helpers.fromRegExp;
-        case 'helpers.maybe': return faker.helpers.maybe;
-        case 'helpers.multiple': return faker.helpers.multiple;
-        case 'helpers.mustache': return faker.helpers.mustache;
-        case 'helpers.objectEntry': return faker.helpers.objectEntry;
-        case 'helpers.objectKey': return faker.helpers.objectKey;
-        case 'helpers.objectValue': return faker.helpers.objectValue;
-        case 'helpers.rangeToNumber': return faker.helpers.rangeToNumber;
         case 'helpers.replaceCreditCardSymbols': return faker.helpers.replaceCreditCardSymbols;
         case 'helpers.replaceSymbols': return faker.helpers.replaceSymbols;
-        case 'helpers.shuffle': return faker.helpers.shuffle;
         case 'helpers.slugify': return faker.helpers.slugify;
-        case 'helpers.uniqueArray': return faker.helpers.uniqueArray;
-        case 'helpers.weightedArrayElement': return faker.helpers.weightedArrayElement;
         case 'image.avatar': return faker.image.avatar;
         case 'image.avatarGitHub': return faker.image.avatarGitHub;
         case 'image.avatarLegacy': return faker.image.avatarLegacy;
@@ -258,7 +272,6 @@ export function getFakerFunc(faker: Faker, atom: IFakerApiAtom): IFakerApiFunc |
         case 'location.direction': return faker.location.direction;
         case 'location.latitude': return faker.location.latitude;
         case 'location.longitude': return faker.location.longitude;
-        case 'location.nearbyGPSCoordinate': return faker.location.nearbyGPSCoordinate;
         case 'location.ordinalDirection': return faker.location.ordinalDirection;
         case 'location.secondaryAddress': return faker.location.secondaryAddress;
         case 'location.state': return faker.location.state;
@@ -303,12 +316,9 @@ export function getFakerFunc(faker: Faker, atom: IFakerApiAtom): IFakerApiFunc |
         case 'person.zodiacSign': return faker.person.zodiacSign;
         case 'phone.imei': return faker.phone.imei;
         case 'phone.number': return faker.phone.number;
-        case 'science.chemicalElement': return faker.science.chemicalElement;
-        case 'science.unit': return faker.science.unit;
         case 'string.alpha': return faker.string.alpha;
         case 'string.alphanumeric': return faker.string.alphanumeric;
         case 'string.binary': return faker.string.binary;
-        case 'string.fromCharacters': return faker.string.fromCharacters;
         case 'string.hexadecimal': return faker.string.hexadecimal;
         case 'string.nanoid': return faker.string.nanoid;
         case 'string.numeric': return faker.string.numeric;
@@ -347,6 +357,123 @@ export function getFakerFunc(faker: Faker, atom: IFakerApiAtom): IFakerApiFunc |
         case 'word.sample': return faker.word.sample;
         case 'word.verb': return faker.word.verb;
         case 'word.words': return faker.word.words;
-        default: return () => void 0;
+    }
+}
+
+/**
+ * Returns Faker.js function which generates fake data.
+ * @see https://fakerjs.dev/api/
+ */
+export function getFakerStructureFunction(
+    faker: Faker,
+    atom: IFakerStructureAtom
+): IFakerStructureFunction {
+    // prettier-ignore
+    switch (atom) {
+        case 'airline.airline': return faker.airline.airline;
+        case 'airline.airplane': return faker.airline.airplane;
+        case 'airline.airport': return faker.airline.airport;
+        case 'date.anytime': return faker.date.anytime;
+        case 'date.birthdate': return faker.date.birthdate;
+        case 'date.future': return faker.date.future;
+        case 'date.past': return faker.date.past;
+        case 'date.recent': return faker.date.recent;
+        case 'date.soon': return faker.date.soon;
+        case 'finance.currency': return faker.finance.currency;
+        case 'location.nearbyGPSCoordinate': return faker.location.nearbyGPSCoordinate;
+        case 'science.chemicalElement': return faker.science.chemicalElement;
+        case 'science.unit': return faker.science.unit;
+    }
+}
+
+/**
+ * Returns Faker.js function which generates fake data.
+ * @see https://fakerjs.dev/api/
+ */
+export function getFakerProcedureWithArgs(
+    faker: Faker,
+    atom: IFakerProcedureAtom
+): IFakerProcedureFunction {
+    switch (atom) {
+        case 'date.between': {
+            return faker.date.between.bind(undefined, {
+                from: '2000-01-01T00:00:00.000Z',
+                to: '2030-01-01T00:00:00.000Z',
+            });
+        }
+        case 'date.betweens': {
+            return faker.date.betweens.bind(undefined, {
+                from: '2000-01-01T00:00:00.000Z',
+                to: '2030-01-01T00:00:00.000Z',
+            });
+        }
+        case 'helpers.arrayElement': {
+            const method = faker.helpers.arrayElement<string>;
+            return method.bind(undefined, ['cat', 'dog', 'mouse']);
+        }
+        case 'helpers.arrayElements': {
+            return faker.helpers.arrayElements.bind(undefined, [1, 2, 3, 4, 5], { min: 2, max: 4 });
+        }
+        case 'helpers.enumValue': {
+            const method = faker.helpers.enumValue<typeof Direction>;
+            return method.bind(undefined, Direction);
+        }
+        case 'helpers.fake': {
+            return faker.helpers.fake.bind(
+                undefined,
+                '{{person.lastName}}, {{person.firstName}} {{person.suffix}}'
+            );
+        }
+        case 'helpers.fromRegExp': {
+            return faker.helpers.fromRegExp.bind(undefined, /[A-Z0-9]{4}-[A-Z0-9]{4}/);
+        }
+        case 'helpers.maybe': {
+            // can't resolve with `string` (to bypass use `any`)
+            const method = faker.helpers.maybe<any>;
+            return method.bind(undefined, () => '50% chance, or undefined', {
+                probability: 0.5,
+            });
+        }
+        case 'helpers.multiple': {
+            const method = faker.helpers.multiple<string>;
+            return method.bind(undefined, (_, index) => `#${index + 1}) ${faker.number.int()}`, {
+                count: { min: 2, max: 3 },
+            });
+        }
+        case 'helpers.mustache': {
+            return faker.helpers.mustache.bind(undefined, 'Random number is {{count}}', {
+                count: () => `${faker.number.int()}`,
+            });
+        }
+        case 'helpers.objectEntry': {
+            return faker.helpers.objectEntry.bind(undefined, { One: 1, Two: 2, Three: 3, Nine: 9 });
+        }
+        case 'helpers.objectKey': {
+            return faker.helpers.objectKey.bind(undefined, { One: 1, Two: 2, Three: 3, Nine: 9 });
+        }
+        case 'helpers.objectValue': {
+            const method = faker.helpers.objectValue<{ [key: string]: number }>;
+            return method.bind(undefined, { One: 1, Two: 2, Three: 3, Nine: 9 });
+        }
+        case 'helpers.rangeToNumber': {
+            return faker.helpers.rangeToNumber.bind(undefined, { min: 1, max: 10 });
+        }
+        case 'helpers.shuffle': {
+            return faker.helpers.shuffle.bind(undefined, ['a', 'b', 'c'], { inplace: false });
+        }
+        case 'helpers.uniqueArray': {
+            return faker.helpers.uniqueArray.bind(undefined, faker.word.sample, 3);
+        }
+        case 'helpers.weightedArrayElement': {
+            const method = faker.helpers.weightedArrayElement<string>;
+            return method.bind(undefined, [
+                { weight: 5, value: 'sunny' },
+                { weight: 4, value: 'rainy' },
+                { weight: 1, value: 'snowy' },
+            ]);
+        }
+        case 'string.fromCharacters': {
+            return faker.string.fromCharacters.bind(undefined, 'abc', { min: 5, max: 10 });
+        }
     }
 }

@@ -5,6 +5,19 @@ All notable changes to the "vscode-faker-js" extension will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.3.9] - 2025-01-18
+
+### Added
+
+-   Return type classifications. Now, Faker.js methods a have a return:
+    -   `object` returns any structure (arrays, object, functions, and even classes);
+    -   `binding` returns binded functions with some default values;
+    -   Any other type is primitive: undefined, null, boolean, string, symbol, number, bigint;
+-   Additional options for quote preferences and content insertions;
+
+> Function labelled with `object` and `binding` might not return correct data.
+> They are not recommended to use, but in most cases everything is fine.
+
 ## [9.3.5] - 2025-01-13
 
 ### Added
