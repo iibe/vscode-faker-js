@@ -9,13 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Return type classifications. Now, Faker.js methods a have a return:
+-   Return type markers for Faker.js methods:
     -   `object` returns any structure (arrays, object, functions, and even classes);
-    -   `binding` returns binded functions with some default values;
-    -   Any other type is primitive: undefined, null, boolean, string, symbol, number, bigint;
--   Additional options for quote preferences and content insertions;
+    -   `binding` returns bound functions with some default values;
+    -   Unmarked methods returns `primitive`: undefined, null, boolean, string, symbol, number, bigint;
+-   Additional parameters for quoting and content insertions setting;
 
-> Function labelled with `object` and `binding` might not return correct data.
+> Functions marked as `object` and `binding` may not return correct data.
 > They are not recommended to use, but in most cases everything is fine.
 
 ## [9.3.5] - 2025-01-13

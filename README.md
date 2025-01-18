@@ -52,7 +52,7 @@
 
 ## Content Options
 
-These options provide additional control on how data to be inserted. It might be useful in case if you're using specific language syntax or code formatter setup. For example, in some version of ECMAScript big integer literals are not allowed `1n` and only `BigInt(1)` syntax is valid.
+These options provide additional control over how to insert data. This can be useful if you use a particular language syntax or code formatting preference. For example, in some versions of ECMAScript, the big integer literal `123n` is not allowed, but the syntax `BigInt(123)` is fine.
 
 ```json
 {

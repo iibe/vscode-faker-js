@@ -12,20 +12,20 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Testing
 
-1. Launch VSCode as an administrator to avoid permission issues. To do this, right-click on the Visual Studio Code icon and select `Run as administrator`.
+1. Run VSCode as administrator to avoid permission issues. To do this, right-click the Visual Studio Code icon and select `Run as administrator`.
 1. Run `test` command.
 
 ## Coding
 
-1. Make code changes in `./src` directory.
-1. Run `format:fix`, `lint:check` and `typecheck` commands to ensure everything is fine with codebase types and appearance.
-1. Run `release` command to create patched release. It automatically generates and overrides `package.json` extension-specific fields such as `contributes`, `activationEvents`, etc.
-1. Run `production` command to deploy extension in Azure.
+1. Make changes to the code in the `./src` directory.
+1. Run `format:fix`, `lint:check` and `typecheck` commands to make sure everything is fine with types and appearance of the codebase.
+1. Run `release` command to create new release. It automatically generates and overrides extension-specific `package.json` fields such as `contributes`, `activationEvents`, etc.
+1. Run `production` command to deploy extension to Azure.
 
 ## Deployment
 
-Before running `production` command is better to test extension in local environment.
-For that, either run `staging` command (for non-insider/portable version of VS Code) or install extension manually:
+Before running the `production` command, it is best to test extension in local environment.
+To do this, either run the `staging` command (for non-insider/portable versions of VS Code) or install the extension manually:
 
 1. Press `CTRL+SHIFT+P` to launch command palette;
 2. Type `Extensions: Install from VSIX...`;
