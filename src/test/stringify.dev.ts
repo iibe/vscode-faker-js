@@ -56,11 +56,7 @@ const edgeCases = {
     bar: {},
     baz: () => () => () => 'smth',
     qux: class {
-        constructor(
-            xyz: string,
-            private ijk: boolean,
-            protected key: string
-        ) {}
+        constructor(xyz: string, private ijk: boolean, protected key: string) {}
 
         opened(a: number, b: number) {
             return a + b;

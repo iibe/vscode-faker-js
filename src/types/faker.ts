@@ -91,29 +91,37 @@ type FakerApiFormatter<T extends object> = {
 };
 
 type TFakerApi = FakerApiFormatter<Flatten<IFakerApiType>>;
-type TFakerApiTypeGuard = IsEqual<TFakerApi, FakerApiValidator<TFakerApi>, TFakerApi, never>;
+type TFakerApiGuard = IsEqual<TFakerApi, FakerApiValidator<TFakerApi>, TFakerApi, never>;
 type TFakerApiReturnTypeGuard = IsEqual<
     TFakerApi,
-    ObjectStrict<TPrimitiveApi & TStructureApi & TProcedureApi>,
+    ObjectStrict<TPrimitiveApi & TDateApi & TArrayApi & TStructureApi & TBoundApi>,
     TFakerApi,
     never
 >;
 
 /* FAKER API RETURN TYPES */
 
-type TCallablePrimitive = ObjectFilter<TFakerApi, () => Primitive>;
-type TCallableStructure = ObjectFilter<TFakerApi, () => Structure>;
+type TReturnsPrimitive = ObjectFilter<TFakerApi, () => Primitive>;
+type TReturnsDate = ObjectFilter<TFakerApi, () => Date>;
+type TReturnsArray = ObjectFilter<TFakerApi, () => any[]>;
+type TReturnsStructure = ObjectFilter<TFakerApi, () => Structure>;
 
 // Due function overloads, some intersection are occurs
-type TIntersections = keyof TCallablePrimitive & keyof TCallableStructure;
+type TPrimitiveApi = TReturnsPrimitive;
+type TDateApi = Omit<TReturnsDate, keyof TPrimitiveApi>;
+type TArrayApi = Omit<TReturnsArray, keyof TPrimitiveApi>;
+type TStructureApi = Omit<
+    TReturnsStructure,
+    keyof TPrimitiveApi | keyof TDateApi | keyof TArrayApi
+>;
 
-type TPrimitiveApi = TCallablePrimitive;
-type TStructureApi = Omit<TCallableStructure, TIntersections>;
-type TProcedureApi = Omit<TFakerApi, keyof TCallablePrimitive | keyof TCallableStructure>;
+// Function with parameters that should be specified
+type TBoundApi = Omit<
+    TFakerApi,
+    keyof TPrimitiveApi | keyof TDateApi | keyof TArrayApi | keyof TStructureApi
+>;
 
 /* FAKER API CONFIGURATION */
-
-type WrapperObject = 'String' | 'Number' | 'Boolean' | 'BigInt' | 'Symbol';
 
 export interface IFakerConfigType {
     locale: IFakerLocale;
@@ -174,10 +182,18 @@ export type IFakerPrimitiveApi = TPrimitiveApi;
 export type IFakerPrimitiveAtom = keyof TPrimitiveApi;
 export type IFakerPrimitiveFunction = TPrimitiveApi[keyof TPrimitiveApi];
 
+export type IFakerDateApi = TDateApi;
+export type IFakerDateAtom = keyof TDateApi;
+export type IFakerDateFunction = TDateApi[keyof TDateApi];
+
+export type IFakerArrayApi = TArrayApi;
+export type IFakerArrayAtom = keyof TArrayApi;
+export type IFakerArrayFunction = TArrayApi[keyof TArrayApi];
+
 export type IFakerStructureApi = TStructureApi;
 export type IFakerStructureAtom = keyof TStructureApi;
 export type IFakerStructureFunction = TStructureApi[keyof TStructureApi];
 
-export type IFakerProcedureApi = TProcedureApi;
-export type IFakerProcedureAtom = keyof TProcedureApi;
-export type IFakerProcedureFunction = TProcedureApi[keyof TProcedureApi];
+export type IFakerBoundApi = TBoundApi;
+export type IFakerBoundAtom = keyof TBoundApi;
+export type IFakerBoundFunction = TBoundApi[keyof TBoundApi];

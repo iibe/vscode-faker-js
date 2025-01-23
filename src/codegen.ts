@@ -1,8 +1,10 @@
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import {
+    fakerApiArrayAtoms,
+    fakerApiBoundAtoms,
+    fakerApiDateAtoms,
     fakerApiPrimitiveAtoms,
-    fakerApiProcedureAtoms,
     fakerApiStructureAtoms,
     fakerLocaleAtoms,
 } from './core/atoms';
@@ -54,7 +56,6 @@ function getActivationEvents() {
 function getCommands() {
     const commands: IFakerCommand[] = [];
 
-    // fakerFunc: () => Primitive
     for (const atom of fakerApiPrimitiveAtoms) {
         commands.push({
             command: `vscode-faker-js.run.${atom}`,
@@ -63,7 +64,22 @@ function getCommands() {
         });
     }
 
-    // fakerFunc: () => Structure
+    for (const atom of fakerApiDateAtoms) {
+        commands.push({
+            command: `vscode-faker-js.run.${atom}`,
+            title: `${atom} (date)`,
+            category: 'Faker.js',
+        });
+    }
+
+    for (const atom of fakerApiArrayAtoms) {
+        commands.push({
+            command: `vscode-faker-js.run.${atom}`,
+            title: `${atom} (array)`,
+            category: 'Faker.js',
+        });
+    }
+
     for (const atom of fakerApiStructureAtoms) {
         commands.push({
             command: `vscode-faker-js.run.${atom}`,
@@ -72,8 +88,7 @@ function getCommands() {
         });
     }
 
-    // fakerFunc.bind(): () => Primitive | Structure
-    for (const atom of fakerApiProcedureAtoms) {
+    for (const atom of fakerApiBoundAtoms) {
         commands.push({
             command: `vscode-faker-js.run.${atom}`,
             title: `${atom} (binding)`,

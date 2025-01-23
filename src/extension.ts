@@ -53,7 +53,8 @@ export async function activate(context: ExtensionContext) {
                     selections.forEach(({ start, end }) => {
                         const range = new Range(start, end);
 
-                        //@ts-ignore [TS2349] Signatures of union doesn't compatible with each other
+                        // @ts-ignore
+                        // [TS2349]: Signatures of union doesn't compatible with each other
                         const content = method();
 
                         editBuilder.replace(range, stringify.from(content));

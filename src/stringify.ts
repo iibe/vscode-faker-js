@@ -41,6 +41,8 @@ export class Stringify {
     fromStructure(structure: Structure): string {
         // NOTE: Here order is matter...
         switch (true) {
+            case Stringify.isExactDate(structure):
+                return this.serializeString(structure.toISOString());
             case Stringify.isExactArray(structure):
                 return this.serializeArray(structure);
             case Stringify.isExactClass(structure):
@@ -48,7 +50,8 @@ export class Stringify {
             case Stringify.isExactFunction(structure):
                 return this.serializeFunction(structure as CallableStructure);
             case Stringify.isExactObject(structure): // should be the last case statement
-                return this.serializeObject(structure); // almost everything is an instance of `Object`
+                // almost everything is an instance of `Object`
+                return this.serializeObject(structure);
             default:
                 return `${structure}`;
         }
@@ -71,28 +74,6 @@ export class Stringify {
         });
 
         return `[ ${stringified.join(', ')} ]`;
-    }
-
-    serializeClass(ctor: InstanceStructure): string {
-        const instanceObject = new ctor();
-
-        // avoid circular references
-        if (Stringify.isExactClass(instanceObject)) {
-            return this.serializeClass(instanceObject);
-        }
-
-        return this.from(instanceObject);
-    }
-
-    serializeFunction(func: CallableStructure): string {
-        const functionResult = func();
-
-        // avoid circular references
-        if (Stringify.isExactFunction(functionResult)) {
-            return this.serializeFunction(functionResult);
-        }
-
-        return this.from(functionResult);
     }
 
     serializeObject(object: Record<string, any>, depth = 0): string {
@@ -126,6 +107,28 @@ export class Stringify {
         return result;
     }
 
+    serializeFunction(func: CallableStructure): string {
+        const functionResult = func();
+
+        // avoid circular references
+        if (Stringify.isExactFunction(functionResult)) {
+            return this.serializeFunction(functionResult);
+        }
+
+        return this.from(functionResult);
+    }
+
+    serializeClass(ctor: InstanceStructure): string {
+        const instanceObject = new ctor();
+
+        // avoid circular references
+        if (Stringify.isExactClass(instanceObject)) {
+            return this.serializeClass(instanceObject);
+        }
+
+        return this.from(instanceObject);
+    }
+
     private serializeBigInt(value: BigInt): string {
         // prettier-ignore
         switch (this.config.bigint.insert) {
@@ -138,7 +141,7 @@ export class Stringify {
     private serializeString(value: string): string {
         // prettier-ignore
         switch (this.config.string.insert) {
-            case 'inline': return String(value);
+            case 'inline': return value;
             case 'literal': return `${this.stringQuote}${value}${this.stringQuote}`;
         }
     }
@@ -177,8 +180,20 @@ export class Stringify {
         return (typeof data === 'object' && data !== null) || typeof data === 'function';
     }
 
+    static isExactDate(data: any) {
+        return data instanceof Date;
+    }
+
     static isExactArray(data: any) {
         return Array.isArray(data);
+    }
+
+    static isExactObject(data: any) {
+        return typeof data === 'object' && data !== null && !Array.isArray(data);
+    }
+
+    static isExactFunction(data: any) {
+        return typeof data === 'function';
     }
 
     static isExactClass(data: any) {
@@ -193,19 +208,16 @@ export class Stringify {
             return false; // omit Promise.resolve() function, since it doesn't have prototype
         }
 
-        const naiveToStringCheck = /^\s*class[^\w]+/.test(data.toString());
+        // ECMAScript spec dictates the string representation of a class constructor.
+        const naiveConstructorNameCheck = /^\s*class[^\w]+/.test(data.toString());
+
+        // Function has writable prototype, bun class isn't
+        const naivePrototypeImmutabilityCheck = !Boolean(descriptor.writable);
+
+        // Built-in object check
         const naiveNativeCheck =
             globalThis[data.name as keyof typeof globalThis] === data && /^[A-Z]/.test(data.name);
-        const naiveImmutablePrototypeCheck = !Boolean(descriptor.writable);
 
-        return naiveToStringCheck || naiveNativeCheck || naiveImmutablePrototypeCheck;
-    }
-
-    static isExactFunction(data: any) {
-        return typeof data === 'function';
-    }
-
-    static isExactObject(data: any) {
-        return typeof data === 'object' && data !== null && !Array.isArray(data);
+        return naiveConstructorNameCheck || naivePrototypeImmutabilityCheck || naiveNativeCheck;
     }
 }

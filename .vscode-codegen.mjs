@@ -317,22 +317,25 @@ var fakerApiPrimitiveAtoms = exhaustive()(
   "word.verb",
   "word.words"
 );
-var fakerApiStructureAtoms = exhaustive()(
-  "airline.airline",
-  "airline.airplane",
-  "airline.airport",
+var fakerApiDateAtoms = exhaustive()(
   "date.anytime",
   "date.birthdate",
   "date.future",
   "date.past",
   "date.recent",
-  "date.soon",
+  "date.soon"
+);
+var fakerApiArrayAtoms = exhaustive()("location.nearbyGPSCoordinate");
+var fakerApiStructureAtoms = exhaustive()(
+  "airline.airline",
+  "airline.airplane",
+  "airline.airport",
   "finance.currency",
-  "location.nearbyGPSCoordinate",
+  "location.language",
   "science.chemicalElement",
   "science.unit"
 );
-var fakerApiProcedureAtoms = exhaustive()(
+var fakerApiBoundAtoms = exhaustive()(
   "date.between",
   "date.betweens",
   "helpers.arrayElement",
@@ -354,8 +357,10 @@ var fakerApiProcedureAtoms = exhaustive()(
 );
 [
   ...fakerApiPrimitiveAtoms,
+  ...fakerApiArrayAtoms,
+  ...fakerApiDateAtoms,
   ...fakerApiStructureAtoms,
-  ...fakerApiProcedureAtoms
+  ...fakerApiBoundAtoms
 ];
 
 // src/codegen.ts
@@ -397,6 +402,20 @@ function getCommands() {
       category: "Faker.js"
     });
   }
+  for (const atom of fakerApiDateAtoms) {
+    commands.push({
+      command: `vscode-faker-js.run.${atom}`,
+      title: `${atom} (date)`,
+      category: "Faker.js"
+    });
+  }
+  for (const atom of fakerApiArrayAtoms) {
+    commands.push({
+      command: `vscode-faker-js.run.${atom}`,
+      title: `${atom} (array)`,
+      category: "Faker.js"
+    });
+  }
   for (const atom of fakerApiStructureAtoms) {
     commands.push({
       command: `vscode-faker-js.run.${atom}`,
@@ -404,7 +423,7 @@ function getCommands() {
       category: "Faker.js"
     });
   }
-  for (const atom of fakerApiProcedureAtoms) {
+  for (const atom of fakerApiBoundAtoms) {
     commands.push({
       command: `vscode-faker-js.run.${atom}`,
       title: `${atom} (binding)`,

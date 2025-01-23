@@ -1,11 +1,16 @@
 import { Faker } from '@faker-js/faker';
 import type {
+    IFakerArrayAtom,
+    IFakerArrayFunction,
     IFakerAtom,
+    IFakerBoundAtom,
+    IFakerBoundFunction,
+    IFakerDateAtom,
+    IFakerDateFunction,
+    IFakerFunction,
     IFakerLocale,
     IFakerPrimitiveAtom,
     IFakerPrimitiveFunction,
-    IFakerProcedureAtom,
-    IFakerProcedureFunction,
     IFakerStructureAtom,
     IFakerStructureFunction,
 } from '../types/faker';
@@ -17,109 +22,96 @@ enum Direction {
     Right = 'Right',
 }
 
-/**
- * Returns Faker.js instance.
- * @see https://fakerjs.dev/guide/localization.html#available-locales
- */
 export async function getFakerInstance(locale: IFakerLocale) {
-    try {
-        // prettier-ignore
-        switch (locale) {
-            case 'af_ZA': return (await import('@faker-js/faker/locale/af_ZA')).faker;
-            case 'ar': return (await import('@faker-js/faker/locale/ar')).faker;
-            case 'az': return (await import('@faker-js/faker/locale/az')).faker;
-            case 'base': return (await import('@faker-js/faker/locale/base')).faker;
-            case 'cs_CZ': return (await import('@faker-js/faker/locale/cs_CZ')).faker;
-            case 'da': return (await import('@faker-js/faker/locale/da')).faker;
-            case 'de_AT': return (await import('@faker-js/faker/locale/de_AT')).faker;
-            case 'de_CH': return (await import('@faker-js/faker/locale/de_CH')).faker;
-            case 'de': return (await import('@faker-js/faker/locale/de')).faker;
-            case 'dv': return (await import('@faker-js/faker/locale/dv')).faker;
-            case 'el': return (await import('@faker-js/faker/locale/el')).faker;
-            case 'en_AU_ocker': return (await import('@faker-js/faker/locale/en_AU_ocker')).faker;
-            case 'en_AU': return (await import('@faker-js/faker/locale/en_AU')).faker;
-            case 'en_BORK': return (await import('@faker-js/faker/locale/en_BORK')).faker;
-            case 'en_CA': return (await import('@faker-js/faker/locale/en_CA')).faker;
-            case 'en_GB': return (await import('@faker-js/faker/locale/en_GB')).faker;
-            case 'en_GH': return (await import('@faker-js/faker/locale/en_GH')).faker;
-            case 'en_HK': return (await import('@faker-js/faker/locale/en_HK')).faker;
-            case 'en_IE': return (await import('@faker-js/faker/locale/en_IE')).faker;
-            case 'en_IN': return (await import('@faker-js/faker/locale/en_IN')).faker;
-            case 'en_NG': return (await import('@faker-js/faker/locale/en_NG')).faker;
-            case 'en_US': return (await import('@faker-js/faker/locale/en_US')).faker;
-            case 'en_ZA': return (await import('@faker-js/faker/locale/en_ZA')).faker;
-            case 'en': return (await import('@faker-js/faker/locale/en')).faker;
-            case 'eo': return (await import('@faker-js/faker/locale/eo')).faker;
-            case 'es_MX': return (await import('@faker-js/faker/locale/es_MX')).faker;
-            case 'es': return (await import('@faker-js/faker/locale/es')).faker;
-            case 'fa': return (await import('@faker-js/faker/locale/fa')).faker;
-            case 'fi': return (await import('@faker-js/faker/locale/fi')).faker;
-            case 'fr_BE': return (await import('@faker-js/faker/locale/fr_BE')).faker;
-            case 'fr_CA': return (await import('@faker-js/faker/locale/fr_CA')).faker;
-            case 'fr_CH': return (await import('@faker-js/faker/locale/fr_CH')).faker;
-            case 'fr_LU': return (await import('@faker-js/faker/locale/fr_LU')).faker;
-            case 'fr_SN': return (await import('@faker-js/faker/locale/fr_SN')).faker;
-            case 'fr': return (await import('@faker-js/faker/locale/fr')).faker;
-            case 'he': return (await import('@faker-js/faker/locale/he')).faker;
-            case 'hr': return (await import('@faker-js/faker/locale/hr')).faker;
-            case 'hu': return (await import('@faker-js/faker/locale/hu')).faker;
-            case 'hy': return (await import('@faker-js/faker/locale/hy')).faker;
-            case 'id_ID': return (await import('@faker-js/faker/locale/id_ID')).faker;
-            case 'it': return (await import('@faker-js/faker/locale/it')).faker;
-            case 'ja': return (await import('@faker-js/faker/locale/ja')).faker;
-            case 'ka_GE': return (await import('@faker-js/faker/locale/ka_GE')).faker;
-            case 'ko': return (await import('@faker-js/faker/locale/ko')).faker;
-            case 'lv': return (await import('@faker-js/faker/locale/lv')).faker;
-            case 'mk': return (await import('@faker-js/faker/locale/mk')).faker;
-            case 'nb_NO': return (await import('@faker-js/faker/locale/nb_NO')).faker;
-            case 'ne': return (await import('@faker-js/faker/locale/ne')).faker;
-            case 'nl_BE': return (await import('@faker-js/faker/locale/nl_BE')).faker;
-            case 'nl': return (await import('@faker-js/faker/locale/nl')).faker;
-            case 'pl': return (await import('@faker-js/faker/locale/pl')).faker;
-            case 'pt_BR': return (await import('@faker-js/faker/locale/pt_BR')).faker;
-            case 'pt_PT': return (await import('@faker-js/faker/locale/pt_PT')).faker;
-            case 'ro_MD': return (await import('@faker-js/faker/locale/ro_MD')).faker;
-            case 'ro': return (await import('@faker-js/faker/locale/ro')).faker;
-            case 'ru': return (await import('@faker-js/faker/locale/ru')).faker;
-            case 'sk': return (await import('@faker-js/faker/locale/sk')).faker;
-            case 'sr_RS_latin': return (await import('@faker-js/faker/locale/sr_RS_latin')).faker;
-            case 'sv': return (await import('@faker-js/faker/locale/sv')).faker;
-            case 'th': return (await import('@faker-js/faker/locale/th')).faker;
-            case 'tr': return (await import('@faker-js/faker/locale/tr')).faker;
-            case 'uk': return (await import('@faker-js/faker/locale/uk')).faker;
-            case 'ur': return (await import('@faker-js/faker/locale/ur')).faker;
-            case 'uz_UZ_latin': return (await import('@faker-js/faker/locale/uz_UZ_latin')).faker;
-            case 'vi': return (await import('@faker-js/faker/locale/vi')).faker;
-            case 'yo_NG': return (await import('@faker-js/faker/locale/yo_NG')).faker;
-            case 'zh_CN': return (await import('@faker-js/faker/locale/zh_CN')).faker;
-            case 'zh_TW': return (await import('@faker-js/faker/locale/zh_TW')).faker;
-            case 'zu_ZA': return (await import('@faker-js/faker/locale/zu_ZA')).faker;
-        }
-    } catch {
-        return (await import('@faker-js/faker')).faker;
+    // prettier-ignore
+    switch (locale) {
+        case 'af_ZA': return (await import('@faker-js/faker/locale/af_ZA')).faker;
+        case 'ar': return (await import('@faker-js/faker/locale/ar')).faker;
+        case 'az': return (await import('@faker-js/faker/locale/az')).faker;
+        case 'base': return (await import('@faker-js/faker/locale/base')).faker;
+        case 'cs_CZ': return (await import('@faker-js/faker/locale/cs_CZ')).faker;
+        case 'da': return (await import('@faker-js/faker/locale/da')).faker;
+        case 'de_AT': return (await import('@faker-js/faker/locale/de_AT')).faker;
+        case 'de_CH': return (await import('@faker-js/faker/locale/de_CH')).faker;
+        case 'de': return (await import('@faker-js/faker/locale/de')).faker;
+        case 'dv': return (await import('@faker-js/faker/locale/dv')).faker;
+        case 'el': return (await import('@faker-js/faker/locale/el')).faker;
+        case 'en_AU_ocker': return (await import('@faker-js/faker/locale/en_AU_ocker')).faker;
+        case 'en_AU': return (await import('@faker-js/faker/locale/en_AU')).faker;
+        case 'en_BORK': return (await import('@faker-js/faker/locale/en_BORK')).faker;
+        case 'en_CA': return (await import('@faker-js/faker/locale/en_CA')).faker;
+        case 'en_GB': return (await import('@faker-js/faker/locale/en_GB')).faker;
+        case 'en_GH': return (await import('@faker-js/faker/locale/en_GH')).faker;
+        case 'en_HK': return (await import('@faker-js/faker/locale/en_HK')).faker;
+        case 'en_IE': return (await import('@faker-js/faker/locale/en_IE')).faker;
+        case 'en_IN': return (await import('@faker-js/faker/locale/en_IN')).faker;
+        case 'en_NG': return (await import('@faker-js/faker/locale/en_NG')).faker;
+        case 'en_US': return (await import('@faker-js/faker/locale/en_US')).faker;
+        case 'en_ZA': return (await import('@faker-js/faker/locale/en_ZA')).faker;
+        case 'en': return (await import('@faker-js/faker/locale/en')).faker;
+        case 'eo': return (await import('@faker-js/faker/locale/eo')).faker;
+        case 'es_MX': return (await import('@faker-js/faker/locale/es_MX')).faker;
+        case 'es': return (await import('@faker-js/faker/locale/es')).faker;
+        case 'fa': return (await import('@faker-js/faker/locale/fa')).faker;
+        case 'fi': return (await import('@faker-js/faker/locale/fi')).faker;
+        case 'fr_BE': return (await import('@faker-js/faker/locale/fr_BE')).faker;
+        case 'fr_CA': return (await import('@faker-js/faker/locale/fr_CA')).faker;
+        case 'fr_CH': return (await import('@faker-js/faker/locale/fr_CH')).faker;
+        case 'fr_LU': return (await import('@faker-js/faker/locale/fr_LU')).faker;
+        case 'fr_SN': return (await import('@faker-js/faker/locale/fr_SN')).faker;
+        case 'fr': return (await import('@faker-js/faker/locale/fr')).faker;
+        case 'he': return (await import('@faker-js/faker/locale/he')).faker;
+        case 'hr': return (await import('@faker-js/faker/locale/hr')).faker;
+        case 'hu': return (await import('@faker-js/faker/locale/hu')).faker;
+        case 'hy': return (await import('@faker-js/faker/locale/hy')).faker;
+        case 'id_ID': return (await import('@faker-js/faker/locale/id_ID')).faker;
+        case 'it': return (await import('@faker-js/faker/locale/it')).faker;
+        case 'ja': return (await import('@faker-js/faker/locale/ja')).faker;
+        case 'ka_GE': return (await import('@faker-js/faker/locale/ka_GE')).faker;
+        case 'ko': return (await import('@faker-js/faker/locale/ko')).faker;
+        case 'lv': return (await import('@faker-js/faker/locale/lv')).faker;
+        case 'mk': return (await import('@faker-js/faker/locale/mk')).faker;
+        case 'nb_NO': return (await import('@faker-js/faker/locale/nb_NO')).faker;
+        case 'ne': return (await import('@faker-js/faker/locale/ne')).faker;
+        case 'nl_BE': return (await import('@faker-js/faker/locale/nl_BE')).faker;
+        case 'nl': return (await import('@faker-js/faker/locale/nl')).faker;
+        case 'pl': return (await import('@faker-js/faker/locale/pl')).faker;
+        case 'pt_BR': return (await import('@faker-js/faker/locale/pt_BR')).faker;
+        case 'pt_PT': return (await import('@faker-js/faker/locale/pt_PT')).faker;
+        case 'ro_MD': return (await import('@faker-js/faker/locale/ro_MD')).faker;
+        case 'ro': return (await import('@faker-js/faker/locale/ro')).faker;
+        case 'ru': return (await import('@faker-js/faker/locale/ru')).faker;
+        case 'sk': return (await import('@faker-js/faker/locale/sk')).faker;
+        case 'sr_RS_latin': return (await import('@faker-js/faker/locale/sr_RS_latin')).faker;
+        case 'sv': return (await import('@faker-js/faker/locale/sv')).faker;
+        case 'th': return (await import('@faker-js/faker/locale/th')).faker;
+        case 'tr': return (await import('@faker-js/faker/locale/tr')).faker;
+        case 'uk': return (await import('@faker-js/faker/locale/uk')).faker;
+        case 'ur': return (await import('@faker-js/faker/locale/ur')).faker;
+        case 'uz_UZ_latin': return (await import('@faker-js/faker/locale/uz_UZ_latin')).faker;
+        case 'vi': return (await import('@faker-js/faker/locale/vi')).faker;
+        case 'yo_NG': return (await import('@faker-js/faker/locale/yo_NG')).faker;
+        case 'zh_CN': return (await import('@faker-js/faker/locale/zh_CN')).faker;
+        case 'zh_TW': return (await import('@faker-js/faker/locale/zh_TW')).faker;
+        case 'zu_ZA': return (await import('@faker-js/faker/locale/zu_ZA')).faker;
+        default: return (await import('@faker-js/faker')).faker;
     }
 }
 
-/**
- * Returns Faker.js function which generates fake data.
- * @see https://fakerjs.dev/api/
- */
 export function getFakerFunction(
     faker: Faker,
     atom: IFakerAtom
-): IFakerPrimitiveFunction | IFakerStructureFunction | IFakerProcedureFunction | (() => undefined) {
+): IFakerFunction | (() => undefined) {
     return (
         getFakerPrimitiveFunction(faker, atom as IFakerPrimitiveAtom) ??
+        getFakerDateFunction(faker, atom as IFakerDateAtom) ??
+        getFakerArrayFunction(faker, atom as IFakerArrayAtom) ??
         getFakerStructureFunction(faker, atom as IFakerStructureAtom) ??
-        getFakerProcedureWithArgs(faker, atom as IFakerProcedureAtom) ??
+        getFakerBoundFunction(faker, atom as IFakerBoundAtom) ??
         (() => undefined)
     );
 }
 
-/**
- * Returns Faker.js function which generates fake data.
- * @see https://fakerjs.dev/api/
- */
 export function getFakerPrimitiveFunction(
     faker: Faker,
     atom: IFakerPrimitiveAtom
@@ -360,10 +352,25 @@ export function getFakerPrimitiveFunction(
     }
 }
 
-/**
- * Returns Faker.js function which generates fake data.
- * @see https://fakerjs.dev/api/
- */
+export function getFakerDateFunction(faker: Faker, atom: IFakerDateAtom): IFakerDateFunction {
+    // prettier-ignore
+    switch (atom) {
+        case 'date.anytime': return faker.date.anytime;
+        case 'date.birthdate': return faker.date.birthdate;
+        case 'date.future': return faker.date.future;
+        case 'date.past': return faker.date.past;
+        case 'date.recent': return faker.date.recent;
+        case 'date.soon': return faker.date.soon;
+    }
+}
+
+export function getFakerArrayFunction(faker: Faker, atom: IFakerArrayAtom): IFakerArrayFunction {
+    // prettier-ignore
+    switch (atom) {
+        case 'location.nearbyGPSCoordinate': return faker.location.nearbyGPSCoordinate;
+    }
+}
+
 export function getFakerStructureFunction(
     faker: Faker,
     atom: IFakerStructureAtom
@@ -373,27 +380,14 @@ export function getFakerStructureFunction(
         case 'airline.airline': return faker.airline.airline;
         case 'airline.airplane': return faker.airline.airplane;
         case 'airline.airport': return faker.airline.airport;
-        case 'date.anytime': return faker.date.anytime;
-        case 'date.birthdate': return faker.date.birthdate;
-        case 'date.future': return faker.date.future;
-        case 'date.past': return faker.date.past;
-        case 'date.recent': return faker.date.recent;
-        case 'date.soon': return faker.date.soon;
         case 'finance.currency': return faker.finance.currency;
-        case 'location.nearbyGPSCoordinate': return faker.location.nearbyGPSCoordinate;
+        case 'location.language': return faker.location.language;
         case 'science.chemicalElement': return faker.science.chemicalElement;
         case 'science.unit': return faker.science.unit;
     }
 }
 
-/**
- * Returns Faker.js function which generates fake data.
- * @see https://fakerjs.dev/api/
- */
-export function getFakerProcedureWithArgs(
-    faker: Faker,
-    atom: IFakerProcedureAtom
-): IFakerProcedureFunction {
+export function getFakerBoundFunction(faker: Faker, atom: IFakerBoundAtom): IFakerBoundFunction {
     switch (atom) {
         case 'date.between': {
             return faker.date.between.bind(undefined, {

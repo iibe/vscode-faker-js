@@ -1,8 +1,10 @@
 import type {
+    IFakerArrayAtom,
     IFakerAtom,
+    IFakerBoundAtom,
+    IFakerDateAtom,
     IFakerLocale,
     IFakerPrimitiveAtom,
-    IFakerProcedureAtom,
     IFakerStructureAtom,
 } from '../types/faker';
 
@@ -334,23 +336,28 @@ export const fakerApiPrimitiveAtoms = exhaustive<IFakerPrimitiveAtom>()(
     'word.words'
 );
 
-export const fakerApiStructureAtoms = exhaustive<IFakerStructureAtom>()(
-    'airline.airline',
-    'airline.airplane',
-    'airline.airport',
+export const fakerApiDateAtoms = exhaustive<IFakerDateAtom>()(
     'date.anytime',
     'date.birthdate',
     'date.future',
     'date.past',
     'date.recent',
-    'date.soon',
+    'date.soon'
+);
+
+export const fakerApiArrayAtoms = exhaustive<IFakerArrayAtom>()('location.nearbyGPSCoordinate');
+
+export const fakerApiStructureAtoms = exhaustive<IFakerStructureAtom>()(
+    'airline.airline',
+    'airline.airplane',
+    'airline.airport',
     'finance.currency',
-    'location.nearbyGPSCoordinate',
+    'location.language',
     'science.chemicalElement',
     'science.unit'
 );
 
-export const fakerApiProcedureAtoms = exhaustive<IFakerProcedureAtom>()(
+export const fakerApiBoundAtoms = exhaustive<IFakerBoundAtom>()(
     'date.between',
     'date.betweens',
     'helpers.arrayElement',
@@ -373,6 +380,8 @@ export const fakerApiProcedureAtoms = exhaustive<IFakerProcedureAtom>()(
 
 export const fakerApiAtoms: IFakerAtom[] = [
     ...fakerApiPrimitiveAtoms,
+    ...fakerApiArrayAtoms,
+    ...fakerApiDateAtoms,
     ...fakerApiStructureAtoms,
-    ...fakerApiProcedureAtoms,
+    ...fakerApiBoundAtoms,
 ];

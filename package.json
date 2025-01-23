@@ -2,7 +2,7 @@
     "private": true,
     "sideEffects": false,
     "name": "vscode-faker-js",
-    "version": "9.3.9",
+    "version": "9.4.0",
     "description": "Generate fake data with Faker.js in VSCode.",
     "license": "MIT",
     "author": "Roman Narvatov <kjiibe@gmail.com> (https://iibe.github.io)",
@@ -67,8 +67,8 @@
         "test:integration": "pnpm vscode-test --label integration",
         "[2.2]": "------------------------------------------------------------",
         "prerelease": "rimraf --glob ./vscode-faker-js-*.vsix && make build",
-        "release": "vsce package 9.3.9 --no-dependencies --no-git-tag-version",
-        "staging": "code --install-extension vscode-faker-js-9.3.6.vsix",
+        "release": "vsce package 9.4.0 --no-dependencies --no-git-tag-version",
+        "staging": "code --install-extension vscode-faker-js-9.4.0.vsix",
         "production": "vsce publish --no-dependencies",
         "[3]": "--------------------------------------------------------------",
         "ci:dev": "tsx watch ./src/test/stringify.dev.ts",
@@ -1381,6 +1381,41 @@
                 "category": "Faker.js"
             },
             {
+                "command": "vscode-faker-js.run.date.anytime",
+                "title": "date.anytime (date)",
+                "category": "Faker.js"
+            },
+            {
+                "command": "vscode-faker-js.run.date.birthdate",
+                "title": "date.birthdate (date)",
+                "category": "Faker.js"
+            },
+            {
+                "command": "vscode-faker-js.run.date.future",
+                "title": "date.future (date)",
+                "category": "Faker.js"
+            },
+            {
+                "command": "vscode-faker-js.run.date.past",
+                "title": "date.past (date)",
+                "category": "Faker.js"
+            },
+            {
+                "command": "vscode-faker-js.run.date.recent",
+                "title": "date.recent (date)",
+                "category": "Faker.js"
+            },
+            {
+                "command": "vscode-faker-js.run.date.soon",
+                "title": "date.soon (date)",
+                "category": "Faker.js"
+            },
+            {
+                "command": "vscode-faker-js.run.location.nearbyGPSCoordinate",
+                "title": "location.nearbyGPSCoordinate (array)",
+                "category": "Faker.js"
+            },
+            {
                 "command": "vscode-faker-js.run.airline.airline",
                 "title": "airline.airline (object)",
                 "category": "Faker.js"
@@ -1396,43 +1431,13 @@
                 "category": "Faker.js"
             },
             {
-                "command": "vscode-faker-js.run.date.anytime",
-                "title": "date.anytime (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.birthdate",
-                "title": "date.birthdate (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.future",
-                "title": "date.future (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.past",
-                "title": "date.past (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.recent",
-                "title": "date.recent (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.soon",
-                "title": "date.soon (object)",
-                "category": "Faker.js"
-            },
-            {
                 "command": "vscode-faker-js.run.finance.currency",
                 "title": "finance.currency (object)",
                 "category": "Faker.js"
             },
             {
-                "command": "vscode-faker-js.run.location.nearbyGPSCoordinate",
-                "title": "location.nearbyGPSCoordinate (object)",
+                "command": "vscode-faker-js.run.location.language",
+                "title": "location.language (object)",
                 "category": "Faker.js"
             },
             {

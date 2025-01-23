@@ -256,6 +256,7 @@ These options provide additional control over how to insert data. This can be us
 1. `location.countryCode`
 1. `location.county`
 1. `location.direction`
+1. `location.language`
 1. `location.latitude`
 1. `location.longitude`
 1. `location.nearbyGPSCoordinate`
