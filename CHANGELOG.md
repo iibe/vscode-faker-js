@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [9.5.0] - 2025-02-07
 
-Faker v9.5.0 is available.
-
 ### Added
 
 -   Data output is adjusted to the syntax of the current programming language (`"faker-js.language": "*"`); or you can use fixed syntax for all languages (`"faker-js.language": "python"`).
