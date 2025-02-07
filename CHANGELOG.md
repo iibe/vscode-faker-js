@@ -5,6 +5,29 @@ All notable changes to the "vscode-faker-js" extension will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.5.0] - 2025-02-07
+
+Faker v9.5.0 is available.
+
+### Added
+
+-   Data output is adjusted to the syntax of the current programming language (`"faker-js.language": "*"`); or you can use fixed syntax for all languages (`"faker-js.language": "python"`).
+-   `settings.json` options:
+    -   `faker-js.locale`;
+    -   `faker-js.language`;
+    -   `faker-js.javascript.bigint.insertMode` (`faker-js.bigint.inser` before);
+    -   `faker-js.javascript.string.insertMode` (`faker-js.string.inser` before);
+    -   `faker-js.javascript.string.quotes` (`faker-js.string.quotes` before);
+    -   `faker-js.python.bigint.insertMode`;
+    -   `faker-js.python.string.insertMode`;
+    -   `faker-js.python.string.quotes`;
+-   For now, only 2 language syntax (`faker-js.language`) are present: JavaScript and Python.
+
+### Removed
+
+-   `settings.json` options:
+    -   `faker-js.symbol.quotes`;
+
 ## [9.4.0] - 2025-01-23
 
 ### Added

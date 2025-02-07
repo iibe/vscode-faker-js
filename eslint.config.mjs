@@ -18,7 +18,6 @@ export default [
             ecmaVersion: 2022,
             sourceType: 'module',
         },
-
         rules: {
             '@typescript-eslint/naming-convention': [
                 'warn',
@@ -27,7 +26,6 @@ export default [
                     format: ['camelCase', 'PascalCase'],
                 },
             ],
-
             curly: 'warn',
             eqeqeq: 'warn',
             'no-throw-literal': 'warn',

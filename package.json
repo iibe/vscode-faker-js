@@ -2,7 +2,7 @@
     "private": true,
     "sideEffects": false,
     "name": "vscode-faker-js",
-    "version": "9.4.0",
+    "version": "9.5.0",
     "description": "Generate fake data with Faker.js in VSCode.",
     "license": "MIT",
     "author": "Roman Narvatov <kjiibe@gmail.com> (https://iibe.github.io)",
@@ -36,7 +36,7 @@
     "packageManager": "pnpm@9.15.3",
     "engineStrict": false,
     "engines": {
-        "vscode": "^1.96.0",
+        "vscode": "^1.96.2",
         "node": ">=22.8.0",
         "npm": "please-use-pnpm",
         "yarn": "please-use-pnpm",
@@ -67,11 +67,11 @@
         "test:integration": "pnpm vscode-test --label integration",
         "[2.2]": "------------------------------------------------------------",
         "prerelease": "rimraf --glob ./vscode-faker-js-*.vsix && make build",
-        "release": "vsce package 9.4.0 --no-dependencies --no-git-tag-version",
-        "staging": "code --install-extension vscode-faker-js-9.4.0.vsix",
+        "release": "vsce package 9.5.0 --no-dependencies --no-git-tag-version",
+        "staging": "code --install-extension vscode-faker-js-9.5.0.vsix",
         "production": "vsce publish --no-dependencies",
         "[3]": "--------------------------------------------------------------",
-        "ci:dev": "tsx watch ./src/test/stringify.dev.ts",
+        "ci:dev": "tsx watch ./src/test/syntax.ts",
         "ci:format": "pnpm format:fix && pnpm lint:check && pnpm typecheck",
         "cd:deliver": "pnpm ci:format && pnpm release",
         "cd:deploy": "pnpm ci:deliver && pnpm production",
@@ -103,6 +103,1586 @@
     ],
     "activationEvents": [],
     "contributes": {
+        "commands": [
+            {
+                "command": "vscode-faker-js.airline.aircraftType",
+                "title": "airline.aircraftType",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.airline.flightNumber",
+                "title": "airline.flightNumber",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.airline.recordLocator",
+                "title": "airline.recordLocator",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.airline.seat",
+                "title": "airline.seat",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.bear",
+                "title": "animal.bear",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.bird",
+                "title": "animal.bird",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.cat",
+                "title": "animal.cat",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.cetacean",
+                "title": "animal.cetacean",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.cow",
+                "title": "animal.cow",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.crocodilia",
+                "title": "animal.crocodilia",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.dog",
+                "title": "animal.dog",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.fish",
+                "title": "animal.fish",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.horse",
+                "title": "animal.horse",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.insect",
+                "title": "animal.insect",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.lion",
+                "title": "animal.lion",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.petName",
+                "title": "animal.petName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.rabbit",
+                "title": "animal.rabbit",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.rodent",
+                "title": "animal.rodent",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.snake",
+                "title": "animal.snake",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.animal.type",
+                "title": "animal.type",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.book.author",
+                "title": "book.author",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.book.format",
+                "title": "book.format",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.book.genre",
+                "title": "book.genre",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.book.publisher",
+                "title": "book.publisher",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.book.series",
+                "title": "book.series",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.book.title",
+                "title": "book.title",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.cmyk",
+                "title": "color.cmyk",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.colorByCSSColorSpace",
+                "title": "color.colorByCSSColorSpace",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.cssSupportedFunction",
+                "title": "color.cssSupportedFunction",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.cssSupportedSpace",
+                "title": "color.cssSupportedSpace",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.hsl",
+                "title": "color.hsl",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.human",
+                "title": "color.human",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.hwb",
+                "title": "color.hwb",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.lab",
+                "title": "color.lab",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.lch",
+                "title": "color.lch",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.rgb",
+                "title": "color.rgb",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.color.space",
+                "title": "color.space",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.department",
+                "title": "commerce.department",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.isbn",
+                "title": "commerce.isbn",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.price",
+                "title": "commerce.price",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.product",
+                "title": "commerce.product",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.productAdjective",
+                "title": "commerce.productAdjective",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.productDescription",
+                "title": "commerce.productDescription",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.productMaterial",
+                "title": "commerce.productMaterial",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.commerce.productName",
+                "title": "commerce.productName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.buzzAdjective",
+                "title": "company.buzzAdjective",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.buzzNoun",
+                "title": "company.buzzNoun",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.buzzPhrase",
+                "title": "company.buzzPhrase",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.buzzVerb",
+                "title": "company.buzzVerb",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.catchPhrase",
+                "title": "company.catchPhrase",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.catchPhraseAdjective",
+                "title": "company.catchPhraseAdjective",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.catchPhraseDescriptor",
+                "title": "company.catchPhraseDescriptor",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.catchPhraseNoun",
+                "title": "company.catchPhraseNoun",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.company.name",
+                "title": "company.name",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.database.collation",
+                "title": "database.collation",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.database.column",
+                "title": "database.column",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.database.engine",
+                "title": "database.engine",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.database.mongodbObjectId",
+                "title": "database.mongodbObjectId",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.database.type",
+                "title": "database.type",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.datatype.boolean",
+                "title": "datatype.boolean",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.month",
+                "title": "date.month",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.timeZone",
+                "title": "date.timeZone",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.weekday",
+                "title": "date.weekday",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.accountName",
+                "title": "finance.accountName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.accountNumber",
+                "title": "finance.accountNumber",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.amount",
+                "title": "finance.amount",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.bic",
+                "title": "finance.bic",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.bitcoinAddress",
+                "title": "finance.bitcoinAddress",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.creditCardCVV",
+                "title": "finance.creditCardCVV",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.creditCardIssuer",
+                "title": "finance.creditCardIssuer",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.creditCardNumber",
+                "title": "finance.creditCardNumber",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.currencyCode",
+                "title": "finance.currencyCode",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.currencyName",
+                "title": "finance.currencyName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.currencySymbol",
+                "title": "finance.currencySymbol",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.ethereumAddress",
+                "title": "finance.ethereumAddress",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.iban",
+                "title": "finance.iban",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.litecoinAddress",
+                "title": "finance.litecoinAddress",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.maskedNumber",
+                "title": "finance.maskedNumber",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.pin",
+                "title": "finance.pin",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.routingNumber",
+                "title": "finance.routingNumber",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.transactionDescription",
+                "title": "finance.transactionDescription",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.transactionType",
+                "title": "finance.transactionType",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.adjective",
+                "title": "food.adjective",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.description",
+                "title": "food.description",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.dish",
+                "title": "food.dish",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.ethnicCategory",
+                "title": "food.ethnicCategory",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.fruit",
+                "title": "food.fruit",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.ingredient",
+                "title": "food.ingredient",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.meat",
+                "title": "food.meat",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.spice",
+                "title": "food.spice",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.food.vegetable",
+                "title": "food.vegetable",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.git.branch",
+                "title": "git.branch",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.git.commitDate",
+                "title": "git.commitDate",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.git.commitEntry",
+                "title": "git.commitEntry",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.git.commitMessage",
+                "title": "git.commitMessage",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.git.commitSha",
+                "title": "git.commitSha",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.hacker.abbreviation",
+                "title": "hacker.abbreviation",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.hacker.adjective",
+                "title": "hacker.adjective",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.hacker.ingverb",
+                "title": "hacker.ingverb",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.hacker.noun",
+                "title": "hacker.noun",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.hacker.phrase",
+                "title": "hacker.phrase",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.hacker.verb",
+                "title": "hacker.verb",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.replaceCreditCardSymbols",
+                "title": "helpers.replaceCreditCardSymbols",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.replaceSymbols",
+                "title": "helpers.replaceSymbols",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.slugify",
+                "title": "helpers.slugify",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.avatar",
+                "title": "image.avatar",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.avatarGitHub",
+                "title": "image.avatarGitHub",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.avatarLegacy",
+                "title": "image.avatarLegacy",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.dataUri",
+                "title": "image.dataUri",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.url",
+                "title": "image.url",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.urlLoremFlickr",
+                "title": "image.urlLoremFlickr",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.urlPicsumPhotos",
+                "title": "image.urlPicsumPhotos",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.image.urlPlaceholder",
+                "title": "image.urlPlaceholder",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.color",
+                "title": "internet.color",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.displayName",
+                "title": "internet.displayName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.domainName",
+                "title": "internet.domainName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.domainSuffix",
+                "title": "internet.domainSuffix",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.domainWord",
+                "title": "internet.domainWord",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.email",
+                "title": "internet.email",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.emoji",
+                "title": "internet.emoji",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.exampleEmail",
+                "title": "internet.exampleEmail",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.httpMethod",
+                "title": "internet.httpMethod",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.httpStatusCode",
+                "title": "internet.httpStatusCode",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.ip",
+                "title": "internet.ip",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.ipv4",
+                "title": "internet.ipv4",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.ipv6",
+                "title": "internet.ipv6",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.jwt",
+                "title": "internet.jwt",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.jwtAlgorithm",
+                "title": "internet.jwtAlgorithm",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.mac",
+                "title": "internet.mac",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.password",
+                "title": "internet.password",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.port",
+                "title": "internet.port",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.protocol",
+                "title": "internet.protocol",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.url",
+                "title": "internet.url",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.userAgent",
+                "title": "internet.userAgent",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.username",
+                "title": "internet.username",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.internet.userName",
+                "title": "internet.userName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.buildingNumber",
+                "title": "location.buildingNumber",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.cardinalDirection",
+                "title": "location.cardinalDirection",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.city",
+                "title": "location.city",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.continent",
+                "title": "location.continent",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.country",
+                "title": "location.country",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.countryCode",
+                "title": "location.countryCode",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.county",
+                "title": "location.county",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.direction",
+                "title": "location.direction",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.latitude",
+                "title": "location.latitude",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.longitude",
+                "title": "location.longitude",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.ordinalDirection",
+                "title": "location.ordinalDirection",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.secondaryAddress",
+                "title": "location.secondaryAddress",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.state",
+                "title": "location.state",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.street",
+                "title": "location.street",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.streetAddress",
+                "title": "location.streetAddress",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.timeZone",
+                "title": "location.timeZone",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.zipCode",
+                "title": "location.zipCode",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.lines",
+                "title": "lorem.lines",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.paragraph",
+                "title": "lorem.paragraph",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.paragraphs",
+                "title": "lorem.paragraphs",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.sentence",
+                "title": "lorem.sentence",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.sentences",
+                "title": "lorem.sentences",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.slug",
+                "title": "lorem.slug",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.text",
+                "title": "lorem.text",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.word",
+                "title": "lorem.word",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.lorem.words",
+                "title": "lorem.words",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.music.album",
+                "title": "music.album",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.music.artist",
+                "title": "music.artist",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.music.genre",
+                "title": "music.genre",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.music.songName",
+                "title": "music.songName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.number.bigInt",
+                "title": "number.bigInt",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.number.binary",
+                "title": "number.binary",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.number.float",
+                "title": "number.float",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.number.hex",
+                "title": "number.hex",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.number.int",
+                "title": "number.int",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.number.octal",
+                "title": "number.octal",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.number.romanNumeral",
+                "title": "number.romanNumeral",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.bio",
+                "title": "person.bio",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.firstName",
+                "title": "person.firstName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.fullName",
+                "title": "person.fullName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.gender",
+                "title": "person.gender",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.jobArea",
+                "title": "person.jobArea",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.jobDescriptor",
+                "title": "person.jobDescriptor",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.jobTitle",
+                "title": "person.jobTitle",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.jobType",
+                "title": "person.jobType",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.lastName",
+                "title": "person.lastName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.middleName",
+                "title": "person.middleName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.prefix",
+                "title": "person.prefix",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.sex",
+                "title": "person.sex",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.sexType",
+                "title": "person.sexType",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.suffix",
+                "title": "person.suffix",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.person.zodiacSign",
+                "title": "person.zodiacSign",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.phone.imei",
+                "title": "phone.imei",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.phone.number",
+                "title": "phone.number",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.alpha",
+                "title": "string.alpha",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.alphanumeric",
+                "title": "string.alphanumeric",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.binary",
+                "title": "string.binary",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.hexadecimal",
+                "title": "string.hexadecimal",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.nanoid",
+                "title": "string.nanoid",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.numeric",
+                "title": "string.numeric",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.octal",
+                "title": "string.octal",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.sample",
+                "title": "string.sample",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.symbol",
+                "title": "string.symbol",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.ulid",
+                "title": "string.ulid",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.uuid",
+                "title": "string.uuid",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.commonFileExt",
+                "title": "system.commonFileExt",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.commonFileName",
+                "title": "system.commonFileName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.commonFileType",
+                "title": "system.commonFileType",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.cron",
+                "title": "system.cron",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.directoryPath",
+                "title": "system.directoryPath",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.fileExt",
+                "title": "system.fileExt",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.fileName",
+                "title": "system.fileName",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.filePath",
+                "title": "system.filePath",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.fileType",
+                "title": "system.fileType",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.mimeType",
+                "title": "system.mimeType",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.networkInterface",
+                "title": "system.networkInterface",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.system.semver",
+                "title": "system.semver",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.bicycle",
+                "title": "vehicle.bicycle",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.color",
+                "title": "vehicle.color",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.fuel",
+                "title": "vehicle.fuel",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.manufacturer",
+                "title": "vehicle.manufacturer",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.model",
+                "title": "vehicle.model",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.type",
+                "title": "vehicle.type",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.vehicle",
+                "title": "vehicle.vehicle",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.vin",
+                "title": "vehicle.vin",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.vehicle.vrm",
+                "title": "vehicle.vrm",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.adjective",
+                "title": "word.adjective",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.adverb",
+                "title": "word.adverb",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.conjunction",
+                "title": "word.conjunction",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.interjection",
+                "title": "word.interjection",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.noun",
+                "title": "word.noun",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.preposition",
+                "title": "word.preposition",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.sample",
+                "title": "word.sample",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.verb",
+                "title": "word.verb",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.word.words",
+                "title": "word.words",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.anytime",
+                "title": "date.anytime (date)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.birthdate",
+                "title": "date.birthdate (date)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.future",
+                "title": "date.future (date)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.past",
+                "title": "date.past (date)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.recent",
+                "title": "date.recent (date)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.soon",
+                "title": "date.soon (date)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.nearbyGPSCoordinate",
+                "title": "location.nearbyGPSCoordinate (array)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.airline.airline",
+                "title": "airline.airline (object)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.airline.airplane",
+                "title": "airline.airplane (object)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.airline.airport",
+                "title": "airline.airport (object)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.finance.currency",
+                "title": "finance.currency (object)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.location.language",
+                "title": "location.language (object)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.science.chemicalElement",
+                "title": "science.chemicalElement (object)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.science.unit",
+                "title": "science.unit (object)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.between",
+                "title": "date.between (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.date.betweens",
+                "title": "date.betweens (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.arrayElement",
+                "title": "helpers.arrayElement (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.arrayElements",
+                "title": "helpers.arrayElements (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.enumValue",
+                "title": "helpers.enumValue (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.fake",
+                "title": "helpers.fake (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.fromRegExp",
+                "title": "helpers.fromRegExp (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.maybe",
+                "title": "helpers.maybe (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.multiple",
+                "title": "helpers.multiple (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.mustache",
+                "title": "helpers.mustache (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.objectEntry",
+                "title": "helpers.objectEntry (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.objectKey",
+                "title": "helpers.objectKey (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.objectValue",
+                "title": "helpers.objectValue (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.rangeToNumber",
+                "title": "helpers.rangeToNumber (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.shuffle",
+                "title": "helpers.shuffle (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.uniqueArray",
+                "title": "helpers.uniqueArray (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.helpers.weightedArrayElement",
+                "title": "helpers.weightedArrayElement (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
+                "command": "vscode-faker-js.string.fromCharacters",
+                "title": "string.fromCharacters (binding)",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "Faker.js",
@@ -181,28 +1761,107 @@
                         "zu_ZA"
                     ],
                     "default": "en",
-                    "description": "Specifies Faker.js locale."
+                    "description": "Specifies default Faker.js locale."
                 },
-                "faker-js.bigint.insert": {
+                "faker-js.language": {
                     "type": "string",
                     "enum": [
-                        "literal",
+                        "abap",
+                        "bat",
+                        "bibtex",
+                        "clojure",
+                        "coffeescript",
+                        "c",
+                        "cpp",
+                        "csharp",
+                        "dockercompose",
+                        "css",
+                        "cuda-cpp",
+                        "d",
+                        "dart",
+                        "pascal",
+                        "diff",
+                        "dockerfile",
+                        "erlang",
+                        "fsharp",
+                        "git-commit",
+                        "git-rebase",
+                        "go",
+                        "groovy",
+                        "handlebars",
+                        "haml",
+                        "haskell",
+                        "html",
+                        "ini",
+                        "java",
+                        "javascript",
+                        "javascriptreact",
+                        "json",
+                        "jsonc",
+                        "julia",
+                        "latex",
+                        "less",
+                        "lua",
+                        "makefile",
+                        "markdown",
+                        "objective-c",
+                        "objective-cpp",
+                        "ocaml",
+                        "pascal",
+                        "perl",
+                        "perl6",
+                        "php",
+                        "plaintext",
+                        "powershell",
+                        "jade",
+                        "pug",
+                        "python",
+                        "r",
+                        "razor",
+                        "ruby",
+                        "rust",
+                        "sass",
+                        "scss",
+                        "shaderlab",
+                        "shellscript",
+                        "slim",
+                        "sql",
+                        "stylus",
+                        "svelte",
+                        "swift",
+                        "typescript",
+                        "typescriptreact",
+                        "tex",
+                        "vb",
+                        "vue",
+                        "vue-html",
+                        "xml",
+                        "xsl",
+                        "yaml"
+                    ],
+                    "default": "*",
+                    "description": "Specifies the format of the data output. If set to \"*\", the serialization class will change dynamically depending on a language. Otherwise (if set to a particular language), a fixed serialization class will be used for all languages. If no serialization class was found, then the it falls to JavaScript syntax."
+                },
+                "faker-js.javascript.bigint.insertMode": {
+                    "type": "string",
+                    "enum": [
                         "inline",
+                        "literal",
                         "wrapper"
                     ],
                     "default": "literal",
-                    "description": "Either literal `123n` (by default), or wrapper object `BigInt(123)`."
+                    "description": "BigInt is inserted as \"9007199254740991\" in inline mode, as \"9007199254740991n\" in literal mode, as \"BigInt(9007199254740991)\" in wrapper mode."
                 },
-                "faker-js.string.insert": {
+                "faker-js.javascript.string.insertMode": {
                     "type": "string",
                     "enum": [
-                        "literal",
-                        "inline"
+                        "inline",
+                        "literal"
                     ],
                     "default": "literal",
-                    "description": "Either literal `\"string\"` (by default), or inline `string`."
+                    "description": "String inserted: as \"\"foobar\"\" in literal mode, as \"foobar\" in inline mode."
                 },
-                "faker-js.string.quotes": {
+                "faker-js.javascript.string.quotes": {
                     "type": "string",
                     "enum": [
                         "single",
@@ -212,1334 +1871,36 @@
                     "default": "single",
                     "description": "Specify string quotes type."
                 },
-                "faker-js.symbol.quotes": {
+                "faker-js.python.bigint.insertMode": {
                     "type": "string",
                     "enum": [
-                        "single",
-                        "double",
-                        "backticks"
+                        "inline",
+                        "literal"
                     ],
-                    "default": "single",
-                    "description": "Specify symbol quotes type."
+                    "default": "literal",
+                    "description": "BigInt is inserted as \"9007199254740991\" in inline mode, as \"9007199254740991\" in literal mode"
+                },
+                "faker-js.python.string.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "inline",
+                        "literal"
+                    ],
+                    "default": "literal",
+                    "description": "String inserted: as \"\"foobar\"\" in literal mode, as \"foobar\" in inline mode."
+                },
+                "faker-js.python.string.quotes": {
+                    "type": "string",
+                    "enum": [
+                        "double"
+                    ],
+                    "default": "double",
+                    "description": "Specify string quotes type."
                 }
             }
-        },
-        "commands": [
-            {
-                "command": "vscode-faker-js.run.airline.aircraftType",
-                "title": "airline.aircraftType",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.airline.flightNumber",
-                "title": "airline.flightNumber",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.airline.recordLocator",
-                "title": "airline.recordLocator",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.airline.seat",
-                "title": "airline.seat",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.bear",
-                "title": "animal.bear",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.bird",
-                "title": "animal.bird",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.cat",
-                "title": "animal.cat",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.cetacean",
-                "title": "animal.cetacean",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.cow",
-                "title": "animal.cow",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.crocodilia",
-                "title": "animal.crocodilia",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.dog",
-                "title": "animal.dog",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.fish",
-                "title": "animal.fish",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.horse",
-                "title": "animal.horse",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.insect",
-                "title": "animal.insect",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.lion",
-                "title": "animal.lion",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.petName",
-                "title": "animal.petName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.rabbit",
-                "title": "animal.rabbit",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.rodent",
-                "title": "animal.rodent",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.snake",
-                "title": "animal.snake",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.animal.type",
-                "title": "animal.type",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.book.author",
-                "title": "book.author",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.book.format",
-                "title": "book.format",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.book.genre",
-                "title": "book.genre",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.book.publisher",
-                "title": "book.publisher",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.book.series",
-                "title": "book.series",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.book.title",
-                "title": "book.title",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.cmyk",
-                "title": "color.cmyk",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.colorByCSSColorSpace",
-                "title": "color.colorByCSSColorSpace",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.cssSupportedFunction",
-                "title": "color.cssSupportedFunction",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.cssSupportedSpace",
-                "title": "color.cssSupportedSpace",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.hsl",
-                "title": "color.hsl",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.human",
-                "title": "color.human",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.hwb",
-                "title": "color.hwb",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.lab",
-                "title": "color.lab",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.lch",
-                "title": "color.lch",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.rgb",
-                "title": "color.rgb",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.color.space",
-                "title": "color.space",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.department",
-                "title": "commerce.department",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.isbn",
-                "title": "commerce.isbn",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.price",
-                "title": "commerce.price",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.product",
-                "title": "commerce.product",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.productAdjective",
-                "title": "commerce.productAdjective",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.productDescription",
-                "title": "commerce.productDescription",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.productMaterial",
-                "title": "commerce.productMaterial",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.commerce.productName",
-                "title": "commerce.productName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.buzzAdjective",
-                "title": "company.buzzAdjective",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.buzzNoun",
-                "title": "company.buzzNoun",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.buzzPhrase",
-                "title": "company.buzzPhrase",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.buzzVerb",
-                "title": "company.buzzVerb",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.catchPhrase",
-                "title": "company.catchPhrase",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.catchPhraseAdjective",
-                "title": "company.catchPhraseAdjective",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.catchPhraseDescriptor",
-                "title": "company.catchPhraseDescriptor",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.catchPhraseNoun",
-                "title": "company.catchPhraseNoun",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.company.name",
-                "title": "company.name",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.database.collation",
-                "title": "database.collation",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.database.column",
-                "title": "database.column",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.database.engine",
-                "title": "database.engine",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.database.mongodbObjectId",
-                "title": "database.mongodbObjectId",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.database.type",
-                "title": "database.type",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.datatype.boolean",
-                "title": "datatype.boolean",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.month",
-                "title": "date.month",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.timeZone",
-                "title": "date.timeZone",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.weekday",
-                "title": "date.weekday",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.accountName",
-                "title": "finance.accountName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.accountNumber",
-                "title": "finance.accountNumber",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.amount",
-                "title": "finance.amount",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.bic",
-                "title": "finance.bic",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.bitcoinAddress",
-                "title": "finance.bitcoinAddress",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.creditCardCVV",
-                "title": "finance.creditCardCVV",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.creditCardIssuer",
-                "title": "finance.creditCardIssuer",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.creditCardNumber",
-                "title": "finance.creditCardNumber",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.currencyCode",
-                "title": "finance.currencyCode",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.currencyName",
-                "title": "finance.currencyName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.currencySymbol",
-                "title": "finance.currencySymbol",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.ethereumAddress",
-                "title": "finance.ethereumAddress",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.iban",
-                "title": "finance.iban",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.litecoinAddress",
-                "title": "finance.litecoinAddress",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.maskedNumber",
-                "title": "finance.maskedNumber",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.pin",
-                "title": "finance.pin",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.routingNumber",
-                "title": "finance.routingNumber",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.transactionDescription",
-                "title": "finance.transactionDescription",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.transactionType",
-                "title": "finance.transactionType",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.adjective",
-                "title": "food.adjective",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.description",
-                "title": "food.description",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.dish",
-                "title": "food.dish",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.ethnicCategory",
-                "title": "food.ethnicCategory",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.fruit",
-                "title": "food.fruit",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.ingredient",
-                "title": "food.ingredient",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.meat",
-                "title": "food.meat",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.spice",
-                "title": "food.spice",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.food.vegetable",
-                "title": "food.vegetable",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.git.branch",
-                "title": "git.branch",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.git.commitDate",
-                "title": "git.commitDate",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.git.commitEntry",
-                "title": "git.commitEntry",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.git.commitMessage",
-                "title": "git.commitMessage",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.git.commitSha",
-                "title": "git.commitSha",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.abbreviation",
-                "title": "hacker.abbreviation",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.adjective",
-                "title": "hacker.adjective",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.ingverb",
-                "title": "hacker.ingverb",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.noun",
-                "title": "hacker.noun",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.phrase",
-                "title": "hacker.phrase",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.hacker.verb",
-                "title": "hacker.verb",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.replaceCreditCardSymbols",
-                "title": "helpers.replaceCreditCardSymbols",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.replaceSymbols",
-                "title": "helpers.replaceSymbols",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.slugify",
-                "title": "helpers.slugify",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.avatar",
-                "title": "image.avatar",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.avatarGitHub",
-                "title": "image.avatarGitHub",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.avatarLegacy",
-                "title": "image.avatarLegacy",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.dataUri",
-                "title": "image.dataUri",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.url",
-                "title": "image.url",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.urlLoremFlickr",
-                "title": "image.urlLoremFlickr",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.urlPicsumPhotos",
-                "title": "image.urlPicsumPhotos",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.image.urlPlaceholder",
-                "title": "image.urlPlaceholder",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.color",
-                "title": "internet.color",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.displayName",
-                "title": "internet.displayName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.domainName",
-                "title": "internet.domainName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.domainSuffix",
-                "title": "internet.domainSuffix",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.domainWord",
-                "title": "internet.domainWord",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.email",
-                "title": "internet.email",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.emoji",
-                "title": "internet.emoji",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.exampleEmail",
-                "title": "internet.exampleEmail",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.httpMethod",
-                "title": "internet.httpMethod",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.httpStatusCode",
-                "title": "internet.httpStatusCode",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.ip",
-                "title": "internet.ip",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.ipv4",
-                "title": "internet.ipv4",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.ipv6",
-                "title": "internet.ipv6",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.jwt",
-                "title": "internet.jwt",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.jwtAlgorithm",
-                "title": "internet.jwtAlgorithm",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.mac",
-                "title": "internet.mac",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.password",
-                "title": "internet.password",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.port",
-                "title": "internet.port",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.protocol",
-                "title": "internet.protocol",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.url",
-                "title": "internet.url",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.userAgent",
-                "title": "internet.userAgent",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.username",
-                "title": "internet.username",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.internet.userName",
-                "title": "internet.userName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.buildingNumber",
-                "title": "location.buildingNumber",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.cardinalDirection",
-                "title": "location.cardinalDirection",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.city",
-                "title": "location.city",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.continent",
-                "title": "location.continent",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.country",
-                "title": "location.country",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.countryCode",
-                "title": "location.countryCode",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.county",
-                "title": "location.county",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.direction",
-                "title": "location.direction",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.latitude",
-                "title": "location.latitude",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.longitude",
-                "title": "location.longitude",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.ordinalDirection",
-                "title": "location.ordinalDirection",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.secondaryAddress",
-                "title": "location.secondaryAddress",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.state",
-                "title": "location.state",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.street",
-                "title": "location.street",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.streetAddress",
-                "title": "location.streetAddress",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.timeZone",
-                "title": "location.timeZone",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.zipCode",
-                "title": "location.zipCode",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.lines",
-                "title": "lorem.lines",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.paragraph",
-                "title": "lorem.paragraph",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.paragraphs",
-                "title": "lorem.paragraphs",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.sentence",
-                "title": "lorem.sentence",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.sentences",
-                "title": "lorem.sentences",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.slug",
-                "title": "lorem.slug",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.text",
-                "title": "lorem.text",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.word",
-                "title": "lorem.word",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.lorem.words",
-                "title": "lorem.words",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.music.album",
-                "title": "music.album",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.music.artist",
-                "title": "music.artist",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.music.genre",
-                "title": "music.genre",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.music.songName",
-                "title": "music.songName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.number.bigInt",
-                "title": "number.bigInt",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.number.binary",
-                "title": "number.binary",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.number.float",
-                "title": "number.float",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.number.hex",
-                "title": "number.hex",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.number.int",
-                "title": "number.int",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.number.octal",
-                "title": "number.octal",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.number.romanNumeral",
-                "title": "number.romanNumeral",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.bio",
-                "title": "person.bio",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.firstName",
-                "title": "person.firstName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.fullName",
-                "title": "person.fullName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.gender",
-                "title": "person.gender",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobArea",
-                "title": "person.jobArea",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobDescriptor",
-                "title": "person.jobDescriptor",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobTitle",
-                "title": "person.jobTitle",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.jobType",
-                "title": "person.jobType",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.lastName",
-                "title": "person.lastName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.middleName",
-                "title": "person.middleName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.prefix",
-                "title": "person.prefix",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.sex",
-                "title": "person.sex",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.sexType",
-                "title": "person.sexType",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.suffix",
-                "title": "person.suffix",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.person.zodiacSign",
-                "title": "person.zodiacSign",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.phone.imei",
-                "title": "phone.imei",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.phone.number",
-                "title": "phone.number",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.alpha",
-                "title": "string.alpha",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.alphanumeric",
-                "title": "string.alphanumeric",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.binary",
-                "title": "string.binary",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.hexadecimal",
-                "title": "string.hexadecimal",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.nanoid",
-                "title": "string.nanoid",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.numeric",
-                "title": "string.numeric",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.octal",
-                "title": "string.octal",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.sample",
-                "title": "string.sample",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.symbol",
-                "title": "string.symbol",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.ulid",
-                "title": "string.ulid",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.uuid",
-                "title": "string.uuid",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.commonFileExt",
-                "title": "system.commonFileExt",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.commonFileName",
-                "title": "system.commonFileName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.commonFileType",
-                "title": "system.commonFileType",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.cron",
-                "title": "system.cron",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.directoryPath",
-                "title": "system.directoryPath",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.fileExt",
-                "title": "system.fileExt",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.fileName",
-                "title": "system.fileName",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.filePath",
-                "title": "system.filePath",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.fileType",
-                "title": "system.fileType",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.mimeType",
-                "title": "system.mimeType",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.networkInterface",
-                "title": "system.networkInterface",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.system.semver",
-                "title": "system.semver",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.bicycle",
-                "title": "vehicle.bicycle",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.color",
-                "title": "vehicle.color",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.fuel",
-                "title": "vehicle.fuel",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.manufacturer",
-                "title": "vehicle.manufacturer",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.model",
-                "title": "vehicle.model",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.type",
-                "title": "vehicle.type",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.vehicle",
-                "title": "vehicle.vehicle",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.vin",
-                "title": "vehicle.vin",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.vehicle.vrm",
-                "title": "vehicle.vrm",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.adjective",
-                "title": "word.adjective",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.adverb",
-                "title": "word.adverb",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.conjunction",
-                "title": "word.conjunction",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.interjection",
-                "title": "word.interjection",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.noun",
-                "title": "word.noun",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.preposition",
-                "title": "word.preposition",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.sample",
-                "title": "word.sample",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.verb",
-                "title": "word.verb",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.word.words",
-                "title": "word.words",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.anytime",
-                "title": "date.anytime (date)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.birthdate",
-                "title": "date.birthdate (date)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.future",
-                "title": "date.future (date)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.past",
-                "title": "date.past (date)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.recent",
-                "title": "date.recent (date)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.soon",
-                "title": "date.soon (date)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.nearbyGPSCoordinate",
-                "title": "location.nearbyGPSCoordinate (array)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.airline.airline",
-                "title": "airline.airline (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.airline.airplane",
-                "title": "airline.airplane (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.airline.airport",
-                "title": "airline.airport (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.finance.currency",
-                "title": "finance.currency (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.location.language",
-                "title": "location.language (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.science.chemicalElement",
-                "title": "science.chemicalElement (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.science.unit",
-                "title": "science.unit (object)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.between",
-                "title": "date.between (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.date.betweens",
-                "title": "date.betweens (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.arrayElement",
-                "title": "helpers.arrayElement (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.arrayElements",
-                "title": "helpers.arrayElements (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.enumValue",
-                "title": "helpers.enumValue (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.fake",
-                "title": "helpers.fake (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.fromRegExp",
-                "title": "helpers.fromRegExp (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.maybe",
-                "title": "helpers.maybe (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.multiple",
-                "title": "helpers.multiple (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.mustache",
-                "title": "helpers.mustache (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.objectEntry",
-                "title": "helpers.objectEntry (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.objectKey",
-                "title": "helpers.objectKey (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.objectValue",
-                "title": "helpers.objectValue (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.rangeToNumber",
-                "title": "helpers.rangeToNumber (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.shuffle",
-                "title": "helpers.shuffle (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.uniqueArray",
-                "title": "helpers.uniqueArray (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.helpers.weightedArrayElement",
-                "title": "helpers.weightedArrayElement (binding)",
-                "category": "Faker.js"
-            },
-            {
-                "command": "vscode-faker-js.run.string.fromCharacters",
-                "title": "string.fromCharacters (binding)",
-                "category": "Faker.js"
-            }
-        ]
+        }
+    },
+    "menus": {
+        "commandPalette": []
     }
 }

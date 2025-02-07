@@ -7,8 +7,8 @@ export default defineConfig({
     bundle: true,
     external: ['vscode'],
     noExternal: ['@faker-js/faker'],
-    splitting: true,
     treeshake: true,
+    splitting: true,
     clean: true,
     entry: {
         extension: './src/extension.ts',

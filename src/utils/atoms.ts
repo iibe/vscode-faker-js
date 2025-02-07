@@ -7,30 +7,85 @@ import type {
     IFakerPrimitiveAtom,
     IFakerStructureAtom,
 } from '../types/faker';
+import { LanguageIdentifier } from '../types/vscode';
+import { exhaustiveArray } from './exhaustive';
 
-/**
- * Checks if array is exhaustive over type union items.
- * If some items are missing, then you'll see error:
- *
- * > Argument of type `X` is not assignable to parameter of type `Y | Z | ...`.
- *
- * Where:
- * - `X` is a first parameter of exhaustive();
- * - `Y | Z | ...` are missing items;
- */
-function exhaustive<T extends string>() {
-    return function <S extends [T, ...T[]]>(
-        ...array: S extends any
-            ? Exclude<T, S[number]> extends never
-                ? S
-                : Exclude<T, S[number]>[]
-            : never
-    ) {
-        return array;
-    };
-}
+export const vscodeLanguageIdAtoms = exhaustiveArray<LanguageIdentifier>()(
+    'abap',
+    'bat',
+    'bibtex',
+    'clojure',
+    'coffeescript',
+    'c',
+    'cpp',
+    'csharp',
+    'dockercompose',
+    'css',
+    'cuda-cpp',
+    'd',
+    'dart',
+    'pascal',
+    'diff',
+    'dockerfile',
+    'erlang',
+    'fsharp',
+    'git-commit',
+    'git-rebase',
+    'go',
+    'groovy',
+    'handlebars',
+    'haml',
+    'haskell',
+    'html',
+    'ini',
+    'java',
+    'javascript',
+    'javascriptreact',
+    'json',
+    'jsonc',
+    'julia',
+    'latex',
+    'less',
+    'lua',
+    'makefile',
+    'markdown',
+    'objective-c',
+    'objective-cpp',
+    'ocaml',
+    'pascal',
+    'perl',
+    'perl6',
+    'php',
+    'plaintext',
+    'powershell',
+    'jade',
+    'pug',
+    'python',
+    'r',
+    'razor',
+    'ruby',
+    'rust',
+    'sass',
+    'scss',
+    'shaderlab',
+    'shellscript',
+    'slim',
+    'sql',
+    'stylus',
+    'svelte',
+    'swift',
+    'typescript',
+    'typescriptreact',
+    'tex',
+    'vb',
+    'vue',
+    'vue-html',
+    'xml',
+    'xsl',
+    'yaml'
+);
 
-export const fakerLocaleAtoms = exhaustive<IFakerLocale>()(
+export const fakerLocaleAtoms = exhaustiveArray<IFakerLocale>()(
     'af_ZA',
     'ar',
     'az',
@@ -102,7 +157,7 @@ export const fakerLocaleAtoms = exhaustive<IFakerLocale>()(
     'zu_ZA'
 );
 
-export const fakerApiPrimitiveAtoms = exhaustive<IFakerPrimitiveAtom>()(
+export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
     'airline.aircraftType',
     'airline.flightNumber',
     'airline.recordLocator',
@@ -336,7 +391,7 @@ export const fakerApiPrimitiveAtoms = exhaustive<IFakerPrimitiveAtom>()(
     'word.words'
 );
 
-export const fakerApiDateAtoms = exhaustive<IFakerDateAtom>()(
+export const fakerApiDateAtoms = exhaustiveArray<IFakerDateAtom>()(
     'date.anytime',
     'date.birthdate',
     'date.future',
@@ -345,9 +400,11 @@ export const fakerApiDateAtoms = exhaustive<IFakerDateAtom>()(
     'date.soon'
 );
 
-export const fakerApiArrayAtoms = exhaustive<IFakerArrayAtom>()('location.nearbyGPSCoordinate');
+export const fakerApiArrayAtoms = exhaustiveArray<IFakerArrayAtom>()(
+    'location.nearbyGPSCoordinate'
+);
 
-export const fakerApiStructureAtoms = exhaustive<IFakerStructureAtom>()(
+export const fakerApiStructureAtoms = exhaustiveArray<IFakerStructureAtom>()(
     'airline.airline',
     'airline.airplane',
     'airline.airport',
@@ -357,7 +414,7 @@ export const fakerApiStructureAtoms = exhaustive<IFakerStructureAtom>()(
     'science.unit'
 );
 
-export const fakerApiBoundAtoms = exhaustive<IFakerBoundAtom>()(
+export const fakerApiBoundAtoms = exhaustiveArray<IFakerBoundAtom>()(
     'date.between',
     'date.betweens',
     'helpers.arrayElement',

@@ -44,6 +44,12 @@ If everything is working great, then run `production`.
 4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you
    do not have permission to do that, you may request the second reviewer.
 
+## Pitfalls
+
+Problems that may arise during development and their solutions:
+
+1. [Circular dependencies](https://medium.com/visual-development/how-to-fix-nasty-circular-dependency-issues-once-and-for-all-in-javascript-typescript-a04c987cf0de);
+
 ## Resources
 
 A bunch of resources that might be useful during development process.

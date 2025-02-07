@@ -2,18 +2,94 @@ import { fileURLToPath } from 'url';
 import path2 from 'path';
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 
-// node_modules/.pnpm/tsup@8.3.5_tsx@4.19.2_typescript@5.7.3/node_modules/tsup/assets/esm_shims.js
+// node_modules/.pnpm/tsup@8.3.6_tsx@4.19.2_typescript@5.7.3/node_modules/tsup/assets/esm_shims.js
 var getFilename = () => fileURLToPath(import.meta.url);
 var getDirname = () => path2.dirname(getFilename());
 var __dirname = /* @__PURE__ */ getDirname();
 
-// src/core/atoms.ts
-function exhaustive() {
+// src/utils/exhaustive.ts
+function exhaustiveArray() {
   return function(...array) {
     return array;
   };
 }
-var fakerLocaleAtoms = exhaustive()(
+
+// src/utils/atoms.ts
+var vscodeLanguageIdAtoms = exhaustiveArray()(
+  "abap",
+  "bat",
+  "bibtex",
+  "clojure",
+  "coffeescript",
+  "c",
+  "cpp",
+  "csharp",
+  "dockercompose",
+  "css",
+  "cuda-cpp",
+  "d",
+  "dart",
+  "pascal",
+  "diff",
+  "dockerfile",
+  "erlang",
+  "fsharp",
+  "git-commit",
+  "git-rebase",
+  "go",
+  "groovy",
+  "handlebars",
+  "haml",
+  "haskell",
+  "html",
+  "ini",
+  "java",
+  "javascript",
+  "javascriptreact",
+  "json",
+  "jsonc",
+  "julia",
+  "latex",
+  "less",
+  "lua",
+  "makefile",
+  "markdown",
+  "objective-c",
+  "objective-cpp",
+  "ocaml",
+  "pascal",
+  "perl",
+  "perl6",
+  "php",
+  "plaintext",
+  "powershell",
+  "jade",
+  "pug",
+  "python",
+  "r",
+  "razor",
+  "ruby",
+  "rust",
+  "sass",
+  "scss",
+  "shaderlab",
+  "shellscript",
+  "slim",
+  "sql",
+  "stylus",
+  "svelte",
+  "swift",
+  "typescript",
+  "typescriptreact",
+  "tex",
+  "vb",
+  "vue",
+  "vue-html",
+  "xml",
+  "xsl",
+  "yaml"
+);
+var fakerLocaleAtoms = exhaustiveArray()(
   "af_ZA",
   "ar",
   "az",
@@ -84,7 +160,7 @@ var fakerLocaleAtoms = exhaustive()(
   "zh_TW",
   "zu_ZA"
 );
-var fakerApiPrimitiveAtoms = exhaustive()(
+var fakerApiPrimitiveAtoms = exhaustiveArray()(
   "airline.aircraftType",
   "airline.flightNumber",
   "airline.recordLocator",
@@ -317,7 +393,7 @@ var fakerApiPrimitiveAtoms = exhaustive()(
   "word.verb",
   "word.words"
 );
-var fakerApiDateAtoms = exhaustive()(
+var fakerApiDateAtoms = exhaustiveArray()(
   "date.anytime",
   "date.birthdate",
   "date.future",
@@ -325,8 +401,10 @@ var fakerApiDateAtoms = exhaustive()(
   "date.recent",
   "date.soon"
 );
-var fakerApiArrayAtoms = exhaustive()("location.nearbyGPSCoordinate");
-var fakerApiStructureAtoms = exhaustive()(
+var fakerApiArrayAtoms = exhaustiveArray()(
+  "location.nearbyGPSCoordinate"
+);
+var fakerApiStructureAtoms = exhaustiveArray()(
   "airline.airline",
   "airline.airplane",
   "airline.airport",
@@ -335,7 +413,7 @@ var fakerApiStructureAtoms = exhaustive()(
   "science.chemicalElement",
   "science.unit"
 );
-var fakerApiBoundAtoms = exhaustive()(
+var fakerApiBoundAtoms = exhaustiveArray()(
   "date.between",
   "date.betweens",
   "helpers.arrayElement",
@@ -355,7 +433,7 @@ var fakerApiBoundAtoms = exhaustive()(
   "helpers.weightedArrayElement",
   "string.fromCharacters"
 );
-[
+var fakerApiAtoms = [
   ...fakerApiPrimitiveAtoms,
   ...fakerApiArrayAtoms,
   ...fakerApiDateAtoms,
@@ -364,106 +442,135 @@ var fakerApiBoundAtoms = exhaustive()(
 ];
 
 // src/codegen.ts
-codegen();
+function getActivationEvents() {
+  const events = [];
+  return events;
+}
+function getContribCommands() {
+  const array = [];
+  for (const atom of fakerApiPrimitiveAtoms) {
+    array.push({
+      command: `vscode-faker-js.${atom}`,
+      title: atom,
+      category: "Faker.js",
+      enablement: "(editorIsOpen || editorFocus) && !editorReadonly"
+    });
+  }
+  for (const atom of fakerApiDateAtoms) {
+    array.push({
+      command: `vscode-faker-js.${atom}`,
+      title: `${atom} (date)`,
+      category: "Faker.js",
+      enablement: "(editorIsOpen || editorFocus) && !editorReadonly"
+    });
+  }
+  for (const atom of fakerApiArrayAtoms) {
+    array.push({
+      command: `vscode-faker-js.${atom}`,
+      title: `${atom} (array)`,
+      category: "Faker.js",
+      enablement: "(editorIsOpen || editorFocus) && !editorReadonly"
+    });
+  }
+  for (const atom of fakerApiStructureAtoms) {
+    array.push({
+      command: `vscode-faker-js.${atom}`,
+      title: `${atom} (object)`,
+      category: "Faker.js",
+      enablement: "(editorIsOpen || editorFocus) && !editorReadonly"
+    });
+  }
+  for (const atom of fakerApiBoundAtoms) {
+    array.push({
+      command: `vscode-faker-js.${atom}`,
+      title: `${atom} (binding)`,
+      category: "Faker.js",
+      enablement: "(editorIsOpen || editorFocus) && !editorReadonly"
+    });
+  }
+  return array;
+}
+var useContribConfigProps = {
+  "faker-js.locale": {
+    type: "string",
+    enum: fakerLocaleAtoms,
+    default: "en",
+    description: "Specifies default Faker.js locale."
+  },
+  "faker-js.language": {
+    type: "string",
+    enum: vscodeLanguageIdAtoms,
+    default: "*",
+    description: 'Specifies the format of the data output. If set to "*", the serialization class will change dynamically depending on a language. Otherwise (if set to a particular language), a fixed serialization class will be used for all languages. If no serialization class was found, then the it falls to JavaScript syntax.'
+  },
+  "faker-js.javascript.bigint.insertMode": {
+    type: "string",
+    enum: ["inline", "literal", "wrapper"],
+    default: "literal",
+    description: 'BigInt is inserted as "9007199254740991" in inline mode, as "9007199254740991n" in literal mode, as "BigInt(9007199254740991)" in wrapper mode.'
+  },
+  "faker-js.javascript.string.insertMode": {
+    type: "string",
+    enum: ["inline", "literal"],
+    default: "literal",
+    description: 'String inserted: as ""foobar"" in literal mode, as "foobar" in inline mode.'
+  },
+  "faker-js.javascript.string.quotes": {
+    type: "string",
+    enum: ["single", "double", "backticks"],
+    default: "single",
+    description: "Specify string quotes type."
+  },
+  "faker-js.python.bigint.insertMode": {
+    type: "string",
+    enum: ["inline", "literal"],
+    default: "literal",
+    description: 'BigInt is inserted as "9007199254740991" in inline mode, as "9007199254740991" in literal mode'
+  },
+  "faker-js.python.string.insertMode": {
+    type: "string",
+    enum: ["inline", "literal"],
+    default: "literal",
+    description: 'String inserted: as ""foobar"" in literal mode, as "foobar" in inline mode.'
+  },
+  "faker-js.python.string.quotes": {
+    type: "string",
+    enum: ["double"],
+    default: "double",
+    description: "Specify string quotes type."
+  }
+};
+function getMenuCommandPalette() {
+  const array = [];
+  for (const atom of fakerApiAtoms) {
+  }
+  return array;
+}
 function codegen() {
-  const configurationPath = path2.join(__dirname, "package.json");
+  const packageJsonPath = path2.join(__dirname, "package.json");
   const snapshotPath = path2.join(__dirname, "package.snapshot.json");
-  copyFileSync(configurationPath, snapshotPath);
-  const packageJson = JSON.parse(readFileSync(configurationPath, "utf-8"));
-  const packageJsonProps = {
+  copyFileSync(packageJsonPath, snapshotPath);
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
+  const extensionManifest = {
     activationEvents: getActivationEvents(),
     contributes: {
+      commands: getContribCommands(),
       configuration: {
         type: "object",
         title: "Faker.js",
-        properties: getConfigProps()
-      },
-      commands: getCommands()
+        properties: useContribConfigProps
+      }
+    },
+    menus: {
+      commandPalette: getMenuCommandPalette()
     }
   };
   writeFileSync(
-    configurationPath,
-    JSON.stringify({ ...packageJson, ...packageJsonProps }, null, 4),
+    packageJsonPath,
+    JSON.stringify({ ...packageJson, ...extensionManifest }, null, 4),
     {
       encoding: "utf-8"
     }
   );
 }
-function getActivationEvents() {
-  const events = [];
-  return events;
-}
-function getCommands() {
-  const commands = [];
-  for (const atom of fakerApiPrimitiveAtoms) {
-    commands.push({
-      command: `vscode-faker-js.run.${atom}`,
-      title: atom,
-      category: "Faker.js"
-    });
-  }
-  for (const atom of fakerApiDateAtoms) {
-    commands.push({
-      command: `vscode-faker-js.run.${atom}`,
-      title: `${atom} (date)`,
-      category: "Faker.js"
-    });
-  }
-  for (const atom of fakerApiArrayAtoms) {
-    commands.push({
-      command: `vscode-faker-js.run.${atom}`,
-      title: `${atom} (array)`,
-      category: "Faker.js"
-    });
-  }
-  for (const atom of fakerApiStructureAtoms) {
-    commands.push({
-      command: `vscode-faker-js.run.${atom}`,
-      title: `${atom} (object)`,
-      category: "Faker.js"
-    });
-  }
-  for (const atom of fakerApiBoundAtoms) {
-    commands.push({
-      command: `vscode-faker-js.run.${atom}`,
-      title: `${atom} (binding)`,
-      category: "Faker.js"
-    });
-  }
-  return commands;
-}
-function getConfigProps() {
-  const props = {
-    "faker-js.locale": {
-      type: "string",
-      enum: fakerLocaleAtoms,
-      default: "en",
-      description: "Specifies Faker.js locale."
-    },
-    "faker-js.bigint.insert": {
-      type: "string",
-      enum: ["literal", "inline", "wrapper"],
-      default: "literal",
-      description: "Either literal `123n` (by default), or wrapper object `BigInt(123)`."
-    },
-    "faker-js.string.insert": {
-      type: "string",
-      enum: ["literal", "inline"],
-      default: "literal",
-      description: 'Either literal `"string"` (by default), or inline `string`.'
-    },
-    "faker-js.string.quotes": {
-      type: "string",
-      enum: ["single", "double", "backticks"],
-      default: "single",
-      description: "Specify string quotes type."
-    },
-    "faker-js.symbol.quotes": {
-      type: "string",
-      enum: ["single", "double", "backticks"],
-      default: "single",
-      description: "Specify symbol quotes type."
-    }
-  };
-  return props;
-}
+codegen();

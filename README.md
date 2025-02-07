@@ -38,11 +38,11 @@
     />
 </p>
 
-## Faker.js Locales
+## Locale
 
 1. Type `CTRL+SHIFT+P` for Windows or `CMD+SHIFT+P` for MacOS to launch command palette;
 1. Type `Preferences: Open User Settings (JSON)` and press `Enter` to open `setting.json` file;
-1. Pick available [locale][https://fakerjs.dev/guide/localization.html#available-locales]:
+1. Pick [locale](https://fakerjs.dev/guide/localization.html#available-locales):
 
 ```json
 {
@@ -50,36 +50,69 @@
 }
 ```
 
-## Content Options
+## Language
 
-These options provide additional control over how to insert data. This can be useful if you use a particular language syntax or code formatting preference. For example, in some versions of ECMAScript, the big integer literal `123n` is not allowed, but the syntax `BigInt(123)` is fine.
+If set to "\*", the serialization class will change dynamically depending on a language. Otherwise (if set to a particular language), a fixed serialization class will be used for all languages. If no serialization class was found, then the it will use JavaScript syntax.
 
 ```json
 {
-    "faker-js.bigint.insert": {
-        "type": "string",
-        "enum": ["literal", "inline", "wrapper"],
-        "default": "literal",
-        "description": "Either literal `123n` (by default), or wrapper object `BigInt(123)`."
+    "faker-js.language": "*"
+}
+```
+
+## Syntax
+
+These options provide additional control over how to insert data. This can be useful if you use a particular language version or specific code formatting preference. For example, in some versions of ECMAScript, big integer `123n` (as literal) is not allowed, but `BigInt(123)` (as object wrapper) is permitted.
+
+### JavaScript
+
+```js
+{
+     'faker-js.javascript.bigint.insertMode': {
+        type: 'string',
+        enum: ['inline', 'literal', 'wrapper'],
+        default: 'literal',
+        description:
+            'BigInt is inserted as "9007199254740991" in inline mode, as "9007199254740991n" in literal mode, as "BigInt(9007199254740991)" in wrapper mode.',
     },
-    "faker-js.string.insert": {
-        "type": "string",
-        "enum": ["literal", "inline"],
-        "default": "literal",
-        "description": "Either literal `\"string\"` (by default), or inline `string`."
+    'faker-js.javascript.string.insertMode': {
+        type: 'string',
+        enum: ['inline', 'literal'],
+        default: 'literal',
+        description: 'String inserted: as ""foobar"" in literal mode, as "foobar" in inline mode.',
     },
-    "faker-js.string.quotes": {
-        "type": "string",
-        "enum": ["single", "double", "backticks"],
-        "default": "single",
-        "description": "Specify string quotes type."
+    'faker-js.javascript.string.quotes': {
+        type: 'string',
+        enum: ['single', 'double', 'backticks'],
+        default: 'single',
+        description: 'Specify string quotes type.',
     },
-    "faker-js.symbol.quotes": {
-        "type": "string",
-        "enum": ["single", "double", "backticks"],
-        "default": "single",
-        "description": "Specify symbol quotes type."
-    }
+}
+```
+
+### Python
+
+```js
+{
+    'faker-js.python.bigint.insertMode': {
+        type: 'string',
+        enum: ['inline', 'literal'],
+        default: 'literal',
+        description:
+            'BigInt is inserted as "9007199254740991" in inline mode, as "9007199254740991" in literal mode',
+    },
+    'faker-js.python.string.insertMode': {
+        type: 'string',
+        enum: ['inline', 'literal'],
+        default: 'literal',
+        description: 'String inserted: as ""foobar"" in literal mode, as "foobar" in inline mode.',
+    },
+    'faker-js.python.string.quotes': {
+        type: 'string',
+        enum: ['double'],
+        default: 'double',
+        description: 'Specify string quotes type.',
+    },
 }
 ```
 
