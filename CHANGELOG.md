@@ -5,6 +5,19 @@ All notable changes to the "vscode-faker-js" extension will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.5.2] - 2025-02-16
+
+### Added
+
+-   New atoms:
+    -   `image.personPortrait`;
+-   New language support: PHP, Ruby;
+
+### Changed
+
+-   Faker version has been updated to 9.5.0;
+-   Due to confusion between `faker-js.locale` and `faker-js.language`, the latter has been changed to `faker-js.syntax`;
+
 ## [9.5.0] - 2025-02-07
 
 ### Added
@@ -13,8 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   `settings.json` options:
     -   `faker-js.locale`;
     -   `faker-js.language`;
-    -   `faker-js.javascript.bigint.insertMode` (`faker-js.bigint.inser` before);
-    -   `faker-js.javascript.string.insertMode` (`faker-js.string.inser` before);
+    -   `faker-js.javascript.bigint.insertMode` (`faker-js.bigint.insert` before);
+    -   `faker-js.javascript.string.insertMode` (`faker-js.string.insert` before);
     -   `faker-js.javascript.string.quotes` (`faker-js.string.quotes` before);
     -   `faker-js.python.bigint.insertMode`;
     -   `faker-js.python.string.insertMode`;
@@ -30,9 +43,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Added new atoms:
+-   New atoms:
     -   `location.language`;
--   Return type markers for Faker.js methods:
+-   New markers for return type of Faker.js functions:
     -   `date` returns instance of `Date` class;
     -   `array` returns indexed collection;
 
@@ -44,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Return type markers for Faker.js methods:
+-   New markers for return type of Faker.js functions:
     -   `object` returns any structure (arrays, object, functions, and even classes);
     -   `binding` returns bound functions with some default values;
     -   Unmarked methods returns `primitive`: undefined, null, boolean, string, symbol, number, bigint;

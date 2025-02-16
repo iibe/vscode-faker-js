@@ -267,6 +267,7 @@ export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
     'image.avatarGitHub',
     'image.avatarLegacy',
     'image.dataUri',
+    'image.personPortrait',
     'image.url',
     'image.urlLoremFlickr',
     'image.urlPicsumPhotos',

@@ -2,7 +2,7 @@ import { strictEqual as expect } from 'assert';
 import { it } from 'mocha';
 import { stringify } from './javascript';
 
-it(`${stringify.fromPrimitive.name}()`, () => {
+it('fromPrimitive()', () => {
     expect(stringify.fromPrimitive(undefined), 'undefined');
     expect(stringify.fromPrimitive(void 0), 'undefined');
     expect(stringify.fromPrimitive(null), 'null');

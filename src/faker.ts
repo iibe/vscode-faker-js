@@ -20,7 +20,7 @@ enum Direction {
 /**
  * With dynamic imports we get come code splitting in bundle (around 150 files).
  */
-export async function getFakerInstanceAsync(atom: IFakerLocale): Promise<Faker> {
+export async function createFakerInstanceAsync(atom: IFakerLocale): Promise<Faker> {
     let mod;
 
     // prettier-ignore
@@ -212,6 +212,7 @@ export function getFakerFunction(fakerApi: Faker, atom: IFakerAtom): IFakerFunct
         case 'image.avatarGitHub': return fakerApi.image.avatarGitHub;
         case 'image.avatarLegacy': return fakerApi.image.avatarLegacy;
         case 'image.dataUri': return fakerApi.image.dataUri;
+        case 'image.personPortrait': return fakerApi.image.personPortrait;
         case 'image.url': return fakerApi.image.url;
         case 'image.urlLoremFlickr': return fakerApi.image.urlLoremFlickr;
         case 'image.urlPicsumPhotos': return fakerApi.image.urlPicsumPhotos;
@@ -380,8 +381,8 @@ export function getFakerFunction(fakerApi: Faker, atom: IFakerAtom): IFakerFunct
             });
         }
         case 'helpers.arrayElement': {
-            const generic = fakerApi.helpers.arrayElement<string>;
-            return generic.bind(null, ['cat', 'dog', 'mouse']);
+            const method = fakerApi.helpers.arrayElement<string>;
+            return method.bind(null, ['cat', 'dog', 'mouse']);
         }
         case 'helpers.arrayElements': {
             return fakerApi.helpers.arrayElements.bind(null, [1, 2, 3, 4, 5], {
@@ -390,8 +391,8 @@ export function getFakerFunction(fakerApi: Faker, atom: IFakerAtom): IFakerFunct
             });
         }
         case 'helpers.enumValue': {
-            const generic = fakerApi.helpers.enumValue<typeof Direction>;
-            return generic.bind(null, Direction);
+            const method = fakerApi.helpers.enumValue<typeof Direction>;
+            return method.bind(null, Direction);
         }
         case 'helpers.fake': {
             return fakerApi.helpers.fake.bind(
@@ -404,14 +405,14 @@ export function getFakerFunction(fakerApi: Faker, atom: IFakerAtom): IFakerFunct
         }
         case 'helpers.maybe': {
             // can't resolve with `string` (to bypass use `any`)
-            const generic = fakerApi.helpers.maybe<any>;
-            return generic.bind(null, () => '50% chance', {
+            const method = fakerApi.helpers.maybe<any>;
+            return method.bind(null, () => '50% chance', {
                 probability: 0.5,
             });
         }
         case 'helpers.multiple': {
-            const generic = fakerApi.helpers.multiple<string>;
-            return generic.bind(null, (_, index) => `#${index + 1}) ${fakerApi.number.int()}`, {
+            const method = fakerApi.helpers.multiple<string>;
+            return method.bind(null, (_, index) => `#${index + 1}) ${fakerApi.number.int()}`, {
                 count: { min: 2, max: 3 },
             });
         }
@@ -432,8 +433,8 @@ export function getFakerFunction(fakerApi: Faker, atom: IFakerAtom): IFakerFunct
             return fakerApi.helpers.objectKey.bind(null, { One: 1, Two: 2, Three: 3, Nine: 9 });
         }
         case 'helpers.objectValue': {
-            const generic = fakerApi.helpers.objectValue<{ [key: string]: number }>;
-            return generic.bind(null, { One: 1, Two: 2, Three: 3, Nine: 9 });
+            const method = fakerApi.helpers.objectValue<{ [key: string]: number }>;
+            return method.bind(null, { One: 1, Two: 2, Three: 3, Nine: 9 });
         }
         case 'helpers.rangeToNumber': {
             return fakerApi.helpers.rangeToNumber.bind(null, { min: 1, max: 10 });
@@ -445,8 +446,8 @@ export function getFakerFunction(fakerApi: Faker, atom: IFakerAtom): IFakerFunct
             return fakerApi.helpers.uniqueArray.bind(null, fakerApi.word.sample, 3);
         }
         case 'helpers.weightedArrayElement': {
-            const generic = fakerApi.helpers.weightedArrayElement<string>;
-            return generic.bind(null, [
+            const method = fakerApi.helpers.weightedArrayElement<string>;
+            return method.bind(null, [
                 { weight: 5, value: 'sunny' },
                 { weight: 4, value: 'rainy' },
                 { weight: 1, value: 'snowy' },

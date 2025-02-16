@@ -7,10 +7,12 @@
  * 1. Note: this step only matters if you are publishing a library that is used by others. So in our case we skipped this step. But still, usually `./src/index.ts` is the main entry point and imports and exports everything from `./src/syntax/index.ts` to expose it to the outside world.
  */
 
-export * from './syntax';
+export * from '../types/syntax';
 
 export * from './javascript';
+export * from './php';
 export * from './python';
+export * from './ruby';
 
 export * from './api';
 

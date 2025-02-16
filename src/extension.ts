@@ -1,7 +1,7 @@
 import type { ExtensionContext } from 'vscode';
 import { commands, Range, window } from 'vscode';
-import { getFakerFunction, getFakerInstanceAsync } from './faker';
-import { getSettings } from './settings';
+import { createFakerInstanceAsync, getFakerFunction } from './faker';
+import { createSettings } from './settings';
 import { getStringifyInstance } from './syntax';
 import { ICommandId } from './types/manifest';
 import { LanguageIdentifier } from './types/vscode';
@@ -18,20 +18,17 @@ export function activate(context: ExtensionContext) {
                 return;
             }
 
-            const settings = getSettings();
-            const faker = await getFakerInstanceAsync(settings.locale);
+            const settings = createSettings();
+            const faker = await createFakerInstanceAsync(settings.locale);
             const method = getFakerFunction(faker, atom);
 
             if (typeof method !== 'function') {
                 return;
             }
 
-            const languageId =
-                settings.language === '*'
-                    ? (editor.document.languageId as LanguageIdentifier)
-                    : settings.language;
-
-            const stringify = getStringifyInstance(languageId, settings);
+            const languageId = editor.document.languageId as LanguageIdentifier;
+            const language = settings.syntax === '*' ? languageId : settings.syntax;
+            const stringify = getStringifyInstance(language, settings);
 
             editor.edit((editBuilder) => {
                 editor.selections.forEach(({ start, end }) => {

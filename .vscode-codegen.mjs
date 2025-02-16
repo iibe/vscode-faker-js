@@ -270,6 +270,7 @@ var fakerApiPrimitiveAtoms = exhaustiveArray()(
   "image.avatarGitHub",
   "image.avatarLegacy",
   "image.dataUri",
+  "image.personPortrait",
   "image.url",
   "image.urlLoremFlickr",
   "image.urlPicsumPhotos",
@@ -433,7 +434,7 @@ var fakerApiBoundAtoms = exhaustiveArray()(
   "helpers.weightedArrayElement",
   "string.fromCharacters"
 );
-var fakerApiAtoms = [
+[
   ...fakerApiPrimitiveAtoms,
   ...fakerApiArrayAtoms,
   ...fakerApiDateAtoms,
@@ -442,14 +443,10 @@ var fakerApiAtoms = [
 ];
 
 // src/codegen.ts
-function getActivationEvents() {
-  const events = [];
-  return events;
-}
-function getContribCommands() {
-  const array = [];
+function createContribCommands() {
+  const commands = [];
   for (const atom of fakerApiPrimitiveAtoms) {
-    array.push({
+    commands.push({
       command: `vscode-faker-js.${atom}`,
       title: atom,
       category: "Faker.js",
@@ -457,7 +454,7 @@ function getContribCommands() {
     });
   }
   for (const atom of fakerApiDateAtoms) {
-    array.push({
+    commands.push({
       command: `vscode-faker-js.${atom}`,
       title: `${atom} (date)`,
       category: "Faker.js",
@@ -465,7 +462,7 @@ function getContribCommands() {
     });
   }
   for (const atom of fakerApiArrayAtoms) {
-    array.push({
+    commands.push({
       command: `vscode-faker-js.${atom}`,
       title: `${atom} (array)`,
       category: "Faker.js",
@@ -473,7 +470,7 @@ function getContribCommands() {
     });
   }
   for (const atom of fakerApiStructureAtoms) {
-    array.push({
+    commands.push({
       command: `vscode-faker-js.${atom}`,
       title: `${atom} (object)`,
       category: "Faker.js",
@@ -481,70 +478,107 @@ function getContribCommands() {
     });
   }
   for (const atom of fakerApiBoundAtoms) {
-    array.push({
+    commands.push({
       command: `vscode-faker-js.${atom}`,
       title: `${atom} (binding)`,
       category: "Faker.js",
       enablement: "(editorIsOpen || editorFocus) && !editorReadonly"
     });
   }
-  return array;
+  return commands;
 }
-var useContribConfigProps = {
-  "faker-js.locale": {
-    type: "string",
-    enum: fakerLocaleAtoms,
-    default: "en",
-    description: "Specifies default Faker.js locale."
-  },
-  "faker-js.language": {
-    type: "string",
-    enum: vscodeLanguageIdAtoms,
-    default: "*",
-    description: 'Specifies the format of the data output. If set to "*", the serialization class will change dynamically depending on a language. Otherwise (if set to a particular language), a fixed serialization class will be used for all languages. If no serialization class was found, then the it falls to JavaScript syntax.'
-  },
-  "faker-js.javascript.bigint.insertMode": {
-    type: "string",
-    enum: ["inline", "literal", "wrapper"],
-    default: "literal",
-    description: 'BigInt is inserted as "9007199254740991" in inline mode, as "9007199254740991n" in literal mode, as "BigInt(9007199254740991)" in wrapper mode.'
-  },
-  "faker-js.javascript.string.insertMode": {
-    type: "string",
-    enum: ["inline", "literal"],
-    default: "literal",
-    description: 'String inserted: as ""foobar"" in literal mode, as "foobar" in inline mode.'
-  },
-  "faker-js.javascript.string.quotes": {
-    type: "string",
-    enum: ["single", "double", "backticks"],
-    default: "single",
-    description: "Specify string quotes type."
-  },
-  "faker-js.python.bigint.insertMode": {
-    type: "string",
-    enum: ["inline", "literal"],
-    default: "literal",
-    description: 'BigInt is inserted as "9007199254740991" in inline mode, as "9007199254740991" in literal mode'
-  },
-  "faker-js.python.string.insertMode": {
-    type: "string",
-    enum: ["inline", "literal"],
-    default: "literal",
-    description: 'String inserted: as ""foobar"" in literal mode, as "foobar" in inline mode.'
-  },
-  "faker-js.python.string.quotes": {
-    type: "string",
-    enum: ["double"],
-    default: "double",
-    description: "Specify string quotes type."
-  }
-};
-function getMenuCommandPalette() {
-  const array = [];
-  for (const atom of fakerApiAtoms) {
-  }
-  return array;
+function createContribConfig() {
+  const properties = {
+    "faker-js.locale": {
+      type: "string",
+      enum: fakerLocaleAtoms,
+      default: "en",
+      markdownDescription: "Specifies default Faker.js locale."
+    },
+    "faker-js.syntax": {
+      type: "string",
+      enum: vscodeLanguageIdAtoms,
+      default: "*",
+      markdownDescription: "Specifies a syntax of fake data. If set to `*`, the serialization changes dynamically depending on a programming language. Otherwise (if set to a particular language), a fixed serialization will be used for all languages. If no serialization class was found, then it uses JavaScript syntax for everything."
+    },
+    "faker-js.javascript.bigint.insertMode": {
+      type: "string",
+      enum: ["inline", "literal", "wrapper"],
+      default: "literal",
+      markdownDescription: "BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991n` in literal mode, as `BigInt(9007199254740991)` in wrapper object mode."
+    },
+    "faker-js.javascript.string.quotes": {
+      type: "string",
+      enum: ["single", "double"],
+      default: "single",
+      markdownDescription: "Specifies quotation mark."
+    },
+    "faker-js.javascript.string.insertMode": {
+      type: "string",
+      enum: ["inline", "literal", "interpolation"],
+      default: "literal",
+      markdownDescription: "String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as ``foobar`` in interpolation mode."
+    },
+    "faker-js.php.bigint.insertMode": {
+      type: "string",
+      enum: ["inline", "literal"],
+      default: "literal",
+      markdownDescription: "BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991` in literal mode"
+    },
+    "faker-js.php.string.quotes": {
+      type: "string",
+      enum: ["single", "double"],
+      default: "double",
+      markdownDescription: "Specify quotation mark."
+    },
+    "faker-js.php.string.insertMode": {
+      type: "string",
+      enum: ["inline", "literal", "interpolation"],
+      default: "literal",
+      markdownDescription: 'String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as `"foobar"` in interpolation mode.'
+    },
+    "faker-js.python.bigint.insertMode": {
+      type: "string",
+      enum: ["inline", "literal"],
+      default: "literal",
+      markdownDescription: "BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991` in literal mode"
+    },
+    "faker-js.python.string.quotes": {
+      type: "string",
+      enum: ["single", "double"],
+      default: "double",
+      markdownDescription: "Specify quotation mark."
+    },
+    "faker-js.python.string.insertMode": {
+      type: "string",
+      enum: ["inline", "literal", "interpolation"],
+      default: "literal",
+      markdownDescription: 'String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as `f"foobar"` in interpolation mode.'
+    },
+    "faker-js.ruby.bigint.insertMode": {
+      type: "string",
+      enum: ["inline", "literal"],
+      default: "literal",
+      markdownDescription: "BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991` in literal mode"
+    },
+    "faker-js.ruby.string.quotes": {
+      type: "string",
+      enum: ["single", "double"],
+      default: "double",
+      markdownDescription: "Specify quotation mark."
+    },
+    "faker-js.ruby.string.insertMode": {
+      type: "string",
+      enum: ["inline", "literal", "interpolation"],
+      default: "literal",
+      markdownDescription: 'String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as `"foobar"` in interpolation mode.'
+    }
+  };
+  return {
+    title: "Faker.js",
+    type: "object",
+    properties
+  };
 }
 function codegen() {
   const packageJsonPath = path2.join(__dirname, "package.json");
@@ -552,17 +586,11 @@ function codegen() {
   copyFileSync(packageJsonPath, snapshotPath);
   const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
   const extensionManifest = {
-    activationEvents: getActivationEvents(),
+    /** @see https://code.visualstudio.com/api/references/activation-events */
+    activationEvents: [],
     contributes: {
-      commands: getContribCommands(),
-      configuration: {
-        type: "object",
-        title: "Faker.js",
-        properties: useContribConfigProps
-      }
-    },
-    menus: {
-      commandPalette: getMenuCommandPalette()
+      commands: createContribCommands(),
+      configuration: createContribConfig()
     }
   };
   writeFileSync(

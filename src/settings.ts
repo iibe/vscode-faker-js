@@ -1,37 +1,55 @@
-import { ConfigurationScope, workspace, WorkspaceConfiguration } from 'vscode';
+import { workspace } from 'vscode';
 import type { ISettingsKey, ISettingsType } from './types/settings';
 
-function get<T>(config: WorkspaceConfiguration, key: ISettingsKey, defaultValue: T): T {
-    return config.get<T>(key, defaultValue);
+const config = workspace.getConfiguration('faker-js');
+
+function get<T>(key: ISettingsKey, fallback: T): T {
+    return config.get<T>(key, fallback);
 }
 
-export function getConfig(scope?: ConfigurationScope | null) {
-    return workspace.getConfiguration('faker-js', scope);
-}
-
-export function getSettings(): ISettingsType {
-    const config = getConfig();
-
-    return {
-        locale: get(config, 'locale', 'en'),
-        language: get(config, 'language', 'javascript'),
-        javascript: {
-            bigint: {
-                insertMode: get(config, 'javascript.bigint.insertMode', 'literal'),
-            },
-            string: {
-                insertMode: get(config, 'javascript.string.insertMode', 'literal'),
-                quotes: get(config, 'javascript.string.quotes', 'single'),
-            },
+export const createSettings = (): ISettingsType => ({
+    locale: get('locale', 'en'),
+    syntax: get('syntax', 'javascript'),
+    c: {},
+    cpp: {},
+    csharp: {},
+    go: {},
+    java: {},
+    javascript: {
+        bigint: {
+            insertMode: get('javascript.bigint.insertMode', 'literal'),
         },
-        python: {
-            bigint: {
-                insertMode: get(config, 'python.bigint.insertMode', 'literal'),
-            },
-            string: {
-                insertMode: get(config, 'python.string.insertMode', 'literal'),
-                quotes: get(config, 'python.string.quotes', 'double'),
-            },
+        string: {
+            insertMode: get('javascript.string.insertMode', 'literal'),
+            quotes: get('javascript.string.quotes', 'single'),
         },
-    };
-}
+    },
+    php: {
+        bigint: {
+            insertMode: get('php.bigint.insertMode', 'literal'),
+        },
+        string: {
+            insertMode: get('php.string.insertMode', 'literal'),
+            quotes: get('php.string.quotes', 'double'),
+        },
+    },
+    python: {
+        bigint: {
+            insertMode: get('python.bigint.insertMode', 'literal'),
+        },
+        string: {
+            insertMode: get('python.string.insertMode', 'literal'),
+            quotes: get('python.string.quotes', 'double'),
+        },
+    },
+    ruby: {
+        bigint: {
+            insertMode: get('ruby.bigint.insertMode', 'literal'),
+        },
+        string: {
+            insertMode: get('ruby.string.insertMode', 'literal'),
+            quotes: get('ruby.string.quotes', 'single'),
+        },
+    },
+    rust: {},
+});

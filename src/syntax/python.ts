@@ -13,8 +13,7 @@ import {
 import { exhaustiveSwitch } from '../utils/exhaustive';
 
 export class StringifyPython extends Stringify {
-    public languageId: LanguageIdentifier = 'python';
-    public extensions: string[] = ['py', 'pyw', 'pyz', 'pyi', 'pyc', 'pyd'];
+    public id: LanguageIdentifier = 'python';
 
     private syntax: ISyntaxPython;
     private quotationMark: string;
@@ -33,10 +32,10 @@ export class StringifyPython extends Stringify {
 
     fromPrimitive(primitive: Primitive): string {
         switch (true) {
-            case typeof primitive === 'undefined':
-                return this.fromUndefined();
             case primitive === null:
                 return this.fromNull(); // keyword and `typeof null === 'object'
+            case typeof primitive === 'undefined':
+                return this.fromUndefined();
             case typeof primitive === 'boolean':
                 return this.fromBoolean(primitive);
             case typeof primitive === 'number':
@@ -73,11 +72,11 @@ export class StringifyPython extends Stringify {
 
     /* LANGUAGE-SPECIFIC METHODS */
 
-    fromUndefined(): string {
+    fromNull(): string {
         return 'None';
     }
 
-    fromNull(): string {
+    fromUndefined(): string {
         return 'None';
     }
 
@@ -104,6 +103,7 @@ export class StringifyPython extends Stringify {
         switch (this.syntax.string.insertMode) {
             case 'inline': return value;
             case 'literal': return this.quotationMark + value + this.quotationMark;
+            case 'interpolation': return 'f' + this.quotationMark + value + this.quotationMark;
         }
 
         return exhaustiveSwitch(this.syntax.string.insertMode);
@@ -113,7 +113,7 @@ export class StringifyPython extends Stringify {
         throw new Error('Faker.js: Symbol() is not present in Python');
     }
 
-    fromArray(array: Array<any>): string {
+    fromArray(array: any[]): string {
         if (array.length === 0) {
             return '[]';
         }
@@ -143,15 +143,9 @@ export class StringifyPython extends Stringify {
             const key = keys[index];
             const value = object[key];
 
-            result += ` '${key}': `;
-
+            result += " '" + key + "': ";
             // avoid circular references
-            if (isExactObject(value)) {
-                result += `${this.fromObject(value, depth + 1)}`;
-            } else {
-                result += `${this.from(value)}`;
-            }
-
+            result += isExactObject(value) ? this.fromObject(value, depth + 1) : this.from(value);
             result += index !== keys.length - 1 ? ',' : ' ';
         }
 
@@ -185,6 +179,7 @@ export class StringifyPython extends Stringify {
     private getQuotationMark() {
         // prettier-ignore
         switch(this.syntax.string.quotes) {
+            case 'single': return '\n';
             case 'double': return '"';
         }
 

@@ -13,8 +13,7 @@ import {
 import { exhaustiveSwitch } from '../utils/exhaustive';
 
 export class StringifyJavaScript extends Stringify {
-    public languageId: LanguageIdentifier = 'javascript';
-    public extensions: string[] = ['js', 'cjs', 'mjs'];
+    public id: LanguageIdentifier = 'javascript';
 
     private syntax: ISyntaxJavaScript;
     private quotationMark: string;
@@ -33,10 +32,10 @@ export class StringifyJavaScript extends Stringify {
 
     fromPrimitive(primitive: Primitive): string {
         switch (true) {
-            case typeof primitive === 'undefined':
-                return this.fromUndefined();
             case primitive === null:
                 return this.fromNull(); // keyword and `typeof null === 'object'
+            case typeof primitive === 'undefined':
+                return this.fromUndefined();
             case typeof primitive === 'boolean':
                 return this.fromBoolean(primitive);
             case typeof primitive === 'number':
@@ -73,16 +72,16 @@ export class StringifyJavaScript extends Stringify {
 
     /* LANGUAGE-SPECIFIC METHODS */
 
-    fromUndefined(): string {
-        return 'undefined';
-    }
-
     fromNull(): string {
         return 'null';
     }
 
+    fromUndefined(): string {
+        return 'undefined';
+    }
+
     fromBoolean(value: boolean): string {
-        return String(value);
+        return value ? 'true' : 'false';
     }
 
     fromNumber(value: number): string {
@@ -105,6 +104,7 @@ export class StringifyJavaScript extends Stringify {
         switch (this.syntax.string.insertMode) {
             case 'inline': return value;
             case 'literal': return this.quotationMark + value + this.quotationMark;
+            case 'interpolation': return '`' + value + '`';
         }
 
         return exhaustiveSwitch(this.syntax.string.insertMode);
@@ -116,7 +116,7 @@ export class StringifyJavaScript extends Stringify {
             : 'Symbol()';
     }
 
-    fromArray(array: Array<any>): string {
+    fromArray(array: any[]): string {
         if (array.length === 0) {
             return '[]';
         }
@@ -146,16 +146,10 @@ export class StringifyJavaScript extends Stringify {
             const key = keys[index];
             const value = object[key];
 
-            result += ` '${key}': `;
-
+            result += ' ' + this.quotationMark + key + this.quotationMark + ': ';
             // avoid circular references
-            if (isExactObject(value)) {
-                result += `${this.fromObject(value, depth + 1)}`;
-            } else {
-                result += `${this.from(value)}`;
-            }
-
-            result += index !== keys.length - 1 ? ',' : '';
+            result += isExactObject(value) ? this.fromObject(value, depth + 1) : this.from(value);
+            result += index !== keys.length - 1 ? ',' : ' ';
         }
 
         result += '}';
@@ -190,7 +184,6 @@ export class StringifyJavaScript extends Stringify {
         switch(this.syntax.string.quotes) {
             case 'single': return '\'';
             case 'double': return '"';
-            case 'backticks': return '`';
         }
 
         return exhaustiveSwitch(this.syntax.string.quotes);

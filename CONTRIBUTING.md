@@ -54,6 +54,7 @@ Problems that may arise during development and their solutions:
 
 A bunch of resources that might be useful during development process.
 
+-   [Programming language syntax comparisons](https://hyperpolyglot.org/)
 -   [VSCode API: Extension Manifest](https://code.visualstudio.com/api/references/extension-manifest)
 -   [VSCode API: Contribution Points](https://code.visualstudio.com/api/references/contribution-points)
 -   [Azure: Project Page](https://my-visual-studio-code.visualstudio.com/vscode)

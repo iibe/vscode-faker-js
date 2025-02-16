@@ -1,5 +1,7 @@
+import { Stringify } from '.';
 import { Callable, Newable, Primitive, Structure } from '../types';
-import { ISyntaxJavaScript } from '../types/settings';
+import { ISyntaxRuby } from '../types/settings';
+import { LanguageIdentifier } from '../types/vscode';
 import {
     isAnyPrimitive,
     isExactArray,
@@ -10,11 +12,14 @@ import {
 } from '../utils/data-types';
 import { exhaustiveSwitch } from '../utils/exhaustive';
 
-class StringifyJavaScript {
-    private syntax: ISyntaxJavaScript;
+export class StringifyRuby extends Stringify {
+    public id: LanguageIdentifier = 'ruby';
+
+    private syntax: ISyntaxRuby;
     private quotationMark: string;
 
-    constructor(syntax: ISyntaxJavaScript) {
+    constructor(syntax: ISyntaxRuby) {
+        super();
         this.syntax = syntax;
         this.quotationMark = this.getQuotationMark();
     }
@@ -27,10 +32,10 @@ class StringifyJavaScript {
 
     fromPrimitive(primitive: Primitive): string {
         switch (true) {
-            case typeof primitive === 'undefined':
-                return this.fromUndefined();
             case primitive === null:
                 return this.fromNull(); // keyword and `typeof null === 'object'
+            case typeof primitive === 'undefined':
+                return this.fromUndefined();
             case typeof primitive === 'boolean':
                 return this.fromBoolean(primitive);
             case typeof primitive === 'number':
@@ -40,7 +45,7 @@ class StringifyJavaScript {
             case typeof primitive === 'string':
                 return this.fromString(primitive);
             case typeof primitive === 'symbol':
-                return this.fromSymbol(primitive);
+                return this.fromSymbol();
             default:
                 return String(primitive); // `never` hit that case
         }
@@ -67,16 +72,16 @@ class StringifyJavaScript {
 
     /* LANGUAGE-SPECIFIC METHODS */
 
-    fromUndefined(): string {
-        return 'undefined';
+    fromNull(): string {
+        return 'nil';
     }
 
-    fromNull(): string {
-        return 'null';
+    fromUndefined(): string {
+        return 'nil';
     }
 
     fromBoolean(value: boolean): string {
-        return String(value);
+        return value ? 'true' : 'false';
     }
 
     fromNumber(value: number): string {
@@ -87,8 +92,7 @@ class StringifyJavaScript {
         // prettier-ignore
         switch (this.syntax.bigint.insertMode) {
             case 'inline': return String(value);
-            case 'literal': return value + 'n';
-            case 'wrapper': return "BigInt(" + value + ")";
+            case 'literal': return String(value);
         }
 
         return exhaustiveSwitch(this.syntax.bigint.insertMode);
@@ -99,15 +103,14 @@ class StringifyJavaScript {
         switch (this.syntax.string.insertMode) {
             case 'inline': return value;
             case 'literal': return this.quotationMark + value + this.quotationMark;
+            case 'interpolation': return '"' + value + '"';
         }
 
         return exhaustiveSwitch(this.syntax.string.insertMode);
     }
 
-    fromSymbol(value: symbol): string {
-        return typeof value.description === 'string'
-            ? 'Symbol(' + this.fromString(value.description) + ')'
-            : 'Symbol()';
+    fromSymbol(): string {
+        throw new Error('Faker.js: Symbol() is not present in Python');
     }
 
     fromArray(array: any[]): string {
@@ -140,7 +143,7 @@ class StringifyJavaScript {
             const key = keys[index];
             const value = object[key];
 
-            result += ` '${key}': `;
+            result += " '" + key + "' => ";
             // avoid circular references
             result += isExactObject(value) ? this.fromObject(value, depth + 1) : this.from(value);
             result += index !== keys.length - 1 ? ',' : ' ';
@@ -178,84 +181,8 @@ class StringifyJavaScript {
         switch(this.syntax.string.quotes) {
             case 'single': return '\'';
             case 'double': return '"';
-            case 'backticks': return '`';
         }
 
         return exhaustiveSwitch(this.syntax.string.quotes);
     }
 }
-
-export const stringify = new StringifyJavaScript({
-    bigint: {
-        insertMode: 'literal',
-    },
-    string: {
-        insertMode: 'literal',
-        quotes: 'single',
-    },
-});
-
-const primitivesSimple = {
-    j1: undefined,
-    j2: void 0,
-    j3: null,
-    j4: true,
-    j5: false,
-    j6: 0,
-    j7: +0,
-    j8: -0,
-    j9: 1,
-    j10: -1,
-    j11: 2.3,
-    j12: -2.3,
-    j13: Number.MAX_SAFE_INTEGER,
-    j14: -Number.MAX_SAFE_INTEGER,
-    j15: Infinity,
-    j16: -Infinity,
-    j17: NaN,
-    j18: -NaN,
-    j19: 0n,
-    j20: -0n,
-    j21: 1n,
-    j23: -1n,
-    j24: BigInt(Number.MAX_SAFE_INTEGER) ** 2n,
-};
-
-const primitivesComplex = {
-    j1: Symbol(),
-    j2: Symbol(''),
-    j3: Symbol('foo'),
-    j4: '',
-    j5: ' ',
-    j6: '\xFF',
-    j7: 'foo',
-    j8: `${123}`,
-};
-
-// console.log(primitivesSimple);
-// console.log(stringify.from(primitivesSimple));
-// console.log(primitivesComplex);
-// console.log(stringify.from(primitivesComplex));
-
-const edgeCases = {
-    foo: ['foo', () => () => 'bar', { baz: 'qux', x: { y: 1, z: 2 } }],
-    bar: {},
-    baz: () => () => () => 'smth',
-    qux: class {
-        constructor(abc: string, private ijk: boolean, protected xyz: string) {}
-
-        opened(a: number, b: number) {
-            return a + b;
-        }
-
-        #secret(a: number, b: number) {
-            return a - b;
-        }
-    },
-};
-
-console.log('\nINPUT:');
-console.log(edgeCases);
-
-console.log('\nOUTPUT:');
-console.log(stringify.from(edgeCases));
