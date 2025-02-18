@@ -14,14 +14,19 @@
         }
     ],
     "keywords": [
-        "vscode",
-        "extension",
         "faker",
         "faker-js",
         "data",
-        "data-sources",
+        "data-source",
+        "fake",
         "fake-data",
-        "mock-data"
+        "mock-data",
+        "vscode",
+        "extension",
+        "javascript",
+        "php",
+        "python",
+        "ruby"
     ],
     "homepage": "https://github.com/iibe/vscode-faker-js#readme",
     "repository": {
@@ -71,7 +76,7 @@
         "staging": "code --install-extension vscode-faker-js-9.5.2.vsix",
         "production": "vsce publish --no-dependencies",
         "[3]": "--------------------------------------------------------------",
-        "ci:dev": "tsx watch ./src/test/syntax.ts",
+        "ci:dev": "tsx watch ./src/test/composition.ts",
         "ci:format": "pnpm format:fix && pnpm lint:check && pnpm typecheck",
         "cd:deliver": "pnpm ci:format && pnpm release",
         "cd:deploy": "pnpm ci:deliver && pnpm production",
@@ -99,6 +104,7 @@
     "publisher": "iibe",
     "icon": "images/logo128x128.png",
     "categories": [
+        "Other",
         "Testing"
     ],
     "activationEvents": [],

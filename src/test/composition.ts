@@ -1,53 +1,44 @@
-/**
- * Bind all functions of the given instance to itself so you can use them independently.
- *
- * @internal
- *
- * @param instance The class instance of which the methods are to be bound to itself.
- *
- * @example
- * const someModule = new SomeModule(faker);
- * bindThisToMethods(someModule); // Usually called inside the constructor passing `this`
- * const someMethod = someModule.someMethod;
- * someMethod(); // Works
- */
-function bindThisToMethods<T extends { new (): any }>(instance: InstanceType<T>): void {
-    let prototype = Object.getPrototypeOf(instance);
-
-    while (prototype !== Object.prototype) {
-        for (const method of Object.getOwnPropertyNames(prototype)) {
-            if (typeof instance[method] === 'function' && method !== 'constructor') {
-                instance[method] = instance[method].bind(instance);
-            }
-        }
-
-        prototype = Object.getPrototypeOf(prototype);
-    }
+class Base {
+    constructor(protected readonly state: Composition) {}
 }
 
-abstract class ApiModuleBase {
-    constructor(protected readonly _api: Api) {
-        bindThisToMethods(this);
+class Derived1 extends Base {
+    constructor(state: Composition) {
+        super(state);
     }
-}
 
-class ApiModule1 extends ApiModuleBase {
     foo(): void {
-        console.log(this._api.module2.bar());
+        console.log('foo()');
     }
-}
 
-class ApiModule2 extends ApiModuleBase {
     bar(): void {
-        console.log(this._api.module1.foo());
+        this.state.mod2.baz();
     }
 }
 
-class Api {
-    readonly module1: ApiModule1 = new ApiModule1(this);
-    readonly module2: ApiModule2 = new ApiModule2(this);
+class Derived2 extends Base {
+    constructor(state: Composition) {
+        super(state);
+    }
+
+    baz(): void {
+        console.log('baz()');
+    }
+
+    qux(): void {
+        this.state.mod1.foo();
+    }
 }
 
-const api = new Api();
+class Composition {
+    readonly mod1 = new Derived1(this);
+    readonly mod2 = new Derived2(this);
+}
 
-api.module1.foo();
+const api = new Composition();
+
+api.mod1.foo(); // foo
+api.mod1.bar(); // baz
+
+api.mod2.baz(); // baz
+api.mod2.qux(); // foo
