@@ -4,9 +4,9 @@ import { assertNever } from '../base/exhaustive';
 import { ISettings } from '../types/settings';
 import { LanguageIdentifier } from '../types/vscode';
 
-export class StringifyPhp extends Stringify {
-    protected readonly id: LanguageIdentifier = 'php';
-    protected readonly syntax: ISettings['php'];
+export class StringifyGo extends Stringify {
+    protected readonly id: LanguageIdentifier = 'go';
+    protected readonly syntax: ISettings['go'];
 
     protected readonly quotationMark: string;
     protected readonly arrayOpener: string;
@@ -14,45 +14,35 @@ export class StringifyPhp extends Stringify {
     protected readonly objectOpener: string;
     protected readonly objectCloser: string;
 
-    constructor(syntax: ISettings['php']) {
+    constructor(syntax: ISettings['go']) {
         super();
         this.syntax = syntax;
 
         switch (syntax.string.quotationMark) {
-            case 'single':
-                this.quotationMark = "'";
-                break;
             case 'double':
                 this.quotationMark = '"';
                 break;
-        }
-
-        switch (syntax.array.insertMode) {
-            case 'normal':
-                this.arrayOpener = 'array(';
-                this.arrayCloser = ')';
-                break;
-            case 'short':
-                this.arrayOpener = '[';
-                this.arrayCloser = ']';
+            case 'backtick':
+                this.quotationMark = '`';
                 break;
         }
 
-        // In PHP associative arrays are used instead of JS-like objects.
-        this.objectOpener = this.arrayOpener;
-        this.objectCloser = this.arrayCloser;
+        this.arrayOpener = '{';
+        this.arrayCloser = '}';
+        this.objectOpener = '{';
+        this.objectCloser = '}';
     }
 
     fromNull(): string {
-        return 'NULL';
+        return 'nil';
     }
 
     fromUndefined(): string {
-        return 'NULL';
+        return 'nil';
     }
 
     fromBoolean(value: boolean): string {
-        return value ? 'TRUE' : 'FALSE';
+        return value ? 'true' : 'false';
     }
 
     fromNumber(value: number): string {
@@ -92,7 +82,7 @@ export class StringifyPhp extends Stringify {
 
     fromObject(object: object): string {
         const records = Object.entries(object).map(([key, value]) => {
-            let record: string = this.quotationMark + key + this.quotationMark + ' => ';
+            let record: string = this.quotationMark + key + this.quotationMark + ': ';
             // avoid circular references
             record += isNativeObject(value) ? this.fromObject(value) : this.from(value);
 

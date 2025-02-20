@@ -24,8 +24,16 @@ export type IsFunction<T, R, F = T> = T extends (...args: any[]) => any ? R : F;
 /** Returns R (result) if T (type) is an  object, otherwise returns F (fallback). */
 export type IsObject<T, R, F = T> = IsFunction<T, F, T extends object ? R : F>;
 
+export type ObjectPrettifier<T> = {
+    [K in keyof T]: ObjectPrettifier<T[K]>;
+} & {};
+
 /* Removes `never` keys from object. */
-export type ObjectStrict<T> = { [K in keyof T as T[K] extends never ? never : K]: T[K] };
+export type ObjectStrict<T extends object> = {
+    [K in keyof T as T[K] extends never ? never : K]: T[K] extends object
+        ? ObjectStrict<T[K]>
+        : T[K];
+};
 
 /* Removes object keys that doesn't satisfies to specified `TKey` and `TValue` types. */
 export type ObjectFilter<T extends object, TValue = any, TKey = string | symbol> = ObjectStrict<{
@@ -36,23 +44,23 @@ export type ObjectFilter<T extends object, TValue = any, TKey = string | symbol>
 // FLATTEN GENERAL
 // =============================================================================
 
-export type Join<L, R> = L extends string | number
+export type ObjectJoin<L, R> = L extends string | number
     ? R extends string | number
         ? `${L}${'' extends R ? '' : '.'}${R}`
         : never
     : never;
 
-export type Paths<T> = T extends object
+export type ObjectPaths<T> = T extends object
     ? {
-          [K in keyof T]: `${Exclude<K, symbol>}${'' | `.${Paths<T[K]>}`}`;
+          [K in keyof T]: `${Exclude<K, symbol>}${'' | `.${ObjectPaths<T[K]>}`}`;
       }[keyof T]
     : never;
 
-export type Leaves<T> = T extends object
+export type ObjectLeaves<T> = T extends object
     ? {
-          [K in keyof T]: `${Exclude<K, symbol>}${Leaves<T[K]> extends never
+          [K in keyof T]: `${Exclude<K, symbol>}${ObjectLeaves<T[K]> extends never
               ? ''
-              : `.${Leaves<T[K]>}`}`;
+              : `.${ObjectLeaves<T[K]>}`}`;
       }[keyof T]
     : never;
 
@@ -96,7 +104,7 @@ type FlattenOuter<T> = {
 };
 
 /** {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.c": {d: 1}} */
-type FlattenType<T> = FlattenOuter<FlattenInner<T>>;
+type Flatten<T> = FlattenOuter<FlattenInner<T>>;
 
 /** {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.b.c.d": 1} */
-export type Flatten<T> = T extends FlattenType<T> ? T : Flatten<FlattenType<T>>;
+export type ObjectFlatten<T> = T extends Flatten<T> ? T : ObjectFlatten<Flatten<T>>;

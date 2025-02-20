@@ -1,5 +1,5 @@
 import { workspace } from 'vscode';
-import type { ISettingsKey, ISettingsType } from './types/settings';
+import type { ISettings, ISettingsKey } from './types/settings';
 
 const config = workspace.getConfiguration('faker-js');
 
@@ -7,13 +7,31 @@ function get<T>(key: ISettingsKey, fallback: T): T {
     return config.get<T>(key, fallback);
 }
 
-export const createSettings = (): ISettingsType => ({
+export const createSettings = (): ISettings => ({
     locale: get('locale', 'en'),
     syntax: get('syntax', 'javascript'),
     c: {},
+    clojure: {},
     cpp: {},
     csharp: {},
-    go: {},
+    d: {},
+    dart: {},
+    elixir: {},
+    erlang: {},
+    fsharp: {},
+    go: {
+        bigint: {
+            insertMode: get('go.bigint.insertMode', 'inline'),
+        },
+        string: {
+            insertMode: get('go.string.insertMode', 'literal'),
+            quotationMark: get('go.string.quotationMark', 'double'),
+        },
+        array: {
+            insertMode: get('go.array.insertMode', 'short'),
+        },
+    },
+    haskell: {},
     java: {},
     javascript: {
         bigint: {
@@ -21,35 +39,50 @@ export const createSettings = (): ISettingsType => ({
         },
         string: {
             insertMode: get('javascript.string.insertMode', 'literal'),
-            quotes: get('javascript.string.quotes', 'single'),
+            quotationMark: get('javascript.string.quotationMark', 'single'),
         },
     },
+    json: {},
+    lua: {},
+    markdown: {},
+    'objective-c': {},
+    'objective-cpp': {},
+    ocaml: {},
+    pascal: {},
+    perl: {},
     php: {
         bigint: {
-            insertMode: get('php.bigint.insertMode', 'literal'),
+            insertMode: get('php.bigint.insertMode', 'inline'),
         },
         string: {
             insertMode: get('php.string.insertMode', 'literal'),
-            quotes: get('php.string.quotes', 'double'),
+            quotationMark: get('php.string.quotationMark', 'double'),
+        },
+        array: {
+            insertMode: get('php.array.insertMode', 'short'),
         },
     },
     python: {
         bigint: {
-            insertMode: get('python.bigint.insertMode', 'literal'),
+            insertMode: get('python.bigint.insertMode', 'inline'),
         },
         string: {
             insertMode: get('python.string.insertMode', 'literal'),
-            quotes: get('python.string.quotes', 'double'),
+            quotationMark: get('python.string.quotationMark', 'double'),
         },
     },
     ruby: {
         bigint: {
-            insertMode: get('ruby.bigint.insertMode', 'literal'),
+            insertMode: get('ruby.bigint.insertMode', 'inline'),
         },
         string: {
             insertMode: get('ruby.string.insertMode', 'literal'),
-            quotes: get('ruby.string.quotes', 'single'),
+            quotationMark: get('ruby.string.quotationMark', 'single'),
         },
     },
     rust: {},
+    scala: {},
+    swift: {},
+    toml: {},
+    yaml: {},
 });

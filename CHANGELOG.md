@@ -5,6 +5,17 @@ All notable changes to the "vscode-faker-js" extension will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.5.3] - 2025-02-20
+
+### Added
+
+-   New language support: Go;
+
+### Changed
+
+-   Refactor: `Stringify` implements common methods of child classes;
+-   Refactor: Improved type completions in `./src/types/settings.ts`;
+
 ## [9.5.2] - 2025-02-16
 
 ### Added

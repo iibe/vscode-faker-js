@@ -1,11 +1,11 @@
 import type { ExtensionContext } from 'vscode';
 import { commands, Range, window } from 'vscode';
-import { createFakerInstanceAsync, getFakerFunction } from './faker';
+import { fakerApiAtoms } from './base/atoms';
+import { createFakerAsync, getFakerFunction } from './faker';
 import { createSettings } from './settings';
-import { getStringifyInstance } from './syntax';
+import { createStringify } from './syntax';
 import { ICommandId } from './types/manifest';
 import { LanguageIdentifier } from './types/vscode';
-import { fakerApiAtoms } from './utils/atoms';
 
 export function activate(context: ExtensionContext) {
     for (const atom of fakerApiAtoms) {
@@ -19,23 +19,24 @@ export function activate(context: ExtensionContext) {
             }
 
             const settings = createSettings();
-            const faker = await createFakerInstanceAsync(settings.locale);
-            const method = getFakerFunction(faker, atom);
+            const faker = await createFakerAsync(settings.locale);
 
-            if (typeof method !== 'function') {
+            const procedure = getFakerFunction(faker, atom);
+
+            if (typeof procedure !== 'function') {
                 return;
             }
 
             const languageId = editor.document.languageId as LanguageIdentifier;
             const language = settings.syntax === '*' ? languageId : settings.syntax;
-            const stringify = getStringifyInstance(language, settings);
+            const stringify = createStringify(language, settings);
 
             editor.edit((editBuilder) => {
                 editor.selections.forEach(({ start, end }) => {
                     const range = new Range(start, end);
                     // @ts-ignore
                     // [TS2349]: Signatures of union doesn't compatible with each other
-                    const data = method();
+                    const data = procedure();
 
                     editBuilder.replace(range, stringify.from(data));
                 });

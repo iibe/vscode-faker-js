@@ -33,10 +33,10 @@ import {
     WordModule,
 } from '@faker-js/faker';
 import type {
-    Flatten,
     IsEqual,
     IsFunction,
     ObjectFilter,
+    ObjectFlatten,
     ObjectStrict,
     Primitive,
     Structure,
@@ -88,16 +88,16 @@ interface IFakerApiType extends ISimpleFakerApiType {
 
 /* FAKER TYPE CHECKERS */
 
-type FakerApiValidator<T extends object> = {
+type FakerApiFormat<T extends object> = {
     [K in keyof T]: K extends string ? IsFunction<T[K], T[K], never> : never;
 };
 
-type FakerApiFormatter<T extends object> = {
+type FakerApiPrettifier<T extends object> = {
     -readonly [K in keyof T]-?: T[K];
 };
 
-type TFakerApi = FakerApiFormatter<Flatten<IFakerApiType>>;
-type TFakerApiGuard = IsEqual<TFakerApi, FakerApiValidator<TFakerApi>, TFakerApi, never>;
+type TFakerApi = FakerApiPrettifier<ObjectFlatten<IFakerApiType>>;
+type TFakerApiGuard = IsEqual<TFakerApi, FakerApiFormat<TFakerApi>, TFakerApi, never>;
 type TFakerApiReturnTypeGuard = IsEqual<
     TFakerApi,
     ObjectStrict<TPrimitiveApi & TDateApi & TArrayApi & TStructureApi & TBoundApi>,

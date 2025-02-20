@@ -1,6 +1,16 @@
 import { strictEqual as expect } from 'assert';
 import { it } from 'mocha';
-import { stringify } from './javascript';
+import { StringifyJavaScript } from '../syntax';
+
+const stringify = new StringifyJavaScript({
+    bigint: {
+        insertMode: 'literal',
+    },
+    string: {
+        insertMode: 'literal',
+        quotationMark: 'double',
+    },
+});
 
 it('fromPrimitive()', () => {
     expect(stringify.fromPrimitive(undefined), 'undefined');

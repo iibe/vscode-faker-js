@@ -1,12 +1,12 @@
 import { Stringify, StringifyJavaScript, StringifyPhp, StringifyPython, StringifyRuby } from '.';
-import { ISettingsType } from '../types/settings';
+import { ISettings } from '../types/settings';
 import { LanguageIdentifier } from '../types/vscode';
+import { StringifyGo } from './go';
 
-export function getStringifyInstance(
-    language: LanguageIdentifier,
-    settings: ISettingsType
-): Stringify {
+export function createStringify(language: LanguageIdentifier, settings: ISettings): Stringify {
     switch (language) {
+        case 'go':
+            return new StringifyGo(settings.go);
         case 'javascript':
         case 'javascriptreact':
         case 'typescript':

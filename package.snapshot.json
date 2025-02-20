@@ -2,7 +2,7 @@
     "private": true,
     "sideEffects": false,
     "name": "vscode-faker-js",
-    "version": "9.5.2",
+    "version": "9.5.3",
     "description": "Generate fake data with Faker.js in VSCode.",
     "license": "MIT",
     "author": "Roman Narvatov <kjiibe@gmail.com> (https://iibe.github.io)",
@@ -14,14 +14,19 @@
         }
     ],
     "keywords": [
-        "vscode",
-        "extension",
         "faker",
         "faker-js",
         "data",
-        "data-sources",
+        "data-source",
+        "fake",
         "fake-data",
-        "mock-data"
+        "mock-data",
+        "vscode",
+        "extension",
+        "javascript",
+        "php",
+        "python",
+        "ruby"
     ],
     "homepage": "https://github.com/iibe/vscode-faker-js#readme",
     "repository": {
@@ -66,14 +71,16 @@
         "test:unit": "mocha",
         "test:integration": "pnpm vscode-test --label integration",
         "[2.2]": "------------------------------------------------------------",
-        "prerelease": "rimraf --glob ./vscode-faker-js-*.vsix && make build",
-        "release": "vsce package 9.5.2 --no-dependencies --no-git-tag-version",
-        "staging": "code --install-extension vscode-faker-js-9.5.2.vsix",
+        "prebuild": "pnpm format:fix && pnpm lint:check && pnpm typecheck",
+        "build": "make build",
+        "prerelease": "rimraf --glob ./vscode-faker-js-*.vsix && pnpm build",
+        "release": "vsce package 9.5.3 --no-dependencies --no-git-tag-version",
+        "staging": "code --install-extension vscode-faker-js-9.5.3.vsix",
         "production": "vsce publish --no-dependencies",
         "[3]": "--------------------------------------------------------------",
-        "ci:dev": "tsx watch ./src/test/syntax.ts",
-        "ci:format": "pnpm format:fix && pnpm lint:check && pnpm typecheck",
-        "cd:deliver": "pnpm ci:format && pnpm release",
+        "ci:dev": "tsx watch ./src/test/lifecycle.ts",
+        "ci:build": "pnpm build",
+        "cd:deliver": "pnpm release",
         "cd:deploy": "pnpm ci:deliver && pnpm production",
         "cd:undeploy": "vsce unpublish iibe.vscode-faker-js"
     },
@@ -99,6 +106,7 @@
     "publisher": "iibe",
     "icon": "images/logo128x128.png",
     "categories": [
+        "Other",
         "Testing"
     ],
     "activationEvents": [],
@@ -1835,6 +1843,7 @@
                         "stylus",
                         "svelte",
                         "swift",
+                        "toml",
                         "typescript",
                         "typescriptreact",
                         "tex",
@@ -1846,7 +1855,43 @@
                         "yaml"
                     ],
                     "default": "*",
-                    "markdownDescription": "Specifies a syntax of fake data. If set to \"*\", the serialization changes dynamically depending on a programming language. Otherwise (if set to a particular language), a fixed serialization will be used for all languages. If no serialization class was found, then it uses JavaScript syntax for everything."
+                    "markdownDescription": "Specifies a syntax of fake data. If set to `*`, the serialization changes dynamically depending on a programming language. Otherwise (if set to a particular language), a fixed serialization will be used for all languages. If no serialization class was found, then it uses JavaScript syntax for everything."
+                },
+                "faker-js.go.bigint.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "inline"
+                    ],
+                    "default": "inline",
+                    "markdownDescription": "BigInt is inserted as `9007199254740991` in inline mode."
+                },
+                "faker-js.go.string.quotationMark": {
+                    "type": "string",
+                    "enum": [
+                        "double",
+                        "backtick"
+                    ],
+                    "default": "double",
+                    "markdownDescription": "Specifies quotation mark."
+                },
+                "faker-js.go.string.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "inline",
+                        "literal",
+                        "interpolation"
+                    ],
+                    "default": "literal",
+                    "markdownDescription": "String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `\"foobar\"` in interpolation mode."
+                },
+                "faker-js.go.array.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "normal",
+                        "short"
+                    ],
+                    "default": "short",
+                    "markdownDescription": "Array is inserted as ..."
                 },
                 "faker-js.javascript.bigint.insertMode": {
                     "type": "string",
@@ -1856,52 +1901,116 @@
                         "wrapper"
                     ],
                     "default": "literal",
-                    "markdownDescription": "BigInt is inserted as \"9007199254740991\" in inline mode, as \"9007199254740991n\" in literal mode, as \"BigInt(9007199254740991)\" in wrapper mode."
+                    "markdownDescription": "BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991n` in literal mode, as `BigInt(9007199254740991)` in wrapper object mode."
+                },
+                "faker-js.javascript.string.quotationMark": {
+                    "type": "string",
+                    "enum": [
+                        "single",
+                        "double"
+                    ],
+                    "default": "single",
+                    "markdownDescription": "Specifies quotation mark."
                 },
                 "faker-js.javascript.string.insertMode": {
                     "type": "string",
                     "enum": [
                         "inline",
-                        "literal"
+                        "literal",
+                        "interpolation"
                     ],
                     "default": "literal",
-                    "markdownDescription": "String inserted: as \"\"foobar\"\" in literal mode, as \"foobar\" in inline mode."
+                    "markdownDescription": "String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as ``` `foobar` ``` in interpolation mode."
                 },
-                "faker-js.javascript.string.quotes": {
+                "faker-js.php.bigint.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "inline"
+                    ],
+                    "default": "inline",
+                    "markdownDescription": "BigInt is inserted as `9007199254740991` in inline mode."
+                },
+                "faker-js.php.string.quotationMark": {
                     "type": "string",
                     "enum": [
                         "single",
-                        "double",
-                        "backticks"
+                        "double"
                     ],
-                    "default": "single",
-                    "markdownDescription": "Specify string quotes type."
+                    "default": "double",
+                    "markdownDescription": "Specifies quotation mark."
+                },
+                "faker-js.php.string.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "inline",
+                        "literal",
+                        "interpolation"
+                    ],
+                    "default": "literal",
+                    "markdownDescription": "String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `\"foobar\"` in interpolation mode."
+                },
+                "faker-js.php.array.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "normal",
+                        "short"
+                    ],
+                    "default": "short",
+                    "markdownDescription": "Array is inserted as `array(1, 2, 3)` in normal mode, as `[1, 2, 3]` in short mode."
                 },
                 "faker-js.python.bigint.insertMode": {
                     "type": "string",
                     "enum": [
-                        "inline",
-                        "literal"
+                        "inline"
                     ],
-                    "default": "literal",
-                    "markdownDescription": "BigInt is inserted as \"9007199254740991\" in inline mode, as \"9007199254740991\" in literal mode"
+                    "default": "inline",
+                    "markdownDescription": "BigInt is inserted as `9007199254740991` in inline mode."
+                },
+                "faker-js.python.string.quotationMark": {
+                    "type": "string",
+                    "enum": [
+                        "single",
+                        "double"
+                    ],
+                    "default": "double",
+                    "markdownDescription": "Specifies quotation mark."
                 },
                 "faker-js.python.string.insertMode": {
                     "type": "string",
                     "enum": [
                         "inline",
-                        "literal"
+                        "literal",
+                        "interpolation"
                     ],
                     "default": "literal",
-                    "markdownDescription": "String inserted: as \"\"foobar\"\" in literal mode, as \"foobar\" in inline mode."
+                    "markdownDescription": "String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `f\"foobar\"` in interpolation mode."
                 },
-                "faker-js.python.string.quotes": {
+                "faker-js.ruby.bigint.insertMode": {
                     "type": "string",
                     "enum": [
+                        "inline"
+                    ],
+                    "default": "inline",
+                    "markdownDescription": "BigInt is inserted as `9007199254740991` in inline mode."
+                },
+                "faker-js.ruby.string.quotationMark": {
+                    "type": "string",
+                    "enum": [
+                        "single",
                         "double"
                     ],
                     "default": "double",
-                    "markdownDescription": "Specify string quotes type."
+                    "markdownDescription": "Specifies quotation mark."
+                },
+                "faker-js.ruby.string.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "inline",
+                        "literal",
+                        "interpolation"
+                    ],
+                    "default": "literal",
+                    "markdownDescription": "String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `\"foobar\"` in interpolation mode."
                 }
             }
         }

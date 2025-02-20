@@ -1,23 +1,25 @@
+type LanguageIdentifierExtra = 'toml';
+
 /**
  * List of allowed language identifiers.
  * @see https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers
  */
 export type LanguageIdentifier =
+    | LanguageIdentifierExtra
     | 'abap'
     | 'bat'
     | 'bibtex'
+    | 'c'
     | 'clojure'
     | 'coffeescript'
-    | 'c'
     | 'cpp'
     | 'csharp'
-    | 'dockercompose'
     | 'css'
     | 'cuda-cpp'
     | 'd'
     | 'dart'
-    | 'pascal'
     | 'diff'
+    | 'dockercompose'
     | 'dockerfile'
     | 'erlang'
     | 'fsharp'
@@ -25,11 +27,12 @@ export type LanguageIdentifier =
     | 'git-rebase'
     | 'go'
     | 'groovy'
-    | 'handlebars'
     | 'haml'
+    | 'handlebars'
     | 'haskell'
     | 'html'
     | 'ini'
+    | 'jade'
     | 'java'
     | 'javascript'
     | 'javascriptreact'
@@ -50,7 +53,6 @@ export type LanguageIdentifier =
     | 'php'
     | 'plaintext'
     | 'powershell'
-    | 'jade'
     | 'pug'
     | 'python'
     | 'r'
@@ -66,12 +68,12 @@ export type LanguageIdentifier =
     | 'stylus'
     | 'svelte'
     | 'swift'
+    | 'tex'
     | 'typescript'
     | 'typescriptreact'
-    | 'tex'
     | 'vb'
-    | 'vue'
     | 'vue-html'
+    | 'vue'
     | 'xml'
     | 'xsl'
     | 'yaml';

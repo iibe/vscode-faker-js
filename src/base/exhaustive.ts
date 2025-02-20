@@ -22,6 +22,6 @@ export function exhaustiveArray<U extends string>() {
     };
 }
 
-export function exhaustiveSwitch(switchTarget: never): never {
-    throw new Error();
+export function assertNever(variable: never): never {
+    throw new Error('Unexpected value. Should have been never.');
 }

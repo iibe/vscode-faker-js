@@ -1,76 +1,37 @@
 import { Stringify } from '.';
-import { Callable, Newable, Primitive, Structure } from '../types';
-import { ISyntaxRuby } from '../types/settings';
+import { isNativeArray, isNativeObject } from '../base/data-types';
+import { assertNever } from '../base/exhaustive';
+import { ISettings } from '../types/settings';
 import { LanguageIdentifier } from '../types/vscode';
-import {
-    isAnyPrimitive,
-    isExactArray,
-    isExactClass,
-    isExactDate,
-    isExactFunction,
-    isExactObject,
-} from '../utils/data-types';
-import { exhaustiveSwitch } from '../utils/exhaustive';
 
 export class StringifyRuby extends Stringify {
-    public id: LanguageIdentifier = 'ruby';
+    protected readonly id: LanguageIdentifier = 'ruby';
+    protected readonly syntax: ISettings['ruby'];
 
-    private syntax: ISyntaxRuby;
-    private quotationMark: string;
+    protected readonly quotationMark: string;
+    protected readonly arrayOpener: string;
+    protected readonly arrayCloser: string;
+    protected readonly objectOpener: string;
+    protected readonly objectCloser: string;
 
-    constructor(syntax: ISyntaxRuby) {
+    constructor(syntax: ISettings['ruby']) {
         super();
         this.syntax = syntax;
-        this.quotationMark = this.getQuotationMark();
-    }
 
-    from(data: any): string {
-        return isAnyPrimitive(data)
-            ? this.fromPrimitive(data as Primitive)
-            : this.fromStructure(data as Structure);
-    }
-
-    fromPrimitive(primitive: Primitive): string {
-        switch (true) {
-            case primitive === null:
-                return this.fromNull(); // keyword and `typeof null === 'object'
-            case typeof primitive === 'undefined':
-                return this.fromUndefined();
-            case typeof primitive === 'boolean':
-                return this.fromBoolean(primitive);
-            case typeof primitive === 'number':
-                return this.fromNumber(primitive);
-            case typeof primitive === 'bigint':
-                return this.fromBigInt(primitive);
-            case typeof primitive === 'string':
-                return this.fromString(primitive);
-            case typeof primitive === 'symbol':
-                return this.fromSymbol();
-            default:
-                return String(primitive); // `never` hit that case
+        switch (syntax.string.quotationMark) {
+            case 'single':
+                this.quotationMark = "'";
+                break;
+            case 'double':
+                this.quotationMark = '"';
+                break;
         }
-    }
 
-    fromStructure(structure: Structure): string {
-        // Here the order is important since almost everything is an instance of `Object`.
-        // Therefore, we must check particular objects first, and the object in general.
-        switch (true) {
-            case isExactDate(structure):
-                return this.fromString(structure.toISOString());
-            case isExactArray(structure):
-                return this.fromArray(structure);
-            case isExactClass(structure):
-                return this.fromClass(structure as Newable);
-            case isExactFunction(structure):
-                return this.fromFunction(structure as Callable);
-            case isExactObject(structure):
-                return this.fromObject(structure);
-            default:
-                return String(structure);
-        }
+        this.arrayOpener = '[';
+        this.arrayCloser = ']';
+        this.objectOpener = '{';
+        this.objectCloser = '}';
     }
-
-    /* LANGUAGE-SPECIFIC METHODS */
 
     fromNull(): string {
         return 'nil';
@@ -88,14 +49,12 @@ export class StringifyRuby extends Stringify {
         return String(value);
     }
 
-    fromBigInt(value: BigInt): string {
+    fromBigInt(value: bigint): string {
         // prettier-ignore
         switch (this.syntax.bigint.insertMode) {
             case 'inline': return String(value);
-            case 'literal': return String(value);
+            default: return assertNever(this.syntax.bigint.insertMode);
         }
-
-        return exhaustiveSwitch(this.syntax.bigint.insertMode);
     }
 
     fromString(value: string): string {
@@ -104,85 +63,32 @@ export class StringifyRuby extends Stringify {
             case 'inline': return value;
             case 'literal': return this.quotationMark + value + this.quotationMark;
             case 'interpolation': return '"' + value + '"';
+            default: return assertNever(this.syntax.string.insertMode);
         }
-
-        return exhaustiveSwitch(this.syntax.string.insertMode);
     }
 
-    fromSymbol(): string {
-        throw new Error('Faker.js: Symbol() is not present in Python');
+    fromSymbol(value: symbol): string {
+        return ':' + (value.description ? this.fromString(value.description) : 'SymbolName');
     }
 
     fromArray(array: any[]): string {
-        if (array.length === 0) {
-            return '[]';
-        }
-
-        const stringified = array.map((element) => {
-            // avoid circular references
-            if (isExactArray(element)) {
-                return this.fromArray(element);
-            }
-
-            return this.from(element);
+        const elements = array.map((element) => {
+            // avoid circular reference
+            return isNativeArray(element) ? this.fromArray(element) : this.from(element);
         });
 
-        return '[' + stringified.join(', ') + ']';
+        return this.arrayOpener + elements.join(', ') + this.arrayCloser;
     }
 
-    fromObject(object: Record<string, any>, depth = 0): string {
-        const keys = Object.keys(object);
-
-        if (keys.length === 0) {
-            return '{}';
-        }
-
-        let result: string = '{';
-
-        for (let index = 0; index < keys.length; index++) {
-            const key = keys[index];
-            const value = object[key];
-
-            result += " '" + key + "' => ";
+    fromObject(object: object): string {
+        const records = Object.entries(object).map(([key, value]) => {
+            let record: string = this.quotationMark + key + this.quotationMark + ' => ';
             // avoid circular references
-            result += isExactObject(value) ? this.fromObject(value, depth + 1) : this.from(value);
-            result += index !== keys.length - 1 ? ',' : ' ';
-        }
+            record += isNativeObject(value) ? this.fromObject(value) : this.from(value);
 
-        result += '}';
+            return record;
+        });
 
-        return result;
-    }
-
-    fromFunction(func: Callable): string {
-        const result = func();
-
-        // avoid circular references
-        if (isExactFunction(result)) {
-            return this.fromFunction(result);
-        }
-
-        return this.from(result);
-    }
-
-    fromClass(ctor: Newable): string {
-        const instance = new ctor();
-
-        // avoid circular references
-        if (isExactClass(instance)) {
-            return this.fromClass(instance);
-        }
-
-        return this.from(instance);
-    }
-
-    private getQuotationMark() {
-        // prettier-ignore
-        switch(this.syntax.string.quotes) {
-            case 'single': return '\'';
-            case 'double': return '"';
-        }
-
-        return exhaustiveSwitch(this.syntax.string.quotes);
+        return this.objectOpener + records.join(', ') + this.objectCloser;
     }
 }

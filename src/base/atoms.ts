@@ -74,6 +74,7 @@ export const vscodeLanguageIdAtoms = exhaustiveArray<LanguageIdentifier>()(
     'stylus',
     'svelte',
     'swift',
+    'toml',
     'typescript',
     'typescriptreact',
     'tex',
