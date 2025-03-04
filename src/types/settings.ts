@@ -21,7 +21,7 @@ type ToSettings<T extends PropertyDescriptorMap> = ObjectPrettifier<
     }>
 >;
 
-interface PropertyDescriptorAssociativeArray {
+interface PropertyDescriptorArray {
     [key: string]: { 0: PropertyDescriptor['type']; 1: PropertyDescriptor['description'] };
 }
 
@@ -35,7 +35,7 @@ type ToContribConfigProps1<T extends PropertyDescriptorMap> = ObjectPrettifier<
     }>
 >;
 
-type ToContribConfigProps2<T extends PropertyDescriptorAssociativeArray> = {
+type ToContribConfigProps2<T extends PropertyDescriptorArray> = {
     [K in keyof T as K extends string ? `faker-js.${K}` : never]: {
         type: 'string';
         enum: Array<T[K][0]>;
@@ -95,7 +95,7 @@ interface ISettingsSyntaxMap extends PropertyDescriptorMap {
     rust: ISyntaxRust;
     scala: ISyntaxScala;
     swift: ISyntaxSwift;
-    toml: ISyntaxTOML; // custom
+    toml: ISyntaxTOML; // custom language mode
     yaml: ISyntaxYAML; // extra
 }
 
@@ -117,13 +117,13 @@ interface ISyntaxGo extends PropertyDescriptorMap {
         };
     };
     string: {
-        quotationMark: {
-            type: 'double' | 'backtick';
-            description: 'Specifies quotation mark.';
-        };
         insertMode: {
             type: 'inline' | 'literal' | 'interpolation';
             description: 'String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `"foobar"` in interpolation mode.';
+        };
+        quotationMark: {
+            type: 'double' | 'backtick';
+            description: 'Specifies quotation mark.';
         };
     };
     array: {
@@ -145,13 +145,13 @@ interface ISyntaxJavaScript extends PropertyDescriptorMap {
         };
     };
     string: {
-        quotationMark: {
-            type: 'single' | 'double';
-            description: 'Specifies quotation mark.';
-        };
         insertMode: {
             type: 'inline' | 'literal' | 'interpolation';
             description: 'String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as ``` `foobar` ``` in interpolation mode.';
+        };
+        quotationMark: {
+            type: 'single' | 'double';
+            description: 'Specifies quotation mark.';
         };
     };
 }
@@ -166,20 +166,32 @@ interface ISyntaxPascal extends PropertyDescriptorMap {}
 interface ISyntaxPerl extends PropertyDescriptorMap {}
 
 interface ISyntaxPhp extends PropertyDescriptorMap {
+    null: {
+        insertMode: {
+            type: 'lowercase' | 'uppercase';
+            description: 'Undefined and null is inserted as `null` in lowercase mode, as `NULL` in uppercase mode.';
+        };
+    };
+    boolean: {
+        insertMode: {
+            type: 'lowercase' | 'uppercase';
+            description: 'Boolean is inserted as `true` and `false` in lowercase mode, as `TRUE` and `FALSE` in uppercase mode.';
+        };
+    };
     bigint: {
         insertMode: {
-            type: 'inline';
-            description: 'BigInt is inserted as `9007199254740991` in inline mode.';
+            type: 'unsafe' | 'safe';
+            description: 'BigInt is inserted as `9007199254740991` in unsafe mode, as `<quotationMark>9007199254740991<quotationMark>` in safe mode.';
         };
     };
     string: {
-        quotationMark: {
-            type: 'single' | 'double';
-            description: 'Specifies quotation mark.';
-        };
         insertMode: {
             type: 'inline' | 'literal' | 'interpolation';
             description: 'String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `"foobar"` in interpolation mode.';
+        };
+        quotationMark: {
+            type: 'single' | 'double';
+            description: 'Specifies quotation mark.';
         };
     };
     array: {
@@ -198,13 +210,13 @@ interface ISyntaxPython extends PropertyDescriptorMap {
         };
     };
     string: {
-        quotationMark: {
-            type: 'single' | 'double';
-            description: 'Specifies quotation mark.';
-        };
         insertMode: {
             type: 'inline' | 'literal' | 'interpolation';
             description: 'String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `f"foobar"` in interpolation mode.';
+        };
+        quotationMark: {
+            type: 'single' | 'double';
+            description: 'Specifies quotation mark.';
         };
     };
 }
@@ -217,13 +229,13 @@ interface ISyntaxRuby extends PropertyDescriptorMap {
         };
     };
     string: {
-        quotationMark: {
-            type: 'single' | 'double';
-            description: 'Specifies quotation mark.';
-        };
         insertMode: {
             type: 'inline' | 'literal' | 'interpolation';
             description: 'String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as `"foobar"` in interpolation mode.';
+        };
+        quotationMark: {
+            type: 'single' | 'double';
+            description: 'Specifies quotation mark.';
         };
     };
 }

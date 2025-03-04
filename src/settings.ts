@@ -51,8 +51,14 @@ export const createSettings = (): ISettings => ({
     pascal: {},
     perl: {},
     php: {
+        null: {
+            insertMode: get('php.null.insertMode', 'uppercase'),
+        },
+        boolean: {
+            insertMode: get('php.boolean.insertMode', 'uppercase'),
+        },
         bigint: {
-            insertMode: get('php.bigint.insertMode', 'inline'),
+            insertMode: get('php.bigint.insertMode', 'unsafe'),
         },
         string: {
             insertMode: get('php.string.insertMode', 'literal'),

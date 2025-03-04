@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url';
 import path2 from 'path';
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 
-// node_modules/.pnpm/tsup@8.3.6_tsx@4.19.2_typescript@5.7.3/node_modules/tsup/assets/esm_shims.js
+// node_modules/.pnpm/tsup@8.4.0_tsx@4.19.3_typescript@5.8.2/node_modules/tsup/assets/esm_shims.js
 var getFilename = () => fileURLToPath(import.meta.url);
 var getDirname = () => path2.dirname(getFilename());
 var __dirname = /* @__PURE__ */ getDirname();
@@ -544,11 +544,23 @@ function createContribConfig() {
       default: "literal",
       markdownDescription: "String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as ``` `foobar` ``` in interpolation mode."
     },
+    "faker-js.php.null.insertMode": {
+      type: "string",
+      enum: ["lowercase", "uppercase"],
+      default: "uppercase",
+      markdownDescription: "Undefined and null is inserted as `null` in lowercase mode, as `NULL` in uppercase mode."
+    },
+    "faker-js.php.boolean.insertMode": {
+      type: "string",
+      enum: ["lowercase", "uppercase"],
+      default: "uppercase",
+      markdownDescription: "Boolean is inserted as `true` and `false` in lowercase mode, as `TRUE` and `FALSE` in uppercase mode."
+    },
     "faker-js.php.bigint.insertMode": {
       type: "string",
-      enum: ["inline"],
-      default: "inline",
-      markdownDescription: "BigInt is inserted as `9007199254740991` in inline mode."
+      enum: ["safe", "unsafe"],
+      default: "unsafe",
+      markdownDescription: "BigInt is inserted as `9007199254740991` in unsafe mode, as `<quotationMark>9007199254740991<quotationMark>` in safe mode."
     },
     "faker-js.php.string.quotationMark": {
       type: "string",

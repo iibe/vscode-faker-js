@@ -50,21 +50,24 @@ export class StringifyPython extends Stringify {
     }
 
     fromBigInt(value: bigint): string {
-        // prettier-ignore
         switch (this.syntax.bigint.insertMode) {
-            case 'inline': return String(value);
-            default: return assertNever(this.syntax.bigint.insertMode);
+            case 'inline':
+                return String(value);
+            default:
+                return assertNever(this.syntax.bigint.insertMode);
         }
     }
 
     fromString(value: string): string {
-        // prettier-ignore
         switch (this.syntax.string.insertMode) {
-            case 'inline': return value;
-            case 'literal': return this.quotationMark + value + this.quotationMark;
-            case 'interpolation': return 'f"' + value + '"';
-            default: return assertNever(this.syntax.string.insertMode);
-
+            case 'inline':
+                return value;
+            case 'literal':
+                return this.quotationMark + value + this.quotationMark;
+            case 'interpolation':
+                return 'f"' + value + '"';
+            default:
+                return assertNever(this.syntax.string.insertMode);
         }
     }
 

@@ -2,7 +2,7 @@
     "private": true,
     "sideEffects": false,
     "name": "vscode-faker-js",
-    "version": "9.5.3",
+    "version": "9.5.4",
     "description": "Generate fake data with Faker.js in VSCode.",
     "license": "MIT",
     "author": "Roman Narvatov <kjiibe@gmail.com> (https://iibe.github.io)",
@@ -23,10 +23,15 @@
         "mock-data",
         "vscode",
         "extension",
+        "go",
+        "golang",
+        "js",
         "javascript",
         "php",
         "python",
-        "ruby"
+        "ruby",
+        "ts",
+        "typescript"
     ],
     "homepage": "https://github.com/iibe/vscode-faker-js#readme",
     "repository": {
@@ -74,11 +79,11 @@
         "prebuild": "pnpm format:fix && pnpm lint:check && pnpm typecheck",
         "build": "make build",
         "prerelease": "rimraf --glob ./vscode-faker-js-*.vsix && pnpm build",
-        "release": "vsce package 9.5.3 --no-dependencies --no-git-tag-version",
-        "staging": "code --install-extension vscode-faker-js-9.5.3.vsix",
+        "release": "vsce package 9.5.4 --no-dependencies --no-git-tag-version",
+        "staging": "code --install-extension vscode-faker-js-9.5.4.vsix",
         "production": "vsce publish --no-dependencies",
         "[3]": "--------------------------------------------------------------",
-        "ci:dev": "tsx watch ./src/test/lifecycle.ts",
+        "ci:dev": "tsx watch ./src/test/flow.ts",
         "ci:build": "pnpm build",
         "cd:deliver": "pnpm release",
         "cd:deploy": "pnpm ci:deliver && pnpm production",
@@ -1922,13 +1927,32 @@
                     "default": "literal",
                     "markdownDescription": "String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as ``` `foobar` ``` in interpolation mode."
                 },
+                "faker-js.php.null.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "lowercase",
+                        "uppercase"
+                    ],
+                    "default": "uppercase",
+                    "markdownDescription": "Undefined and null is inserted as `null` in lowercase mode, as `NULL` in uppercase mode."
+                },
+                "faker-js.php.boolean.insertMode": {
+                    "type": "string",
+                    "enum": [
+                        "lowercase",
+                        "uppercase"
+                    ],
+                    "default": "uppercase",
+                    "markdownDescription": "Boolean is inserted as `true|false` in lowercase mode, as `TRUE|FALSE` in uppercase mode."
+                },
                 "faker-js.php.bigint.insertMode": {
                     "type": "string",
                     "enum": [
-                        "inline"
+                        "safe",
+                        "unsafe"
                     ],
-                    "default": "inline",
-                    "markdownDescription": "BigInt is inserted as `9007199254740991` in inline mode."
+                    "default": "unsafe",
+                    "markdownDescription": "BigInt is inserted as `9007199254740991` in unsafe mode, as `<quotationMark>9007199254740991<quotationMark>` in safe mode."
                 },
                 "faker-js.php.string.quotationMark": {
                     "type": "string",

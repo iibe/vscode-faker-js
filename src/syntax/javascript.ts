@@ -42,7 +42,7 @@ export class StringifyJavaScript extends Stringify {
     }
 
     fromBoolean(value: boolean): string {
-        return value ? 'true' : 'false';
+        return String(value);
     }
 
     fromNumber(value: number): string {
@@ -50,23 +50,28 @@ export class StringifyJavaScript extends Stringify {
     }
 
     fromBigInt(value: bigint): string {
-        // prettier-ignore
         switch (this.syntax.bigint.insertMode) {
-            case 'inline': return String(value);
-            case 'literal': return value + 'n';
-            case 'wrapper': return "BigInt(" + value + ")";
-            default: return assertNever(this.syntax.bigint.insertMode);
+            case 'inline':
+                return String(value);
+            case 'literal':
+                return value + 'n';
+            case 'wrapper':
+                return 'BigInt(' + value + ')';
+            default:
+                return assertNever(this.syntax.bigint.insertMode);
         }
     }
 
     fromString(value: string): string {
-        // prettier-ignore
         switch (this.syntax.string.insertMode) {
-            case 'inline': return value;
-            case 'literal': return this.quotationMark + value + this.quotationMark;
-            case 'interpolation': return '`' + value + '`';
-            default: return assertNever(this.syntax.string.insertMode);
-
+            case 'inline':
+                return value;
+            case 'literal':
+                return this.quotationMark + value + this.quotationMark;
+            case 'interpolation':
+                return '`' + value + '`';
+            default:
+                return assertNever(this.syntax.string.insertMode);
         }
     }
 

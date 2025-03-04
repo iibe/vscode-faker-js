@@ -133,11 +133,26 @@ function createContribConfig(): IContribConfig {
                 'String is inserted as `foobar` in inline mode, as `<quotationMark>foobar<quotationMark>` in literal mode, as ``` `foobar` ``` in interpolation mode.',
         },
 
+        'faker-js.php.null.insertMode': {
+            type: 'string',
+            enum: ['lowercase', 'uppercase'],
+            default: 'uppercase',
+            markdownDescription:
+                'Undefined and null is inserted as `null` in lowercase mode, as `NULL` in uppercase mode.',
+        },
+        'faker-js.php.boolean.insertMode': {
+            type: 'string',
+            enum: ['lowercase', 'uppercase'],
+            default: 'uppercase',
+            markdownDescription:
+                'Boolean is inserted as `true` and `false` in lowercase mode, as `TRUE` and `FALSE` in uppercase mode.',
+        },
         'faker-js.php.bigint.insertMode': {
             type: 'string',
-            enum: ['inline'],
-            default: 'inline',
-            markdownDescription: 'BigInt is inserted as `9007199254740991` in inline mode.',
+            enum: ['safe', 'unsafe'],
+            default: 'unsafe',
+            markdownDescription:
+                'BigInt is inserted as `9007199254740991` in unsafe mode, as `<quotationMark>9007199254740991<quotationMark>` in safe mode.',
         },
         'faker-js.php.string.quotationMark': {
             type: 'string',

@@ -44,36 +44,70 @@ export class StringifyPhp extends Stringify {
     }
 
     fromNull(): string {
-        return 'NULL';
+        switch (this.syntax.null.insertMode) {
+            case 'lowercase':
+                return 'null';
+            case 'uppercase':
+                return 'NULL';
+            default:
+                return assertNever(this.syntax.null.insertMode);
+        }
     }
 
     fromUndefined(): string {
-        return 'NULL';
+        switch (this.syntax.null.insertMode) {
+            case 'lowercase':
+                return 'null';
+            case 'uppercase':
+                return 'NULL';
+            default:
+                return assertNever(this.syntax.null.insertMode);
+        }
     }
 
     fromBoolean(value: boolean): string {
-        return value ? 'TRUE' : 'FALSE';
+        switch (this.syntax.boolean.insertMode) {
+            case 'lowercase':
+                return String(value);
+            case 'uppercase':
+                return String(value).toUpperCase();
+            default:
+                return assertNever(this.syntax.boolean.insertMode);
+        }
     }
 
     fromNumber(value: number): string {
-        return String(value);
+        switch (true) {
+            case Number.isNaN(value):
+                return 'NaN';
+            case !Number.isFinite(value):
+                return `${Math.sign(value) >= 0 ? '' : '-'}Inf`;
+            default:
+                return String(value);
+        }
     }
 
     fromBigInt(value: bigint): string {
-        // prettier-ignore
         switch (this.syntax.bigint.insertMode) {
-            case 'inline': return String(value);
-            default: return assertNever(this.syntax.bigint.insertMode);
+            case 'unsafe':
+                return String(value);
+            case 'safe':
+                return this.quotationMark + value + this.quotationMark;
+            default:
+                return assertNever(this.syntax.bigint.insertMode);
         }
     }
 
     fromString(value: string): string {
-        // prettier-ignore
         switch (this.syntax.string.insertMode) {
-            case 'inline': return value;
-            case 'literal': return this.quotationMark + value + this.quotationMark;
-            case 'interpolation': return '"' + value + '"';
-            default: return assertNever(this.syntax.string.insertMode);
+            case 'inline':
+                return value;
+            case 'literal':
+                return this.quotationMark + value + this.quotationMark;
+            case 'interpolation':
+                return '"' + value + '"';
+            default:
+                return assertNever(this.syntax.string.insertMode);
         }
     }
 

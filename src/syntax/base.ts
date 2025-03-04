@@ -36,7 +36,8 @@ export abstract class Stringify {
             case typeof primitive === 'bigint': return this.fromBigInt(primitive);
             case typeof primitive === 'string': return this.fromString(primitive);
             case typeof primitive === 'symbol': return this.fromSymbol(primitive);
-            default: return assertNever(primitive); // `never` hit that case
+            default:
+                return assertNever(primitive); // `never` hit that case
         }
     }
 
@@ -50,7 +51,8 @@ export abstract class Stringify {
             case isNativeClass(structure): return this.fromClass(structure);
             case isNativeFunction(structure): return this.fromFunction(structure);
             case isNativeObject(structure): return this.fromObject(structure);
-            default: return assertNever(structure); // `never` hit that case
+            default:
+                return assertNever(structure); // `never` hit that case
         }
     }
 
@@ -66,16 +68,16 @@ export abstract class Stringify {
     abstract fromObject(object: object): string;
 
     fromFunction(callable: Callable): string {
-        const result = callable();
+        const value = callable();
 
         // avoid circular references
-        return isNativeFunction(result) ? this.fromFunction(result) : this.from(result);
+        return isNativeFunction(value) ? this.fromFunction(value) : this.from(value);
     }
 
     fromClass(newable: Newable): string {
-        const result = new newable();
+        const value = new newable();
 
         // avoid circular references
-        return isNativeClass(result) ? this.fromClass(result) : this.from(result);
+        return isNativeClass(value) ? this.fromClass(value) : this.from(value);
     }
 }
