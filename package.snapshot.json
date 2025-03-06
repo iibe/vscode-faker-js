@@ -1943,7 +1943,7 @@
                         "uppercase"
                     ],
                     "default": "uppercase",
-                    "markdownDescription": "Boolean is inserted as `true|false` in lowercase mode, as `TRUE|FALSE` in uppercase mode."
+                    "markdownDescription": "Boolean is inserted as `true` and `false` in lowercase mode, as `TRUE` and `FALSE` in uppercase mode."
                 },
                 "faker-js.php.bigint.insertMode": {
                     "type": "string",
