@@ -1,10 +1,9 @@
-[images]: https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images
-
 # Faker.js for Visual Studio Code
 
 <p align="center">
     <img
         src="https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images/logo128x128.png"
+        alt="logo128x128.png"
         height="64"
     />
 </p>
@@ -21,6 +20,7 @@
 <p align="center">
     <img
         src="https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images/usage.gif"
+        alt="usage.gif"
         style="max-width: 500px"
     />
 </p>
@@ -34,6 +34,7 @@
 <p align="center">
     <img
         src="https://raw.githubusercontent.com/iibe/vscode-faker-js/main/images/install.gif"
+        alt="install.gif"
         style="max-width: 500px"
     />
 </p>
@@ -61,114 +62,6 @@ Specifies a syntax of fake data. If set to `*`, the serialization changes dynami
 ```
 
 Following options provide additional control over how to insert data. This can be useful if you use a particular language version or formatter options. For example, in some versions of ECMAScript, big integer `123n` (as literal) is not allowed, but `BigInt(123)` (as object wrapper) is permitted.
-
-### JavaScript
-
-```js
-{
-    'faker-js.javascript.bigint.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal', 'wrapper'],
-        default: 'literal',
-        markdownDescription:
-            'BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991n` in literal mode, as `BigInt(9007199254740991)` in wrapper object mode.',
-    },
-    'faker-js.javascript.string.quotes': {
-        type: 'string',
-        enum: ['single', 'double'],
-        default: 'single',
-        markdownDescription: 'Specifies quotation mark.',
-    },
-    'faker-js.javascript.string.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal', 'interpolation'],
-        default: 'literal',
-        markdownDescription:
-            'String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as ``foobar`` in interpolation mode.',
-    },
-}
-```
-
-### PHP
-
-```js
-{
-    'faker-js.php.bigint.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal'],
-        default: 'literal',
-        markdownDescription:
-            'BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991` in literal mode',
-    },
-    'faker-js.php.string.quotes': {
-        type: 'string',
-        enum: ['single', 'double'],
-        default: 'double',
-        markdownDescription: 'Specify quotation mark.',
-    },
-    'faker-js.php.string.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal', 'interpolation'],
-        default: 'literal',
-        markdownDescription:
-            'String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as `"foobar"` in interpolation mode.',
-    },
-}
-```
-
-### Python
-
-```js
-{
-    'faker-js.python.bigint.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal'],
-        default: 'literal',
-        markdownDescription:
-            'BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991` in literal mode',
-    },
-    'faker-js.python.string.quotes': {
-        type: 'string',
-        enum: ['single', 'double'],
-        default: 'double',
-        markdownDescription: 'Specify quotation mark.',
-    },
-    'faker-js.python.string.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal', 'interpolation'],
-        default: 'literal',
-        markdownDescription:
-            'String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as `f"foobar"` in interpolation mode.',
-    },
-}
-```
-
-### Ruby
-
-```js
-{
-    'faker-js.ruby.bigint.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal'],
-        default: 'literal',
-        markdownDescription:
-            'BigInt is inserted as `9007199254740991` in inline mode, as `9007199254740991` in literal mode',
-    },
-    'faker-js.ruby.string.quotes': {
-        type: 'string',
-        enum: ['single', 'double'],
-        default: 'double',
-        markdownDescription: 'Specify quotation mark.',
-    },
-    'faker-js.ruby.string.insertMode': {
-        type: 'string',
-        enum: ['inline', 'literal', 'interpolation'],
-        default: 'literal',
-        markdownDescription:
-            'String is inserted as `foobar` in inline mode, as `<quotes>foobar<quotes>` in literal mode, as `"foobar"` in interpolation mode.',
-    },
-}
-```
 
 ## Faker.js API
 
