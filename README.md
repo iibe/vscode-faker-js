@@ -150,6 +150,7 @@ Following options provide additional control over how to insert data. This can b
 1. finance.currency
 1. finance.currencyCode
 1. finance.currencyName
+1. finance.currencyNumericCode
 1. finance.currencySymbol
 1. finance.ethereumAddress
 1. finance.iban

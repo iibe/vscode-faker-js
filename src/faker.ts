@@ -176,6 +176,7 @@ export function getFakerFunction(instance: Faker, atom: IFakerAtom): IFakerFunct
         case 'finance.creditCardNumber': return instance.finance.creditCardNumber;
         case 'finance.currencyCode': return instance.finance.currencyCode;
         case 'finance.currencyName': return instance.finance.currencyName;
+        case 'finance.currencyNumericCode': return instance.finance.currencyNumericCode;
         case 'finance.currencySymbol': return instance.finance.currencySymbol;
         case 'finance.ethereumAddress': return instance.finance.ethereumAddress;
         case 'finance.iban': return instance.finance.iban;

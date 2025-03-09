@@ -5,6 +5,19 @@ All notable changes to the "vscode-faker-js" extension will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.6.0] - 2025-03-09
+
+### Added
+
+- New atoms:
+  - `finance.currencyNumericCode`;
+- New markers for Faker.js functions:
+  - `deprecated` stands for deprecated methods;
+
+### Changed
+
+- Faker version has been updated to 9.6.0;
+
 ## [9.5.4] - 2025-03-04
 
 ### Added
@@ -66,9 +79,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New atoms:
   - `location.language`;
-- New markers for return type of Faker.js functions:
-  - `date` returns instance of `Date` class;
-  - `array` returns indexed collection;
+- New markers for Faker.js functions:
+  - `date` stands for return type is instance of `Date` class;
+  - `array` stands for return type is indexed collection;
 
 ### Changed
 
@@ -78,13 +91,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- New markers for return type of Faker.js functions:
-  - `object` returns any structure (arrays, object, functions, and even classes);
-  - `binding` returns bound functions with some default values;
-  - Unmarked methods returns `primitive`: undefined, null, boolean, string, symbol, number, bigint;
+- New markers for Faker.js functions:
+  - `object` stands for function return type is any structure (arrays, object, functions, and even classes);
+  - `binding` stands for bound function with some default parameters;
+  - Unmarked methods returns primitive: undefined, null, boolean, string, symbol, number, bigint;
 - Additional parameters for quoting and content insertions setting;
 
-> Functions marked as `object` and `binding` may not return correct data.
+> Functions marked as `object` and `binding` error-prone.
 > They are not recommended to use, but in most cases everything is fine.
 
 ## [9.3.5] - 2025-01-13
@@ -161,8 +174,9 @@ Nothing has been changed.
 
 - First commit.
 
-<!-- [Unreleased]: https://github.com/iibe/vscode-faker-js/compare/v9.5.4...HEAD -->
+<!-- [Unreleased]: https://github.com/iibe/vscode-faker-js/compare/v9.6.0...HEAD -->
 
+[9.6.0]: https://github.com/iibe/vscode-faker-js/compare/v9.5.4...v9.6.0
 [9.5.4]: https://github.com/iibe/vscode-faker-js/compare/v9.5.3...v9.5.4
 [9.5.3]: https://github.com/iibe/vscode-faker-js/compare/v9.5.2...v9.5.3
 [9.5.2]: https://github.com/iibe/vscode-faker-js/compare/v9.5.0...v9.5.2

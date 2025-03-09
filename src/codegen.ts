@@ -9,8 +9,15 @@ import {
     fakerLocaleAtoms,
     vscodeLanguageIdAtoms,
 } from './base/atoms';
+import { IFakerAtom } from './types/faker';
 import { IContribCommand, IExtensionManifest } from './types/manifest';
 import { IContribConfig, IContribConfigProps } from './types/settings';
+
+const deprecatedPrimitiveAtoms: Set<IFakerAtom> = new Set([
+    'finance.maskedNumber',
+    'image.urlPlaceholder',
+    'internet.userName',
+]);
 
 /**
  * @see https://code.visualstudio.com/api/references/contribution-points#contributes.commands
@@ -20,9 +27,11 @@ function createContribCommands() {
     const commands: IContribCommand[] = [];
 
     for (const atom of fakerApiPrimitiveAtoms) {
+        const marker = deprecatedPrimitiveAtoms.has(atom) ? ' (deprecated)' : '';
+
         commands.push({
             command: `vscode-faker-js.${atom}`,
-            title: atom,
+            title: `${atom}${marker}`,
             category: 'Faker.js',
             enablement: '(editorIsOpen || editorFocus) && !editorReadonly',
         });

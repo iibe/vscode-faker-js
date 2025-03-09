@@ -2,7 +2,7 @@
     "private": true,
     "sideEffects": false,
     "name": "vscode-faker-js",
-    "version": "9.5.4",
+    "version": "9.6.0",
     "description": "Generate fake data with Faker.js in VSCode.",
     "license": "MIT",
     "author": "Roman Narvatov <kjiibe@gmail.com> (https://iibe.github.io)",
@@ -79,8 +79,8 @@
         "prebuild": "pnpm format:fix && pnpm lint:check && pnpm typecheck",
         "build": "make build",
         "prerelease": "rimraf --glob ./vscode-faker-js-*.vsix && pnpm build",
-        "release": "vsce package 9.5.4 --no-dependencies --no-git-tag-version",
-        "staging": "code --install-extension vscode-faker-js-9.5.4.vsix",
+        "release": "vsce package 9.6.0 --no-dependencies --no-git-tag-version",
+        "staging": "code --install-extension vscode-faker-js-9.6.0.vsix",
         "production": "vsce publish --no-dependencies",
         "[3]": "--------------------------------------------------------------",
         "ci:dev": "tsx watch ./src/test/flow.ts",
@@ -556,6 +556,12 @@
                 "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
             },
             {
+                "command": "vscode-faker-js.finance.currencyNumericCode",
+                "title": "finance.currencyNumericCode",
+                "category": "Faker.js",
+                "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
+            },
+            {
                 "command": "vscode-faker-js.finance.currencySymbol",
                 "title": "finance.currencySymbol",
                 "category": "Faker.js",
@@ -581,7 +587,7 @@
             },
             {
                 "command": "vscode-faker-js.finance.maskedNumber",
-                "title": "finance.maskedNumber",
+                "title": "finance.maskedNumber (deprecated)",
                 "category": "Faker.js",
                 "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
             },
@@ -797,7 +803,7 @@
             },
             {
                 "command": "vscode-faker-js.image.urlPlaceholder",
-                "title": "image.urlPlaceholder",
+                "title": "image.urlPlaceholder (deprecated)",
                 "category": "Faker.js",
                 "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
             },
@@ -935,7 +941,7 @@
             },
             {
                 "command": "vscode-faker-js.internet.userName",
-                "title": "internet.userName",
+                "title": "internet.userName (deprecated)",
                 "category": "Faker.js",
                 "enablement": "(editorIsOpen || editorFocus) && !editorReadonly"
             },

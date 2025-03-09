@@ -232,6 +232,7 @@ export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
     'finance.creditCardNumber',
     'finance.currencyCode',
     'finance.currencyName',
+    'finance.currencyNumericCode',
     'finance.currencySymbol',
     'finance.ethereumAddress',
     'finance.iban',
