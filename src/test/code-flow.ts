@@ -1,4 +1,4 @@
-import { createFakerAsync, getFakerFunction } from '../faker';
+import { createFaker, getFakerFunction } from '../faker';
 import { StringifyPhp } from '../syntax';
 import { ISettings } from '../types/settings';
 
@@ -22,7 +22,7 @@ const syntax: ISettings['php'] = {
 };
 
 async function testExecution() {
-    const faker = await createFakerAsync('en');
+    const faker = await createFaker('en');
     const procedure = getFakerFunction(faker, 'location.language');
 
     // @ts-ignore
@@ -38,19 +38,19 @@ async function testExecution() {
 function testStringify() {
     const stringify = new StringifyPhp(syntax);
 
-    const primitiveCases = createPrimitiveDataset();
+    const primitiveCases = getPrimitiveDataset();
     console.log('\nPRIMITIVE CASE INPUT:');
     console.log(primitiveCases);
     console.log('\nPRIMITIVE CASE OUTPUT:');
     console.log(stringify.from(primitiveCases));
 
-    const primitiveEdgeCases = createPrimitiveEdgeCaseDataset();
+    const primitiveEdgeCases = getPrimitiveEdgeCaseDataset();
     console.log('\nPRIMITIVE EDGE CASE INPUT:');
     console.log(primitiveEdgeCases);
     console.log('\nPRIMITIVE EDGE CASE OUTPUT:');
     console.log(stringify.from(primitiveEdgeCases));
 
-    const structureEdgeCases = createStructureEdgeCaseDataset();
+    const structureEdgeCases = getStructureEdgeCaseDataset();
     console.log('\nSTRUCTURE EDGE CASE INPUT:');
     console.log(structureEdgeCases);
     console.log('\nSTRUCTURE EDGE CASE OUTPUT:');
@@ -60,7 +60,7 @@ function testStringify() {
 testExecution();
 testStringify();
 
-function createPrimitiveDataset(): object {
+function getPrimitiveDataset(): object {
     return {
         hierarchy: undefined,
         tarragon: void 0,
@@ -85,7 +85,7 @@ function createPrimitiveDataset(): object {
     };
 }
 
-function createPrimitiveEdgeCaseDataset(): object {
+function getPrimitiveEdgeCaseDataset(): object {
     return {
         couch: Symbol(),
         cutover: Symbol(''),
@@ -98,7 +98,7 @@ function createPrimitiveEdgeCaseDataset(): object {
     };
 }
 
-function createStructureEdgeCaseDataset(): object {
+function getStructureEdgeCaseDataset(): object {
     return {
         foo: ['one', () => () => 'two', { baz: 'three', qux: { a: 1, b: 2 } }],
         bar: {},

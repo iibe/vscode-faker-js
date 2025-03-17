@@ -1,5 +1,5 @@
-import { copyFileSync, readFileSync, writeFileSync } from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import {
     fakerApiArrayAtoms,
     fakerApiBoundAtoms,
@@ -9,11 +9,11 @@ import {
     fakerLocaleAtoms,
     vscodeLanguageIdAtoms,
 } from './base/atoms';
-import { IFakerAtom } from './types/faker';
-import { IContribCommand, IExtensionManifest } from './types/manifest';
-import { IContribConfig, IContribConfigProps } from './types/settings';
+import type { IFakerAtom } from './types/faker';
+import type { IContribCommand, IExtensionManifest } from './types/manifest';
+import type { IContribConfig, IContribConfigProps } from './types/settings';
 
-const deprecatedPrimitiveAtoms: Set<IFakerAtom> = new Set([
+const fakerApiDeprecatedAtoms: Set<IFakerAtom> = new Set([
     'finance.maskedNumber',
     'image.urlPlaceholder',
     'internet.userName',
@@ -23,11 +23,11 @@ const deprecatedPrimitiveAtoms: Set<IFakerAtom> = new Set([
  * @see https://code.visualstudio.com/api/references/contribution-points#contributes.commands
  * @see https://code.visualstudio.com/api/references/when-clause-contexts
  */
-function createContribCommands() {
+function getContribCommands() {
     const commands: IContribCommand[] = [];
 
     for (const atom of fakerApiPrimitiveAtoms) {
-        const marker = deprecatedPrimitiveAtoms.has(atom) ? ' (deprecated)' : '';
+        const marker = fakerApiDeprecatedAtoms.has(atom) ? ' (deprecated)' : '';
 
         commands.push({
             command: `vscode-faker-js.${atom}`,
@@ -79,7 +79,7 @@ function createContribCommands() {
 /**
  * @see https://code.visualstudio.com/api/references/contribution-points#contributes.configuration
  */
-function createContribConfig(): IContribConfig {
+function getContribConfig(): IContribConfig {
     const properties: IContribConfigProps = {
         'faker-js.locale': {
             type: 'string',
@@ -236,19 +236,21 @@ function codegen() {
     const packageJsonPath = path.join(__dirname, 'package.json');
     const snapshotPath = path.join(__dirname, 'package.snapshot.json');
 
-    copyFileSync(packageJsonPath, snapshotPath);
+    fs.copyFileSync(packageJsonPath, snapshotPath);
 
-    const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
     const extensionManifest: IExtensionManifest = {
-        /** @see https://code.visualstudio.com/api/references/activation-events */
+        /**
+         * @see https://code.visualstudio.com/api/references/activation-events
+         */
         activationEvents: [],
         contributes: {
-            commands: createContribCommands(),
-            configuration: createContribConfig(),
+            commands: getContribCommands(),
+            configuration: getContribConfig(),
         },
     };
 
-    writeFileSync(
+    fs.writeFileSync(
         packageJsonPath,
         JSON.stringify({ ...packageJson, ...extensionManifest }, null, 4),
         {

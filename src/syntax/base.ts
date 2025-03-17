@@ -7,9 +7,9 @@ import {
     isPrimitive,
 } from '../base/data-types';
 import { assertNever } from '../base/exhaustive';
-import { Callable, Newable, Primitive, Structure } from '../types';
-import { ISyntaxVariant } from '../types/settings';
-import { LanguageIdentifier } from '../types/vscode';
+import type { Callable, Newable, Primitive, Structure } from '../types';
+import type { ISyntaxVariant } from '../types/settings';
+import type { LanguageIdentifier } from '../types/vscode';
 
 export abstract class Stringify {
     protected abstract readonly id: LanguageIdentifier;

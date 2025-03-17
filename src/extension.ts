@@ -1,11 +1,11 @@
 import type { ExtensionContext } from 'vscode';
 import { commands, Range, window } from 'vscode';
 import { fakerApiAtoms } from './base/atoms';
-import { createFakerAsync, getFakerFunction } from './faker';
-import { createSettings } from './settings';
+import { createFaker, getFakerFunction } from './faker';
+import { getSettings } from './settings';
 import { createStringify } from './syntax';
-import { ICommandId } from './types/manifest';
-import { LanguageIdentifier } from './types/vscode';
+import type { ICommandId } from './types/manifest';
+import type { LanguageIdentifier } from './types/vscode';
 
 export function activate(context: ExtensionContext) {
     for (const atom of fakerApiAtoms) {
@@ -18,12 +18,12 @@ export function activate(context: ExtensionContext) {
                 return;
             }
 
-            const settings = createSettings();
-            const faker = await createFakerAsync(settings.locale);
+            const settings = getSettings();
+            const faker = await createFaker(settings.locale);
 
-            const procedure = getFakerFunction(faker, atom);
+            const fn = getFakerFunction(faker, atom);
 
-            if (typeof procedure !== 'function') {
+            if (typeof fn !== 'function') {
                 return;
             }
 
@@ -36,7 +36,7 @@ export function activate(context: ExtensionContext) {
                     const range = new Range(start, end);
                     // @ts-ignore
                     // [TS2349]: Signatures of union doesn't compatible with each other
-                    const data = procedure();
+                    const data = fn();
 
                     editBuilder.replace(range, stringify.from(data));
                 });

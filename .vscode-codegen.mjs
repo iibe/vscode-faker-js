@@ -1,10 +1,11 @@
 import { fileURLToPath } from 'url';
-import path2 from 'path';
-import { copyFileSync, readFileSync, writeFileSync } from 'fs';
+import path from 'path';
+import fs from 'node:fs';
+import path2 from 'node:path';
 
 // node_modules/.pnpm/tsup@8.4.0_tsx@4.19.3_typescript@5.8.2/node_modules/tsup/assets/esm_shims.js
 var getFilename = () => fileURLToPath(import.meta.url);
-var getDirname = () => path2.dirname(getFilename());
+var getDirname = () => path.dirname(getFilename());
 var __dirname = /* @__PURE__ */ getDirname();
 
 // src/base/exhaustive.ts
@@ -445,15 +446,15 @@ var fakerApiBoundAtoms = exhaustiveArray()(
 ];
 
 // src/codegen.ts
-var deprecatedPrimitiveAtoms = /* @__PURE__ */ new Set([
+var fakerApiDeprecatedAtoms = /* @__PURE__ */ new Set([
   "finance.maskedNumber",
   "image.urlPlaceholder",
   "internet.userName"
 ]);
-function createContribCommands() {
+function getContribCommands() {
   const commands = [];
   for (const atom of fakerApiPrimitiveAtoms) {
-    const marker = deprecatedPrimitiveAtoms.has(atom) ? " (deprecated)" : "";
+    const marker = fakerApiDeprecatedAtoms.has(atom) ? " (deprecated)" : "";
     commands.push({
       command: `vscode-faker-js.${atom}`,
       title: `${atom}${marker}`,
@@ -495,7 +496,7 @@ function createContribCommands() {
   }
   return commands;
 }
-function createContribConfig() {
+function getContribConfig() {
   const properties = {
     "faker-js.locale": {
       type: "string",
@@ -633,17 +634,19 @@ function createContribConfig() {
 function codegen() {
   const packageJsonPath = path2.join(__dirname, "package.json");
   const snapshotPath = path2.join(__dirname, "package.snapshot.json");
-  copyFileSync(packageJsonPath, snapshotPath);
-  const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
+  fs.copyFileSync(packageJsonPath, snapshotPath);
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
   const extensionManifest = {
-    /** @see https://code.visualstudio.com/api/references/activation-events */
+    /**
+     * @see https://code.visualstudio.com/api/references/activation-events
+     */
     activationEvents: [],
     contributes: {
-      commands: createContribCommands(),
-      configuration: createContribConfig()
+      commands: getContribCommands(),
+      configuration: getContribConfig()
     }
   };
-  writeFileSync(
+  fs.writeFileSync(
     packageJsonPath,
     JSON.stringify({ ...packageJson, ...extensionManifest }, null, 4),
     {

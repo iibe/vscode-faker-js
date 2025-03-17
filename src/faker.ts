@@ -20,7 +20,7 @@ enum Direction {
 /**
  * With dynamic imports we get come code splitting in bundle (around 150 files).
  */
-export async function createFakerAsync(atom: IFakerLocale): Promise<Faker> {
+export async function createFaker(atom: IFakerLocale): Promise<Faker> {
     let _module;
 
     // prettier-ignore

@@ -1,7 +1,13 @@
-import { Stringify, StringifyJavaScript, StringifyPhp, StringifyPython, StringifyRuby } from '.';
-import { ISettings } from '../types/settings';
-import { LanguageIdentifier } from '../types/vscode';
-import { StringifyGo } from './go';
+import {
+    Stringify,
+    StringifyGo,
+    StringifyJavaScript,
+    StringifyPhp,
+    StringifyPython,
+    StringifyRuby,
+} from '.';
+import type { ISettings } from '../types/settings';
+import type { LanguageIdentifier } from '../types/vscode';
 
 export function createStringify(language: LanguageIdentifier, settings: ISettings): Stringify {
     switch (language) {
