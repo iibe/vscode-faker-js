@@ -45,9 +45,9 @@
 1. Type `Preferences: Open User Settings (JSON)` and press `Enter` to open `setting.json` file;
 1. Pick [locale](https://fakerjs.dev/guide/localization.html#available-locales):
 
-```js
+```json
 {
-    'faker-js.locale': 'en'
+  "faker-js.locale": "en"
 }
 ```
 
@@ -55,13 +55,39 @@
 
 Specifies a syntax of fake data. If set to `*`, the serialization changes dynamically depending on a programming language. Otherwise (if set to a particular language), a fixed serialization will be used for all languages. If no serialization class was found, then it uses JavaScript syntax for everything.
 
-```js
+```json
 {
-    'faker-js.syntax': '*'
+  "faker-js.syntax": "*"
 }
 ```
 
+## Language-specific settings
+
 Following options provide additional control over how to insert data. This can be useful if you use a particular language version or formatter options. For example, in some versions of ECMAScript, big integer `123n` (as literal) is not allowed, but `BigInt(123)` (as object wrapper) is permitted.
+
+```json
+{
+  "faker-js.go.bigint.insertMode": "...",
+  "faker-js.go.string.quotationMark": "...",
+  "faker-js.go.string.insertMode": "...",
+  "faker-js.go.array.insertMode": "...",
+  "faker-js.javascript.bigint.insertMode": "...",
+  "faker-js.javascript.string.quotationMark": "...",
+  "faker-js.javascript.string.insertMode": "...",
+  "faker-js.php.null.insertMode": "...",
+  "faker-js.php.boolean.insertMode": "...",
+  "faker-js.php.bigint.insertMode": "...",
+  "faker-js.php.string.quotationMark": "...",
+  "faker-js.php.string.insertMode": "...",
+  "faker-js.php.array.insertMode": "...",
+  "faker-js.python.bigint.insertMode": "...",
+  "faker-js.python.string.quotationMark": "...",
+  "faker-js.python.string.insertMode": "...",
+  "faker-js.ruby.bigint.insertMode": "...",
+  "faker-js.ruby.string.quotationMark": "...",
+  "faker-js.ruby.string.insertMode": "..."
+}
+```
 
 ## Faker.js API
 

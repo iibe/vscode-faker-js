@@ -18,7 +18,7 @@ enum Direction {
 }
 
 /**
- * With dynamic imports we get come code splitting in bundle (around 150 files).
+ * Note: With dynamic imports we get around 150 files after code splitting.
  */
 export async function createFaker(atom: IFakerLocale): Promise<Faker> {
     let _module;

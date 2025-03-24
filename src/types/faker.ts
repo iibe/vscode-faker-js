@@ -33,8 +33,8 @@ import {
     WordModule,
 } from '@faker-js/faker';
 import type {
+    Callable,
     IsEqual,
-    IsFunction,
     ObjectFilter,
     ObjectFlatten,
     ObjectStrict,
@@ -45,7 +45,7 @@ import type {
 /* FAKER MODULES */
 
 /** Contains readonly entities of {@link SimpleFaker}. */
-interface ISimpleFakerApiType {
+interface SimpleFakerModules {
     readonly datatype: DatatypeModule;
 
     /** @augments DateModule see {@link DateModule}. */
@@ -59,7 +59,7 @@ interface ISimpleFakerApiType {
 }
 
 /** Contains readonly entities of {@link Faker}. */
-interface IFakerApiType extends ISimpleFakerApiType {
+interface FakerModules extends SimpleFakerModules {
     readonly airline: AirlineModule;
     readonly animal: AnimalModule;
     readonly book: BookModule;
@@ -88,72 +88,74 @@ interface IFakerApiType extends ISimpleFakerApiType {
 
 /* FAKER TYPE CHECKERS */
 
-type FakerApiFormat<T extends object> = {
-    [K in keyof T]: K extends string ? IsFunction<T[K], T[K], never> : never;
-};
-
-type FakerApiPrettifier<T extends object> = {
+type Prettifier<T extends object> = {
     -readonly [K in keyof T]-?: T[K];
 };
 
-type TFakerApi = FakerApiPrettifier<ObjectFlatten<IFakerApiType>>;
-type TFakerApiGuard = IsEqual<TFakerApi, FakerApiFormat<TFakerApi>, TFakerApi, never>;
-type TFakerApiReturnTypeGuard = IsEqual<
-    TFakerApi,
-    ObjectStrict<TPrimitiveApi & TDateApi & TArrayApi & TStructureApi & TBoundApi>,
-    TFakerApi,
+type FakerApi = Prettifier<ObjectFlatten<FakerModules>>;
+
+// Ensures all FakerApi keys has functions as values.
+type FakerApiConsistOfFunctions = IsEqual<
+    keyof FakerApi,
+    keyof ObjectFilter<FakerApi, Callable>,
+    FakerApi,
     never
 >;
 
-type TReturnsPrimitive = ObjectFilter<TFakerApi, () => Primitive>;
-type TReturnsDate = ObjectFilter<TFakerApi, () => Date>;
-type TReturnsArray = ObjectFilter<TFakerApi, () => any[]>;
-type TReturnsStructure = ObjectFilter<TFakerApi, () => Structure>;
-
-type TPrimitiveApi = TReturnsPrimitive;
-
-// Due function overloads, some intersection are occurs
-type TDateApi = Omit<TReturnsDate, keyof TPrimitiveApi>;
-type TArrayApi = Omit<TReturnsArray, keyof TPrimitiveApi>;
-type TStructureApi = Omit<
-    TReturnsStructure,
-    keyof TPrimitiveApi | keyof TDateApi | keyof TArrayApi
+// Ensures all FakerApi function return types are represented in ReturnXXX types.
+type FakerApiCompleteByReturnType = IsEqual<
+    keyof FakerApi,
+    keyof ObjectStrict<
+        ReturnsPrimitive & ReturnsDate & ReturnsArray & ReturnsStructure & FunctionsWithParameters
+    >,
+    FakerApi,
+    never
 >;
 
-// Function with parameters that must be specified
-type TBoundApi = Omit<
-    TFakerApi,
-    keyof TPrimitiveApi | keyof TDateApi | keyof TArrayApi | keyof TStructureApi
+type ReturnsPrimitive = ObjectFilter<FakerApi, () => Primitive>;
+
+// Due overloads there might be some intersections.
+type ReturnsDate = Omit<ObjectFilter<FakerApi, () => Date>, keyof ReturnsPrimitive>;
+type ReturnsArray = Omit<ObjectFilter<FakerApi, () => any[]>, keyof ReturnsPrimitive>;
+type ReturnsStructure = Omit<
+    ObjectFilter<FakerApi, () => Structure>,
+    keyof ReturnsPrimitive | keyof ReturnsDate | keyof ReturnsArray
+>;
+
+// Functions with at least 1 parameter.
+type FunctionsWithParameters = Omit<
+    FakerApi,
+    keyof ReturnsPrimitive | keyof ReturnsDate | keyof ReturnsArray | keyof ReturnsStructure
 >;
 
 /* EXPORTS */
 
-export type IFakerPrimitiveApi = TPrimitiveApi;
-export type IFakerPrimitiveAtom = keyof TPrimitiveApi;
-export type IFakerPrimitiveFunction = TPrimitiveApi[IFakerPrimitiveAtom];
-
-export type IFakerDateApi = TDateApi;
-export type IFakerDateAtom = keyof TDateApi;
-export type IFakerDateFunction = TDateApi[IFakerDateAtom];
-
-export type IFakerArrayApi = TArrayApi;
-export type IFakerArrayAtom = keyof TArrayApi;
-export type IFakerArrayFunction = TArrayApi[IFakerArrayAtom];
-
-export type IFakerStructureApi = TStructureApi;
-export type IFakerStructureAtom = keyof TStructureApi;
-export type IFakerStructureFunction = TStructureApi[IFakerStructureAtom];
-
-export type IFakerBoundApi = TBoundApi;
-export type IFakerBoundAtom = keyof TBoundApi;
-export type IFakerBoundFunction = TBoundApi[IFakerBoundAtom];
-
 export type IFakerLocale = keyof typeof allLocales;
-export type IFakerApi = TFakerApi;
+export type IFakerApi = FakerApiConsistOfFunctions & FakerApiCompleteByReturnType;
 export type IFakerAtom =
     | IFakerPrimitiveAtom
     | IFakerDateAtom
     | IFakerArrayAtom
     | IFakerStructureAtom
     | IFakerBoundAtom;
-export type IFakerFunction = TFakerApi[IFakerAtom];
+export type IFakerFunction = IFakerApi[IFakerAtom];
+
+export type IFakerPrimitiveApi = ReturnsPrimitive;
+export type IFakerPrimitiveAtom = keyof ReturnsPrimitive;
+export type IFakerPrimitiveFunction = ReturnsPrimitive[IFakerPrimitiveAtom];
+
+export type IFakerDateApi = ReturnsDate;
+export type IFakerDateAtom = keyof ReturnsDate;
+export type IFakerDateFunction = ReturnsDate[IFakerDateAtom];
+
+export type IFakerArrayApi = ReturnsArray;
+export type IFakerArrayAtom = keyof ReturnsArray;
+export type IFakerArrayFunction = ReturnsArray[IFakerArrayAtom];
+
+export type IFakerStructureApi = ReturnsStructure;
+export type IFakerStructureAtom = keyof ReturnsStructure;
+export type IFakerStructureFunction = ReturnsStructure[IFakerStructureAtom];
+
+export type IFakerBoundApi = FunctionsWithParameters;
+export type IFakerBoundAtom = keyof FunctionsWithParameters;
+export type IFakerBoundFunction = FunctionsWithParameters[IFakerBoundAtom];

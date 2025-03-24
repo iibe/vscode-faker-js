@@ -13,7 +13,7 @@ import type { IFakerAtom } from './types/faker';
 import type { IContribCommand, IExtensionManifest } from './types/manifest';
 import type { IContribConfig, IContribConfigProps } from './types/settings';
 
-const fakerApiDeprecatedAtoms: Set<IFakerAtom> = new Set([
+const deprecated: Set<IFakerAtom> = new Set([
     'finance.maskedNumber',
     'image.urlPlaceholder',
     'internet.userName',
@@ -27,11 +27,9 @@ function getContribCommands() {
     const commands: IContribCommand[] = [];
 
     for (const atom of fakerApiPrimitiveAtoms) {
-        const marker = fakerApiDeprecatedAtoms.has(atom) ? ' (deprecated)' : '';
-
         commands.push({
             command: `vscode-faker-js.${atom}`,
-            title: `${atom}${marker}`,
+            title: `${atom}${deprecated.has(atom) ? ' (deprecated)' : ''}`,
             category: 'Faker.js',
             enablement: '(editorIsOpen || editorFocus) && !editorReadonly',
         });
@@ -40,7 +38,7 @@ function getContribCommands() {
     for (const atom of fakerApiDateAtoms) {
         commands.push({
             command: `vscode-faker-js.${atom}`,
-            title: `${atom} (date)`,
+            title: `${atom} (${deprecated.has(atom) ? 'deprecated' : 'date'})`,
             category: 'Faker.js',
             enablement: '(editorIsOpen || editorFocus) && !editorReadonly',
         });
@@ -49,7 +47,7 @@ function getContribCommands() {
     for (const atom of fakerApiArrayAtoms) {
         commands.push({
             command: `vscode-faker-js.${atom}`,
-            title: `${atom} (array)`,
+            title: `${atom} (${deprecated.has(atom) ? 'deprecated' : 'array'})`,
             category: 'Faker.js',
             enablement: '(editorIsOpen || editorFocus) && !editorReadonly',
         });
@@ -58,7 +56,7 @@ function getContribCommands() {
     for (const atom of fakerApiStructureAtoms) {
         commands.push({
             command: `vscode-faker-js.${atom}`,
-            title: `${atom} (object)`,
+            title: `${atom} (${deprecated.has(atom) ? 'deprecated' : 'object'})`,
             category: 'Faker.js',
             enablement: '(editorIsOpen || editorFocus) && !editorReadonly',
         });
@@ -67,7 +65,7 @@ function getContribCommands() {
     for (const atom of fakerApiBoundAtoms) {
         commands.push({
             command: `vscode-faker-js.${atom}`,
-            title: `${atom} (binding)`,
+            title: `${atom} (${deprecated.has(atom) ? 'deprecated' : 'binding'})`,
             category: 'Faker.js',
             enablement: '(editorIsOpen || editorFocus) && !editorReadonly',
         });

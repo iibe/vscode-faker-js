@@ -43,7 +43,7 @@ it('fromPrimitive()', () => {
     );
 
     expect(stringify.fromPrimitive(Symbol()), 'Symbol()');
-    expect(stringify.fromPrimitive(Symbol('')), 'Symbol("")');
+    expect(stringify.fromPrimitive(Symbol('')), 'Symbol()');
     expect(stringify.fromPrimitive(Symbol('foo')), 'Symbol("foo")');
 
     expect(stringify.fromPrimitive(''), '""');

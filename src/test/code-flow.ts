@@ -1,27 +1,11 @@
 import { createFaker, getFakerFunction } from '../faker';
-import { StringifyPhp } from '../syntax';
+import { Stringify, StringifyPhp } from '../syntax';
 import { ISettings } from '../types/settings';
 
-const syntax: ISettings['php'] = {
-    null: {
-        insertMode: 'uppercase',
-    },
-    boolean: {
-        insertMode: 'uppercase',
-    },
-    bigint: {
-        insertMode: 'unsafe',
-    },
-    string: {
-        insertMode: 'literal',
-        quotationMark: 'double',
-    },
-    array: {
-        insertMode: 'short',
-    },
-};
+testCodeFlow();
+testStringify();
 
-async function testExecution() {
+async function testCodeFlow() {
     const faker = await createFaker('en');
     const procedure = getFakerFunction(faker, 'location.language');
 
@@ -29,38 +13,58 @@ async function testExecution() {
     const data = procedure();
 
     if (data) {
-        const stringify = new StringifyPhp(syntax);
+        const stringify = getStringify();
         console.log(data);
         console.log(stringify.from(data));
     }
 }
 
 function testStringify() {
-    const stringify = new StringifyPhp(syntax);
+    const stringify = getStringify();
 
-    const primitiveCases = getPrimitiveDataset();
+    const primitiveBaseCases = getPrimitiveBaseCases();
     console.log('\nPRIMITIVE CASE INPUT:');
-    console.log(primitiveCases);
+    console.log(primitiveBaseCases);
     console.log('\nPRIMITIVE CASE OUTPUT:');
-    console.log(stringify.from(primitiveCases));
+    console.log(stringify.from(primitiveBaseCases));
 
-    const primitiveEdgeCases = getPrimitiveEdgeCaseDataset();
+    const primitiveEdgeCases = getPrimitiveEdgeCases();
     console.log('\nPRIMITIVE EDGE CASE INPUT:');
     console.log(primitiveEdgeCases);
     console.log('\nPRIMITIVE EDGE CASE OUTPUT:');
     console.log(stringify.from(primitiveEdgeCases));
 
-    const structureEdgeCases = getStructureEdgeCaseDataset();
+    const structureEdgeCases = getStructureEdgeCases();
     console.log('\nSTRUCTURE EDGE CASE INPUT:');
     console.log(structureEdgeCases);
     console.log('\nSTRUCTURE EDGE CASE OUTPUT:');
     console.log(stringify.from(structureEdgeCases));
 }
 
-testExecution();
-testStringify();
+function getStringify(): Stringify {
+    const syntax: ISettings['php'] = {
+        null: {
+            insertMode: 'uppercase',
+        },
+        boolean: {
+            insertMode: 'uppercase',
+        },
+        bigint: {
+            insertMode: 'unsafe',
+        },
+        string: {
+            insertMode: 'literal',
+            quotationMark: 'double',
+        },
+        array: {
+            insertMode: 'short',
+        },
+    };
 
-function getPrimitiveDataset(): object {
+    return new StringifyPhp(syntax);
+}
+
+function getPrimitiveBaseCases(): object {
     return {
         hierarchy: undefined,
         tarragon: void 0,
@@ -85,7 +89,7 @@ function getPrimitiveDataset(): object {
     };
 }
 
-function getPrimitiveEdgeCaseDataset(): object {
+function getPrimitiveEdgeCases(): object {
     return {
         couch: Symbol(),
         cutover: Symbol(''),
@@ -98,17 +102,13 @@ function getPrimitiveEdgeCaseDataset(): object {
     };
 }
 
-function getStructureEdgeCaseDataset(): object {
+function getStructureEdgeCases(): object {
     return {
         foo: ['one', () => () => 'two', { baz: 'three', qux: { a: 1, b: 2 } }],
         bar: {},
         baz: () => () => () => 'smth',
         qux: class {
-            constructor(
-                abc: string,
-                private ijk: boolean,
-                protected xyz: string
-            ) {}
+            constructor(abc: string, private ijk: boolean, protected xyz: string) {}
         },
     };
 }

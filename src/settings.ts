@@ -43,9 +43,7 @@ export function getSettings(): ISettings {
                 quotationMark: get('javascript.string.quotationMark', 'single'),
             },
         },
-        json: {},
         lua: {},
-        markdown: {},
         'objective-c': {},
         'objective-cpp': {},
         ocaml: {},
@@ -90,7 +88,5 @@ export function getSettings(): ISettings {
         rust: {},
         scala: {},
         swift: {},
-        toml: {},
-        yaml: {},
     };
 }
