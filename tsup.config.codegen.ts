@@ -1,21 +1,17 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-    name: 'vscode-faker-js-codegen',
+    name: 'vscode-faker-js (codegen)',
     platform: 'node',
-    tsconfig: './tsconfig.json',
-    bundle: true,
-    splitting: false,
-    treeshake: true,
-    clean: false,
-    entry: {
-        '.vscode-codegen': './src/codegen.ts',
-    },
-    outDir: './',
-    minify: false,
-    sourcemap: false,
+    entry: ['./src/codegen.ts'],
+    outDir: './artifacts',
+    target: 'es2020',
     dts: false,
-    format: ['esm'],
-    legacyOutput: false,
+    sourcemap: false,
+
+    clean: true,
+    format: ['cjs'],
+    minify: false,
     shims: true,
+    splitting: false,
 });

@@ -7,7 +7,10 @@ export function isPrimitive(value: any): value is Primitive {
 
 /** Any of these: array, object, function (class). */
 export function isStructure(value: any): value is Structure {
-    return (typeof value === 'object' && value !== null) || typeof value === 'function';
+    return (
+        (typeof value === 'object' && value !== null) ||
+        typeof value === 'function'
+    );
 }
 
 export function isNativeDate(value: any) {
@@ -31,7 +34,10 @@ export function isNativeClass(value: any): value is Newable {
         return false;
     }
 
-    const prototypeDescriptor = Object.getOwnPropertyDescriptor(value, 'prototype');
+    const prototypeDescriptor = Object.getOwnPropertyDescriptor(
+        value,
+        'prototype'
+    );
 
     // Ignores Promise.resolve(), since it doesn't have prototype at all
     if (!prototypeDescriptor) {
@@ -42,11 +48,18 @@ export function isNativeClass(value: any): value is Newable {
     const naiveConstructorNameCheck = /^\s*class[^\w]+/.test(value.toString());
 
     // Function has writable prototype, bun class isn't
-    const naivePrototypeImmutabilityCheck = !Boolean(prototypeDescriptor.writable);
+    const naivePrototypeImmutabilityCheck = !Boolean(
+        prototypeDescriptor.writable
+    );
 
     // Built-in object check
     const naiveNativeObjectCheck =
-        globalThis[value.name as keyof typeof globalThis] === value && /^[A-Z]/.test(value.name);
+        globalThis[value.name as keyof typeof globalThis] === value &&
+        /^[A-Z]/.test(value.name);
 
-    return naiveConstructorNameCheck || naivePrototypeImmutabilityCheck || naiveNativeObjectCheck;
+    return (
+        naiveConstructorNameCheck ||
+        naivePrototypeImmutabilityCheck ||
+        naiveNativeObjectCheck
+    );
 }

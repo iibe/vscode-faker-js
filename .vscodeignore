@@ -1,11 +1,9 @@
-*
-.vscode
-dist/
-docs/
-out/**/*.map.js
-src/
+# Ignore everything by default
+**
 
-# Do not ignore
+# Except these files and folders
+!out/
+!images/
 !CHANGELOG.md
-!LICENSE
 !README.md
+!LICENSE

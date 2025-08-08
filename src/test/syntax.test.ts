@@ -26,8 +26,14 @@ it('fromPrimitive()', () => {
     expect(stringify.fromPrimitive(-1), '-1');
     expect(stringify.fromPrimitive(2.3), '2.3');
     expect(stringify.fromPrimitive(-2.3), '-2.3');
-    expect(stringify.fromPrimitive(Number.MAX_SAFE_INTEGER), '9007199254740991');
-    expect(stringify.fromPrimitive(-Number.MAX_SAFE_INTEGER), '-9007199254740991');
+    expect(
+        stringify.fromPrimitive(Number.MAX_SAFE_INTEGER),
+        '9007199254740991'
+    );
+    expect(
+        stringify.fromPrimitive(-Number.MAX_SAFE_INTEGER),
+        '-9007199254740991'
+    );
     expect(stringify.fromPrimitive(Infinity), 'Infinity');
     expect(stringify.fromPrimitive(-Infinity), '-Infinity');
     expect(stringify.fromPrimitive(NaN), 'NaN');

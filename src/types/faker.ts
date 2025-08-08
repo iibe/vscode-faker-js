@@ -106,7 +106,11 @@ type FakerApiConsistOfFunctions = IsEqual<
 type FakerApiCompleteByReturnType = IsEqual<
     keyof FakerApi,
     keyof ObjectStrict<
-        ReturnsPrimitive & ReturnsDate & ReturnsArray & ReturnsStructure & FunctionsWithParameters
+        ReturnsPrimitive &
+            ReturnsDate &
+            ReturnsArray &
+            ReturnsStructure &
+            FunctionsWithParameters
     >,
     FakerApi,
     never
@@ -115,8 +119,14 @@ type FakerApiCompleteByReturnType = IsEqual<
 type ReturnsPrimitive = ObjectFilter<FakerApi, () => Primitive>;
 
 // Due overloads there might be some intersections.
-type ReturnsDate = Omit<ObjectFilter<FakerApi, () => Date>, keyof ReturnsPrimitive>;
-type ReturnsArray = Omit<ObjectFilter<FakerApi, () => any[]>, keyof ReturnsPrimitive>;
+type ReturnsDate = Omit<
+    ObjectFilter<FakerApi, () => Date>,
+    keyof ReturnsPrimitive
+>;
+type ReturnsArray = Omit<
+    ObjectFilter<FakerApi, () => any[]>,
+    keyof ReturnsPrimitive
+>;
 type ReturnsStructure = Omit<
     ObjectFilter<FakerApi, () => Structure>,
     keyof ReturnsPrimitive | keyof ReturnsDate | keyof ReturnsArray
@@ -125,13 +135,17 @@ type ReturnsStructure = Omit<
 // Functions with at least 1 parameter.
 type FunctionsWithParameters = Omit<
     FakerApi,
-    keyof ReturnsPrimitive | keyof ReturnsDate | keyof ReturnsArray | keyof ReturnsStructure
+    | keyof ReturnsPrimitive
+    | keyof ReturnsDate
+    | keyof ReturnsArray
+    | keyof ReturnsStructure
 >;
 
 /* EXPORTS */
 
 export type IFakerLocale = keyof typeof allLocales;
-export type IFakerApi = FakerApiConsistOfFunctions & FakerApiCompleteByReturnType;
+export type IFakerApi = FakerApiConsistOfFunctions &
+    FakerApiCompleteByReturnType;
 export type IFakerAtom =
     | IFakerPrimitiveAtom
     | IFakerDateAtom

@@ -2,10 +2,10 @@ import { Stringify } from '.';
 import { isNativeArray, isNativeObject } from '../base/data-types';
 import { assertNever } from '../base/exhaustive';
 import { ISettings } from '../types/settings';
-import { LanguageIdentifier } from '../types/vscode';
+import { VscodeLanguageIdentifier } from '../types/vscode';
 
 export class StringifyPhp extends Stringify {
-    protected readonly id: LanguageIdentifier = 'php';
+    protected readonly id: VscodeLanguageIdentifier = 'php';
     protected readonly syntax: ISettings['php'];
 
     protected readonly quotationMark: string;
@@ -112,13 +112,17 @@ export class StringifyPhp extends Stringify {
     }
 
     fromSymbol(value: symbol): string {
-        return this.fromString(`Faker.js: Symbol() doesn't exists in '${this.id}'.`);
+        return this.fromString(
+            `Faker.js: Symbol() doesn't exists in '${this.id}'.`
+        );
     }
 
     fromArray(array: any[]): string {
         const elements = array.map((element) => {
             // avoid circular reference
-            return isNativeArray(element) ? this.fromArray(element) : this.from(element);
+            return isNativeArray(element)
+                ? this.fromArray(element)
+                : this.from(element);
         });
 
         return this.arrayOpener + elements.join(', ') + this.arrayCloser;
@@ -126,9 +130,12 @@ export class StringifyPhp extends Stringify {
 
     fromObject(object: object): string {
         const records = Object.entries(object).map(([key, value]) => {
-            let record: string = this.quotationMark + key + this.quotationMark + ' => ';
+            let record: string =
+                this.quotationMark + key + this.quotationMark + ' => ';
             // avoid circular references
-            record += isNativeObject(value) ? this.fromObject(value) : this.from(value);
+            record += isNativeObject(value)
+                ? this.fromObject(value)
+                : this.from(value);
 
             return record;
         });

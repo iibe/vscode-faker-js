@@ -1,14 +1,16 @@
 {
+    "include": ["./src/**/*.ts"],
+    "exclude": ["./node_modules", "./dist", "./out", "./src/codegen.ts"],
     "compilerOptions": {
-        "lib": ["ES2022", "DOM"],
+        "lib": ["ES2020", "DOM"],
         "strict": true,
 
         "rootDir": "./src",
         "outDir": "./dist",
-        "module": "Node16",
-        "target": "ES2022",
-        "sourceMap": true
-    },
-    "exclude": ["./node_modules", "./dist", "./out", "./src/codegen.ts"],
-    "include": ["./src/**/*.ts"]
+
+        "module": "node16",
+        "target": "es2020",
+        "declaration": false,
+        "sourceMap": false
+    }
 }

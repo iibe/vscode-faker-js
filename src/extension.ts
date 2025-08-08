@@ -5,7 +5,7 @@ import { createFaker, getFakerFunction } from './faker';
 import { getSettings } from './settings';
 import { createStringify } from './syntax';
 import type { ICommandId } from './types/manifest';
-import type { LanguageIdentifier } from './types/vscode';
+import type { VscodeLanguageIdentifier } from './types/vscode';
 
 export function activate(context: ExtensionContext) {
     for (const atom of fakerApiAtoms) {
@@ -27,8 +27,10 @@ export function activate(context: ExtensionContext) {
                 return;
             }
 
-            const languageId = editor.document.languageId as LanguageIdentifier;
-            const language = settings.syntax === '*' ? languageId : settings.syntax;
+            const languageId = editor.document
+                .languageId as VscodeLanguageIdentifier;
+            const language =
+                settings.syntax === '*' ? languageId : settings.syntax;
             const stringify = createStringify(language, settings);
 
             editor.edit((editBuilder) => {

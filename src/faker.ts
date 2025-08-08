@@ -100,7 +100,10 @@ export async function createFaker(atom: IFakerLocale): Promise<Faker> {
     return _module.faker as unknown as Faker;
 }
 
-export function getFakerFunction(instance: Faker, atom: IFakerAtom): IFakerFunction | undefined {
+export function getFakerFunction(
+    instance: Faker,
+    atom: IFakerAtom
+): IFakerFunction | undefined {
     // prettier-ignore
     switch (atom as IFakerPrimitiveAtom) {
         case 'airline.aircraftType': return instance.airline.aircraftType;
@@ -402,7 +405,10 @@ export function getFakerFunction(instance: Faker, atom: IFakerAtom): IFakerFunct
             );
         }
         case 'helpers.fromRegExp': {
-            return instance.helpers.fromRegExp.bind(null, /[A-Z0-9]{4}-[A-Z0-9]{4}/);
+            return instance.helpers.fromRegExp.bind(
+                null,
+                /[A-Z0-9]{4}-[A-Z0-9]{4}/
+            );
         }
         case 'helpers.maybe': {
             // can't resolve with `string` (to bypass use `any`)
@@ -413,14 +419,22 @@ export function getFakerFunction(instance: Faker, atom: IFakerAtom): IFakerFunct
         }
         case 'helpers.multiple': {
             const method = instance.helpers.multiple<string>;
-            return method.bind(null, (_, index) => `#${index + 1}) ${instance.number.int()}`, {
-                count: { min: 2, max: 3 },
-            });
+            return method.bind(
+                null,
+                (_, index) => `#${index + 1}) ${instance.number.int()}`,
+                {
+                    count: { min: 2, max: 3 },
+                }
+            );
         }
         case 'helpers.mustache': {
-            return instance.helpers.mustache.bind(null, 'Random number is {{count}}', {
-                count: () => instance.number.int().toString(),
-            });
+            return instance.helpers.mustache.bind(
+                null,
+                'Random number is {{count}}',
+                {
+                    count: () => instance.number.int().toString(),
+                }
+            );
         }
         case 'helpers.objectEntry': {
             return instance.helpers.objectEntry.bind(null, {
@@ -431,20 +445,36 @@ export function getFakerFunction(instance: Faker, atom: IFakerAtom): IFakerFunct
             });
         }
         case 'helpers.objectKey': {
-            return instance.helpers.objectKey.bind(null, { One: 1, Two: 2, Three: 3, Nine: 9 });
+            return instance.helpers.objectKey.bind(null, {
+                One: 1,
+                Two: 2,
+                Three: 3,
+                Nine: 9,
+            });
         }
         case 'helpers.objectValue': {
-            const method = instance.helpers.objectValue<{ [key: string]: number }>;
+            const method = instance.helpers.objectValue<{
+                [key: string]: number;
+            }>;
             return method.bind(null, { One: 1, Two: 2, Three: 3, Nine: 9 });
         }
         case 'helpers.rangeToNumber': {
-            return instance.helpers.rangeToNumber.bind(null, { min: 1, max: 10 });
+            return instance.helpers.rangeToNumber.bind(null, {
+                min: 1,
+                max: 10,
+            });
         }
         case 'helpers.shuffle': {
-            return instance.helpers.shuffle.bind(null, ['a', 'b', 'c'], { inplace: false });
+            return instance.helpers.shuffle.bind(null, ['a', 'b', 'c'], {
+                inplace: false,
+            });
         }
         case 'helpers.uniqueArray': {
-            return instance.helpers.uniqueArray.bind(null, instance.word.sample, 3);
+            return instance.helpers.uniqueArray.bind(
+                null,
+                instance.word.sample,
+                3
+            );
         }
         case 'helpers.weightedArrayElement': {
             const method = instance.helpers.weightedArrayElement<string>;
@@ -455,7 +485,10 @@ export function getFakerFunction(instance: Faker, atom: IFakerAtom): IFakerFunct
             ]);
         }
         case 'string.fromCharacters': {
-            return instance.string.fromCharacters.bind(null, 'abc', { min: 5, max: 10 });
+            return instance.string.fromCharacters.bind(null, 'abc', {
+                min: 5,
+                max: 10,
+            });
         }
         default:
             break; // needed for the next switch

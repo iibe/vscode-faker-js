@@ -2,10 +2,10 @@ import { createFaker, getFakerFunction } from '../faker';
 import { Stringify, StringifyPhp } from '../syntax';
 import { ISettings } from '../types/settings';
 
-testCodeFlow();
+testLifecycle();
 testStringify();
 
-async function testCodeFlow() {
+async function testLifecycle() {
     const faker = await createFaker('en');
     const procedure = getFakerFunction(faker, 'location.language');
 
@@ -106,9 +106,13 @@ function getStructureEdgeCases(): object {
     return {
         foo: ['one', () => () => 'two', { baz: 'three', qux: { a: 1, b: 2 } }],
         bar: {},
-        baz: () => () => () => 'smth',
+        baz: () => () => () => 'four',
         qux: class {
-            constructor(abc: string, private ijk: boolean, protected xyz: string) {}
+            constructor(
+                abc: string,
+                private ijk: boolean,
+                protected xyz: string
+            ) {}
         },
     };
 }

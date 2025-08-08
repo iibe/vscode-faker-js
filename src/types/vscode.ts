@@ -1,11 +1,11 @@
-type LanguageIdentifierExtra = 'toml';
+type CustomLanguageIdentifier = 'toml';
 
 /**
- * List of allowed language identifiers.
- * @see https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers
+ * List of VSCode language identifiers.
+ * @see https://code.visualstudio.com/docs/languages/identifiers
  */
-export type LanguageIdentifier =
-    | LanguageIdentifierExtra
+export type VscodeLanguageIdentifier =
+    | CustomLanguageIdentifier
     | 'abap'
     | 'bat'
     | 'bibtex'

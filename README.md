@@ -92,9 +92,9 @@ Following options provide additional control over how to insert data. This can b
 ## Faker.js API
 
 1. airline.aircraftType
-1. airline.airline
-1. airline.airplane
-1. airline.airport
+1. airline.airline (object)
+1. airline.airplane (object)
+1. airline.airport (object)
 1. airline.flightNumber
 1. airline.recordLocator
 1. airline.seat
@@ -154,15 +154,15 @@ Following options provide additional control over how to insert data. This can b
 1. database.mongodbObjectId
 1. database.type
 1. datatype.boolean
-1. date.anytime
-1. date.between
-1. date.betweens
-1. date.birthdate
-1. date.future
+1. date.anytime (date)
+1. date.between (binding)
+1. date.betweens (binding)
+1. date.birthdate (date)
+1. date.future (date)
 1. date.month
-1. date.past
-1. date.recent
-1. date.soon
+1. date.past (date)
+1. date.recent (date)
+1. date.soon (date)
 1. date.timeZone
 1. date.weekday
 1. finance.accountName
@@ -173,7 +173,7 @@ Following options provide additional control over how to insert data. This can b
 1. finance.creditCardCVV
 1. finance.creditCardIssuer
 1. finance.creditCardNumber
-1. finance.currency
+1. finance.currency (object)
 1. finance.currencyCode
 1. finance.currencyName
 1. finance.currencyNumericCode
@@ -181,7 +181,7 @@ Following options provide additional control over how to insert data. This can b
 1. finance.ethereumAddress
 1. finance.iban
 1. finance.litecoinAddress
-1. finance.maskedNumber
+1. finance.maskedNumber (deprecated)
 1. finance.pin
 1. finance.routingNumber
 1. finance.transactionDescription
@@ -206,24 +206,24 @@ Following options provide additional control over how to insert data. This can b
 1. hacker.noun
 1. hacker.phrase
 1. hacker.verb
-1. helpers.arrayElement
-1. helpers.arrayElements
-1. helpers.enumValue
-1. helpers.fake
-1. helpers.fromRegExp
-1. helpers.maybe
-1. helpers.multiple
-1. helpers.mustache
-1. helpers.objectEntry
-1. helpers.objectKey
-1. helpers.objectValue
-1. helpers.rangeToNumber
+1. helpers.arrayElement (binding)
+1. helpers.arrayElements (binding)
+1. helpers.enumValue (binding)
+1. helpers.fake (binding)
+1. helpers.fromRegExp (binding)
+1. helpers.maybe (binding)
+1. helpers.multiple (binding)
+1. helpers.mustache (binding)
+1. helpers.objectEntry (binding)
+1. helpers.objectKey (binding)
+1. helpers.objectValue (binding)
+1. helpers.rangeToNumber (binding)
 1. helpers.replaceCreditCardSymbols
 1. helpers.replaceSymbols
-1. helpers.shuffle
+1. helpers.shuffle (binding)
 1. helpers.slugify
-1. helpers.uniqueArray
-1. helpers.weightedArrayElement
+1. helpers.uniqueArray (binding)
+1. helpers.weightedArrayElement (binding)
 1. image.avatar
 1. image.avatarGitHub
 1. image.avatarLegacy
@@ -232,7 +232,7 @@ Following options provide additional control over how to insert data. This can b
 1. image.url
 1. image.urlLoremFlickr
 1. image.urlPicsumPhotos
-1. image.urlPlaceholder
+1. image.urlPlaceholder (deprecated)
 1. internet.color
 1. internet.displayName
 1. internet.domainName
@@ -254,8 +254,8 @@ Following options provide additional control over how to insert data. This can b
 1. internet.protocol
 1. internet.url
 1. internet.userAgent
+1. internet.userName (deprecated)
 1. internet.username
-1. internet.userName
 1. location.buildingNumber
 1. location.cardinalDirection
 1. location.city
@@ -264,10 +264,10 @@ Following options provide additional control over how to insert data. This can b
 1. location.countryCode
 1. location.county
 1. location.direction
-1. location.language
+1. location.language (object)
 1. location.latitude
 1. location.longitude
-1. location.nearbyGPSCoordinate
+1. location.nearbyGPSCoordinate (array)
 1. location.ordinalDirection
 1. location.secondaryAddress
 1. location.state
@@ -312,12 +312,12 @@ Following options provide additional control over how to insert data. This can b
 1. person.zodiacSign
 1. phone.imei
 1. phone.number
-1. science.chemicalElement
-1. science.unit
+1. science.chemicalElement (object)
+1. science.unit (object)
 1. string.alpha
 1. string.alphanumeric
 1. string.binary
-1. string.fromCharacters
+1. string.fromCharacters (binding)
 1. string.hexadecimal
 1. string.nanoid
 1. string.numeric

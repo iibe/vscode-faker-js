@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "version": "0.2",
+    "language": "en",
+    "dictionaries": ["my-words"],
+    "dictionaryDefinitions": [
+        {
+            "name": "my-words",
+            "path": "./.cspell.txt",
+            "addWords": true
+        }
+    ],
+    "ignorePaths": ["./.cspell.txt", "./pnpm-lock.yaml"],
+    "words": []
+}

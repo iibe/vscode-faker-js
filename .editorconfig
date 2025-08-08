@@ -1,13 +1,64 @@
+# EditorConfig master configuration.
+# Note that `root = true` ignores `.editorconfig` in subdirectories.
+# See: https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
+
 root = true
 
 [*]
 charset = utf-8
+
+# Supported by VSCode and Prettier.
+# Make sure to remove `endOfLine`, `tabWidth`, and `useTabs` in `.prettierrc`.
 indent_size = 4
 indent_style = space
 end_of_line = lf
-trim_trailing_whitespace = true
-insert_final_newline = true
 
-[{Makefile,**.mk}]
+# Supported by VSCode (on save).
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Limited support.
+# Make sure to remove `printWidth` in `.prettierrc`.
+max_line_length = 80
+
+# ------------------------------------------------------------------------------
+# Domain-Specific Languages
+# ------------------------------------------------------------------------------
+
+# Language: GNU Make
+# Comments: Tabs are required and 4 spaces-per-tab is recommended.
+
+[*.mk]
+[Makefile]
 indent_size = 4
-indent_style = tab # required
+indent_style = tab
+
+# Language: Unix shell
+# Comments: 3 spaces is recommended.
+
+[*.sh]
+indent_size = 3
+indent_style = space
+
+# Language: Markdown
+# Comments: 2 spaces are required and other properties are for better view.
+
+[*.md]
+indent_size = 2
+indent_style = space
+trim_trailing_whitespace = false
+max_line_length = unset
+
+# Language: TOML
+# Comments: 2 spaces are recommended.
+
+[*.toml]
+indent_size = 2
+indent_style = space
+
+# Language: YAML
+# Comments: 2 spaces are required.
+
+[*.{yaml,yml}]
+indent_size = 2
+indent_style = space

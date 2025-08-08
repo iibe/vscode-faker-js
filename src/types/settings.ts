@@ -1,6 +1,6 @@
 import { ObjectFlatten, ObjectPrettifier, ObjectStrict } from '.';
 import type { IFakerLocale } from './faker';
-import { LanguageIdentifier } from './vscode';
+import { VscodeLanguageIdentifier } from './vscode';
 
 interface PropertyDescriptor {
     $type: string;
@@ -12,7 +12,10 @@ interface PropertyDescriptorMap {
 }
 
 interface PropertyDescriptorArray {
-    [key: string]: { 0: PropertyDescriptor['$type']; 1: PropertyDescriptor['$description'] };
+    [key: string]: {
+        0: PropertyDescriptor['$type'];
+        1: PropertyDescriptor['$description'];
+    };
 }
 
 type ToSettings<T extends PropertyDescriptorMap> = ObjectPrettifier<
@@ -59,7 +62,7 @@ interface SettingsBase extends PropertyDescriptorMap {
         $description: 'Specifies default Faker.js locale.';
     };
     syntax: {
-        $type: '*' | LanguageIdentifier;
+        $type: '*' | VscodeLanguageIdentifier;
         $description: 'Specifies a syntax of fake data. If set to `*`, the serialization changes dynamically depending on a programming language. Otherwise (if set to a particular language), a fixed serialization will be used for all languages. If no serialization class was found, then it uses JavaScript syntax for everything.';
     };
 }

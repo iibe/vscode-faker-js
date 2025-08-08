@@ -7,9 +7,12 @@ import {
     StringifyRuby,
 } from '.';
 import type { ISettings } from '../types/settings';
-import type { LanguageIdentifier } from '../types/vscode';
+import type { VscodeLanguageIdentifier } from '../types/vscode';
 
-export function createStringify(language: LanguageIdentifier, settings: ISettings): Stringify {
+export function createStringify(
+    language: VscodeLanguageIdentifier,
+    settings: ISettings
+): Stringify {
     switch (language) {
         case 'go':
             return new StringifyGo(settings.go);

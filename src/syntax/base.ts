@@ -9,10 +9,10 @@ import {
 import { assertNever } from '../base/exhaustive';
 import type { Callable, Newable, Primitive, Structure } from '../types';
 import type { ISyntaxVariant } from '../types/settings';
-import type { LanguageIdentifier } from '../types/vscode';
+import type { VscodeLanguageIdentifier } from '../types/vscode';
 
 export abstract class Stringify {
-    protected abstract readonly id: LanguageIdentifier;
+    protected abstract readonly id: VscodeLanguageIdentifier;
     protected abstract readonly syntax: ISyntaxVariant;
 
     protected abstract readonly quotationMark: string;
@@ -22,7 +22,9 @@ export abstract class Stringify {
     protected abstract readonly objectCloser: string;
 
     from(data: any): string {
-        return isPrimitive(data) ? this.fromPrimitive(data) : this.fromStructure(data);
+        return isPrimitive(data)
+            ? this.fromPrimitive(data)
+            : this.fromStructure(data);
     }
 
     fromPrimitive(primitive: Primitive): string {
@@ -71,7 +73,9 @@ export abstract class Stringify {
         const value = callable();
 
         // avoid circular references
-        return isNativeFunction(value) ? this.fromFunction(value) : this.from(value);
+        return isNativeFunction(value)
+            ? this.fromFunction(value)
+            : this.from(value);
     }
 
     fromClass(newable: Newable): string {

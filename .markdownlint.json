@@ -3,5 +3,6 @@
     "no-inline-html": false,
     "no-duplicate-heading": {
         "siblings_only": true
-    }
+    },
+    "no-bare-urls": false
 }
