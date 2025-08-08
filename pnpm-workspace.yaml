@@ -1,4 +1,2 @@
-packages: []
-
 catalog:
   '@faker-js/faker': '9.6.0'

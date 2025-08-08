@@ -98,12 +98,12 @@ interface SettingsSyntax extends PropertyDescriptorMap {
     swift: LanguageSwift;
 }
 
-interface SettingsSyntaxExtra extends PropertyDescriptorMap {
-    json: LanguageJSON;
-    markdown: LanguageMarkdown;
-    toml: LanguageTOML; // custom
-    yaml: LanguageYAML;
-}
+// interface SettingsSyntaxExtra extends PropertyDescriptorMap {
+//     json: LanguageJSON;
+//     markdown: LanguageMarkdown;
+//     toml: LanguageTOML; // custom
+//     yaml: LanguageYAML;
+// }
 
 interface LanguageC extends PropertyDescriptorMap {}
 interface LanguageClojure extends PropertyDescriptorMap {}

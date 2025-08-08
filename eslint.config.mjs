@@ -1,35 +1,24 @@
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
+import ts from 'typescript-eslint';
 
-export default [
+export default defineConfig([
     {
-        files: ['**/*.ts'],
+        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+        plugins: { js },
+        extends: ['js/recommended'],
+        languageOptions: { globals: globals.browser },
     },
     {
-        ignores: ['./src/faker.ts'],
+        files: ['**/*.js'],
+        languageOptions: { sourceType: 'commonjs' },
     },
+    ts.configs.recommended,
     {
-        plugins: {
-            '@typescript-eslint': typescriptEslint,
-        },
-
-        languageOptions: {
-            parser: tsParser,
-            ecmaVersion: 2022,
-            sourceType: 'module',
-        },
         rules: {
-            '@typescript-eslint/naming-convention': [
-                'warn',
-                {
-                    selector: 'import',
-                    format: ['camelCase', 'PascalCase'],
-                },
-            ],
-            curly: 'warn',
-            eqeqeq: 'warn',
-            'no-throw-literal': 'warn',
-            semi: 'warn',
+            '@typescript-eslint/no-unused-vars': 'off',
+            '@typescript-eslint/no-empty-object-type': 'off',
         },
     },
-];
+]);
