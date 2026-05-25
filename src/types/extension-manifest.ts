@@ -1,10 +1,10 @@
-import { Command } from 'vscode';
-import { IFakerAtom } from './faker';
-import { IContribConfig } from './settings';
+import * as vscode from 'vscode';
+import type { IContribConfig } from './extension-config.js';
+import type { IFakerFnName } from './faker.js';
 
-export type ICommandId = `vscode-faker-js.${IFakerAtom}`;
+export type ICommandId = `vscode-faker-js.${IFakerFnName}`;
 
-export type IContribCommand = Command & {
+export type IContribCommand = vscode.Command & {
     command: ICommandId;
     category: 'Faker.js';
     enablement?: string;

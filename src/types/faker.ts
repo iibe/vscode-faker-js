@@ -1,175 +1,137 @@
-import {
-    AirlineModule,
-    allLocales,
-    AnimalModule,
-    BookModule,
-    ColorModule,
-    CommerceModule,
-    CompanyModule,
-    DatabaseModule,
-    DatatypeModule,
-    DateModule,
-    Faker,
-    FinanceModule,
-    FoodModule,
-    GitModule,
-    HackerModule,
-    HelpersModule,
-    ImageModule,
-    InternetModule,
-    LocationModule,
-    LoremModule,
-    MusicModule,
-    NumberModule,
-    PersonModule,
-    PhoneModule,
-    ScienceModule,
-    SimpleDateModule,
-    SimpleFaker,
-    SimpleHelpersModule,
-    StringModule,
-    SystemModule,
-    VehicleModule,
-    WordModule,
-} from '@faker-js/faker';
-import type {
-    Callable,
-    IsEqual,
-    ObjectFilter,
-    ObjectFlatten,
-    ObjectStrict,
-    Primitive,
-    Structure,
-} from '.';
+import type { allLocales, Faker } from '@faker-js/faker';
+import type { Callable, Primitive, Structure } from './base.js';
+import type { DeepFlatten } from './deep-flatten.js';
+import type { OmitNever } from './omit-never.js';
+import type { IsEqual } from './utils.js';
 
-/* FAKER MODULES */
+export type FakerLocale = keyof typeof allLocales;
 
-/** Contains readonly entities of {@link SimpleFaker}. */
-interface SimpleFakerModules {
-    readonly datatype: DatatypeModule;
+export type FakerLocaleModule = typeof import('@faker-js/faker/locale/af_ZA', {
+    with: { 'resolution-mode': 'import' }
+});
 
-    /** @augments DateModule see {@link DateModule}. */
-    readonly date: SimpleDateModule;
-
-    /** @augments HelpersModule see {@link HelpersModule}. */
-    readonly helpers: SimpleHelpersModule;
-
-    readonly number: NumberModule;
-    readonly string: StringModule;
+interface Modules {
+    airline: Faker['airline'];
+    animal: Faker['animal'];
+    book: Faker['book'];
+    color: Faker['color'];
+    commerce: Faker['commerce'];
+    company: Faker['company'];
+    database: Faker['database'];
+    datatype: Faker['datatype'];
+    date: Faker['date'];
+    finance: Faker['finance'];
+    food: Faker['food'];
+    git: Faker['git'];
+    hacker: Faker['hacker'];
+    helpers: Faker['helpers'];
+    image: Faker['image'];
+    internet: Faker['internet'];
+    location: Faker['location'];
+    lorem: Faker['lorem'];
+    music: Faker['music'];
+    number: Faker['number'];
+    person: Faker['person'];
+    phone: Faker['phone'];
+    science: Faker['science'];
+    string: Faker['string'];
+    system: Faker['system'];
+    vehicle: Faker['vehicle'];
+    word: Faker['word'];
 }
 
-/** Contains readonly entities of {@link Faker}. */
-interface FakerModules extends SimpleFakerModules {
-    readonly airline: AirlineModule;
-    readonly animal: AnimalModule;
-    readonly book: BookModule;
-    readonly color: ColorModule;
-    readonly commerce: CommerceModule;
-    readonly company: CompanyModule;
-    readonly database: DatabaseModule;
-    readonly date: DateModule;
-    readonly finance: FinanceModule;
-    readonly food: FoodModule;
-    readonly git: GitModule;
-    readonly hacker: HackerModule;
-    readonly helpers: HelpersModule;
-    readonly image: ImageModule;
-    readonly internet: InternetModule;
-    readonly location: LocationModule;
-    readonly lorem: LoremModule;
-    readonly music: MusicModule;
-    readonly person: PersonModule;
-    readonly phone: PhoneModule;
-    readonly science: ScienceModule;
-    readonly system: SystemModule;
-    readonly vehicle: VehicleModule;
-    readonly word: WordModule;
-}
+// -----------------------------------------------------------------------------
+// API BREAKDOWN, FILTERING  REUNION
+// -----------------------------------------------------------------------------
 
-/* FAKER TYPE CHECKERS */
+type Api = DeepFlatten<Modules>;
 
-type Prettifier<T extends object> = {
-    -readonly [K in keyof T]-?: T[K];
-};
+/**
+ * Removes object keys that doesn't satisfies to specified `KK` and `V` types.
+ */
+type ApiFilter<
+    T extends object,
+    Value = unknown,
+    Key = string | symbol
+> = OmitNever<{
+    [K in keyof T]: K extends Key ? (T[K] extends Value ? T[K] : never) : never;
+}>;
 
-type FakerApi = Prettifier<ObjectFlatten<FakerModules>>;
+/**
+ * Methods with `Primitive` return type.
+ * In case if function is overloaded, we use this one as default functions.
+ * So we should exclude them from other `ReturnXXX` types.
+ */
+type ApiPrimitive = ApiFilter<Api, () => Primitive>;
 
-// Ensures all FakerApi keys has functions as values.
-type FakerApiConsistOfFunctions = IsEqual<
-    keyof FakerApi,
-    keyof ObjectFilter<FakerApi, Callable>,
-    FakerApi,
-    never
+/**
+ * Methods with `Date` return type.
+ * Note that we need to omit primitive keys due function overloads.
+ */
+type ApiDate = Omit<ApiFilter<Api, () => Date>, keyof ApiPrimitive>;
+
+/**
+ * Methods with `Array<unknown>` return type.
+ */
+type ApiArray = Omit<ApiFilter<Api, () => unknown[]>, keyof ApiPrimitive>;
+
+/**
+ * Methods with `Object` return type.
+ */
+type ApiStructure = Omit<
+    ApiFilter<Api, () => Structure>,
+    keyof ApiPrimitive | keyof ApiDate | keyof ApiArray
 >;
 
-// Ensures all FakerApi function return types are represented in ReturnXXX types.
-type FakerApiCompleteByReturnType = IsEqual<
-    keyof FakerApi,
-    keyof ObjectStrict<
-        ReturnsPrimitive &
-            ReturnsDate &
-            ReturnsArray &
-            ReturnsStructure &
-            FunctionsWithParameters
-    >,
-    FakerApi,
-    never
+/**
+ * Methods with `Function` return type (has at least 1 argument).
+ */
+type ApiMethod = Omit<
+    Api,
+    keyof ApiPrimitive | keyof ApiDate | keyof ApiArray | keyof ApiStructure
 >;
 
-type ReturnsPrimitive = ObjectFilter<FakerApi, () => Primitive>;
+type ApiReunion = ApiPrimitive & ApiDate & ApiArray & ApiStructure & ApiMethod;
 
-// Due overloads there might be some intersections.
-type ReturnsDate = Omit<
-    ObjectFilter<FakerApi, () => Date>,
-    keyof ReturnsPrimitive
->;
-type ReturnsArray = Omit<
-    ObjectFilter<FakerApi, () => any[]>,
-    keyof ReturnsPrimitive
->;
-type ReturnsStructure = Omit<
-    ObjectFilter<FakerApi, () => Structure>,
-    keyof ReturnsPrimitive | keyof ReturnsDate | keyof ReturnsArray
+// -----------------------------------------------------------------------------
+// TYPE GUARDS
+// -----------------------------------------------------------------------------
+
+type CheckCompleteness = IsEqual<keyof Api, keyof OmitNever<ApiReunion>>;
+
+type CheckEverythingIsFunction = IsEqual<
+    keyof Api,
+    keyof ApiFilter<Api, Callable>
 >;
 
-// Functions with at least 1 parameter.
-type FunctionsWithParameters = Omit<
-    FakerApi,
-    | keyof ReturnsPrimitive
-    | keyof ReturnsDate
-    | keyof ReturnsArray
-    | keyof ReturnsStructure
->;
+type CheckAll = CheckCompleteness & CheckEverythingIsFunction;
 
-/* EXPORTS */
+// -----------------------------------------------------------------------------
+// EXPORTS
+// -----------------------------------------------------------------------------
 
-export type IFakerLocale = keyof typeof allLocales;
-export type IFakerApi = FakerApiConsistOfFunctions &
-    FakerApiCompleteByReturnType;
-export type IFakerAtom =
-    | IFakerPrimitiveAtom
-    | IFakerDateAtom
-    | IFakerArrayAtom
-    | IFakerStructureAtom
-    | IFakerBoundAtom;
-export type IFakerFunction = IFakerApi[IFakerAtom];
+export type IApiPrimitiveKey = keyof ApiPrimitive;
+export type IApiPrimitiveValue = ApiPrimitive[IApiPrimitiveKey];
 
-export type IFakerPrimitiveApi = ReturnsPrimitive;
-export type IFakerPrimitiveAtom = keyof ReturnsPrimitive;
-export type IFakerPrimitiveFunction = ReturnsPrimitive[IFakerPrimitiveAtom];
+export type IApiDateKey = keyof ApiDate;
+export type IApiDateValue = ApiDate[IApiDateKey];
 
-export type IFakerDateApi = ReturnsDate;
-export type IFakerDateAtom = keyof ReturnsDate;
-export type IFakerDateFunction = ReturnsDate[IFakerDateAtom];
+export type IApiArrayKey = keyof ApiArray;
+export type IApiArrayValue = ApiArray[IApiArrayKey];
 
-export type IFakerArrayApi = ReturnsArray;
-export type IFakerArrayAtom = keyof ReturnsArray;
-export type IFakerArrayFunction = ReturnsArray[IFakerArrayAtom];
+export type IApiStructureKey = keyof ApiStructure;
+export type IApiStructureValue = ApiStructure[IApiStructureKey];
 
-export type IFakerStructureApi = ReturnsStructure;
-export type IFakerStructureAtom = keyof ReturnsStructure;
-export type IFakerStructureFunction = ReturnsStructure[IFakerStructureAtom];
+export type IApiMethodKey = keyof ApiMethod;
+export type IApiMethodValue = ApiMethod[IApiMethodKey];
 
-export type IFakerBoundApi = FunctionsWithParameters;
-export type IFakerBoundAtom = keyof FunctionsWithParameters;
-export type IFakerBoundFunction = FunctionsWithParameters[IFakerBoundAtom];
+export type IFakerApi = CheckAll extends true ? Api : never;
+
+export type IFakerFnName =
+    | IApiPrimitiveKey
+    | IApiDateKey
+    | IApiArrayKey
+    | IApiStructureKey
+    | IApiMethodKey;
+
+export type IFakerFn = IFakerApi[IFakerFnName];

@@ -1,16 +1,22 @@
-import { createFaker, getFakerFunction } from '../faker';
-import { Stringify, StringifyPhp } from '../syntax';
-import { ISettings } from '../types/settings';
+import { getFakerFunction, importFaker } from '../faker.js';
+import type { Stringify } from '../syntax/base.js';
+import { StringifyPhp } from '../syntax/php.js';
+import type { ISettings } from '../types/extension-config.js';
 
 testLifecycle();
 testStringify();
 
 async function testLifecycle() {
-    const faker = await createFaker('en');
-    const procedure = getFakerFunction(faker, 'location.language');
+    const faker = await importFaker('en');
+    const fn = getFakerFunction(faker, 'location.language');
+
+    if (!fn) {
+        return;
+    }
 
     // @ts-ignore
-    const data = procedure();
+    // [TS2349]: Signatures of union doesn't compatible with each other
+    const data = fn();
 
     if (data) {
         const stringify = getStringify();
@@ -44,21 +50,21 @@ function testStringify() {
 function getStringify(): Stringify {
     const syntax: ISettings['php'] = {
         null: {
-            insertMode: 'uppercase',
+            insertMode: 'uppercase'
         },
         boolean: {
-            insertMode: 'uppercase',
+            insertMode: 'uppercase'
         },
         bigint: {
-            insertMode: 'unsafe',
+            insertMode: 'unsafe'
         },
         string: {
             insertMode: 'literal',
-            quotationMark: 'double',
+            quotationMark: 'double'
         },
         array: {
-            insertMode: 'short',
-        },
+            insertMode: 'short'
+        }
     };
 
     return new StringifyPhp(syntax);
@@ -85,7 +91,7 @@ function getPrimitiveBaseCases(): object {
         fundraising: -0n,
         tapioca: 123n,
         nucleotidase: -456n,
-        summary: BigInt(Number.MAX_SAFE_INTEGER) ** 2n,
+        summary: BigInt(Number.MAX_SAFE_INTEGER) ** 2n
     };
 }
 
@@ -98,7 +104,7 @@ function getPrimitiveEdgeCases(): object {
         declaration: ' ',
         sanity: '\xFF',
         outset: 'foo',
-        climb: `${123}`,
+        climb: `${123}`
     };
 }
 
@@ -108,11 +114,13 @@ function getStructureEdgeCases(): object {
         bar: {},
         baz: () => () => () => 'four',
         qux: class {
-            constructor(
-                abc: string,
-                private ijk: boolean,
-                protected xyz: string
-            ) {}
-        },
+            protected x: number;
+            protected y: number;
+
+            constructor(x: number, y: number, z: number) {
+                this.x = x * z;
+                this.y = y * z;
+            }
+        }
     };
 }

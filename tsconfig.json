@@ -1,16 +1,34 @@
 {
-    "include": ["./src/**/*.ts"],
-    "exclude": ["./node_modules", "./dist", "./out", "./src/codegen.ts"],
-    "compilerOptions": {
-        "lib": ["ES2020", "DOM"],
-        "strict": true,
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    /* Emitter */
+    "noEmit": false,
+    "emitDeclarationOnly": false,
+    "rootDir": "./src",
+    "outDir": "./dist",
 
-        "rootDir": "./src",
-        "outDir": "./dist",
+    /* Emit Modules */
+    "module": "node16",
+    "moduleResolution": "node16",
+    "paths": {},
 
-        "module": "node16",
-        "target": "es2020",
-        "declaration": false,
-        "sourceMap": false
-    }
+    /* Emit JavaScript */
+    "target": "es2022",
+    "lib": ["ES2022"],
+    "useDefineForClassFields": true,
+    "removeComments": false,
+
+    /* Emit Types */
+    "declaration": true,
+    "declarationMap": false,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["*"],
+
+    /* Emit Source Maps */
+    "sourceMap": false, // create *.js.map files
+    "inlineSources": false, // inline *.ts content in *.js.map files
+    "inlineSourceMap": false // inline *.js.map content in *.js files
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./node_modules", "./dist", "./generated", "./src/codegen.ts"]
 }

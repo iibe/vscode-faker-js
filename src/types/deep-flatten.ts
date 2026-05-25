@@ -1,0 +1,48 @@
+import type { IfObject } from './check.js';
+
+/** Returns R (result) as a last element of splitting T with D (delimiter). */
+type StringPop<
+    T,
+    D extends string = '.',
+    R = T
+> = T extends `${string}${D}${infer S}` ? StringPop<S> : R;
+
+/** Returns types of object keys i.e. types of Object.values(). */
+type ObjectValueTypes<T> = T[keyof T];
+
+/**
+ * First step for FlattenType<>.
+ *
+ *  Input: type x = ApiMapInner<{ a: { b: 1; c: 2 }; d: 3; }>;
+ * Output: type x = { "a.b": { b: 1; c: 2; }; "a.c": { b: 1; c: 2; }; d: 3; };
+ */
+// prettier-ignore
+type FlattenInner<T> = {
+    [
+        K in keyof T as K extends string
+            ? IfObject<T[K], `${K}.${keyof T[K] & string}`, K>
+            : K
+    ]: IfObject<T[K], { [P in keyof T[K]]: T[K][P] }, T[K]>;
+};
+
+/**
+ * Second step for FlattenType<>.
+ *
+ *  Input: type x = ApiMapOuter<{ "a.b": { b: 1; c: 2; }; "a.c": { b: 1; c: 2; }; d: 3; }>;
+ * Output: type x = { "a.b": { b: 1 }; "a.c": { c: 2 }; };
+ */
+type FlattenOuter<T> = {
+    [K in keyof T]: IfObject<
+        T[K],
+        ObjectValueTypes<{
+            [P in keyof T[K] as P extends StringPop<K> ? P : never]: T[K][P];
+        }>,
+        T[K]
+    >;
+};
+
+/** {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.c": {d: 1}} */
+type Flatten<T> = FlattenOuter<FlattenInner<T>>;
+
+/** {a: {b: 1, c: {d: 1}}} => {"a.b": 1, "a.b.c.d": 1} */
+export type DeepFlatten<T> = T extends Flatten<T> ? T : DeepFlatten<Flatten<T>>;

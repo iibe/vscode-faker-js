@@ -1,16 +1,16 @@
+import type { ISettings } from '../types/extension-config.js';
+import type { LanguageID } from '../types/vscode.js';
+import type { Stringify } from './base.js';
 import {
-    Stringify,
     StringifyGo,
     StringifyJavaScript,
     StringifyPhp,
     StringifyPython,
-    StringifyRuby,
-} from '.';
-import type { ISettings } from '../types/settings';
-import type { VscodeLanguageIdentifier } from '../types/vscode';
+    StringifyRuby
+} from './syntax.js';
 
 export function createStringify(
-    language: VscodeLanguageIdentifier,
+    language: LanguageID,
     settings: ISettings
 ): Stringify {
     switch (language) {
@@ -18,8 +18,12 @@ export function createStringify(
             return new StringifyGo(settings.go);
         case 'javascript':
         case 'javascriptreact':
+        case 'json':
+        case 'jsonc':
+        case 'svelte':
         case 'typescript':
         case 'typescriptreact':
+        case 'vue':
             return new StringifyJavaScript(settings.javascript);
         case 'php':
             return new StringifyPhp(settings.php);

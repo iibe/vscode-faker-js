@@ -1,24 +1,21 @@
+import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
+import { fileURLToPath } from 'node:url';
 import ts from 'typescript-eslint';
 
+const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
+
 export default defineConfig([
+    includeIgnoreFile(gitignorePath),
     {
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-        plugins: { js },
+        files: ['src/**/*.ts'],
         extends: ['js/recommended'],
-        languageOptions: { globals: globals.browser },
+        plugins: { js },
+        languageOptions: {
+            globals: { ...globals.browser, ...globals.node }
+        }
     },
-    {
-        files: ['**/*.js'],
-        languageOptions: { sourceType: 'commonjs' },
-    },
-    ts.configs.recommended,
-    {
-        rules: {
-            '@typescript-eslint/no-unused-vars': 'off',
-            '@typescript-eslint/no-empty-object-type': 'off',
-        },
-    },
+    ts.configs.recommended
 ]);

@@ -1,15 +1,15 @@
-import { strictEqual as expect } from 'assert';
 import { it } from 'mocha';
-import { StringifyJavaScript } from '../syntax';
+import { strictEqual as expect } from 'node:assert';
+import { StringifyJavaScript } from '../syntax/javascript.js';
 
 const stringify = new StringifyJavaScript({
     bigint: {
-        insertMode: 'literal',
+        insertMode: 'literal'
     },
     string: {
         insertMode: 'literal',
-        quotationMark: 'double',
-    },
+        quotationMark: 'double'
+    }
 });
 
 it('fromPrimitive()', () => {

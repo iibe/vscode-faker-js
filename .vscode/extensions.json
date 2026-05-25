@@ -1,15 +1,8 @@
 {
-    "recommendations": [
-        "DavidAnson.vscode-markdownlint",
-        "dbaeumer.vscode-eslint",
-        "EditorConfig.EditorConfig",
-        "esbenp.prettier-vscode",
-        "iibe.vscode-faker-js",
-        "kimuson.ts-type-expand",
-        "ms-vscode.extension-test-runner",
-        "ms-vscode.makefile-tools",
-        "redhat.vscode-yaml",
-        "streetsidesoftware.code-spell-checker",
-        "yzhang.markdown-all-in-one"
-    ]
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "iibe.vscode-faker-js",
+    "kimuson.ts-type-expand",
+    "ms-vscode.extension-test-runner"
+  ]
 }

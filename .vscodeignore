@@ -1,9 +1,11 @@
-# Ignore everything by default
+# Ignore everything
 **
 
-# Except these files and folders
-!out/
+# Except these folders
 !images/
+!out/
+
+# Except these files
 !CHANGELOG.md
-!README.md
 !LICENSE
+!README.md

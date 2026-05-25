@@ -1,98 +1,99 @@
 import type {
-    IFakerArrayAtom,
-    IFakerAtom,
-    IFakerBoundAtom,
-    IFakerDateAtom,
-    IFakerLocale,
-    IFakerPrimitiveAtom,
-    IFakerStructureAtom,
-} from '../types/faker';
-import { VscodeLanguageIdentifier } from '../types/vscode';
-import { exhaustiveArray } from './exhaustive';
+    FakerLocale,
+    IApiArrayKey,
+    IApiDateKey,
+    IApiMethodKey,
+    IApiPrimitiveKey,
+    IApiStructureKey,
+    IFakerFnName
+} from '../types/faker.js';
+import { LanguageID } from '../types/vscode.js';
+import { exhaustiveArray } from './utils.js';
 
-export const vscodeLanguageIdAtoms =
-    exhaustiveArray<VscodeLanguageIdentifier>()(
-        'abap',
-        'bat',
-        'bibtex',
-        'clojure',
-        'coffeescript',
-        'c',
-        'cpp',
-        'csharp',
-        'dockercompose',
-        'css',
-        'cuda-cpp',
-        'd',
-        'dart',
-        'pascal',
-        'diff',
-        'dockerfile',
-        'erlang',
-        'fsharp',
-        'git-commit',
-        'git-rebase',
-        'go',
-        'groovy',
-        'handlebars',
-        'haml',
-        'haskell',
-        'html',
-        'ini',
-        'java',
-        'javascript',
-        'javascriptreact',
-        'json',
-        'jsonc',
-        'julia',
-        'latex',
-        'less',
-        'lua',
-        'makefile',
-        'markdown',
-        'objective-c',
-        'objective-cpp',
-        'ocaml',
-        'pascal',
-        'perl',
-        'perl6',
-        'php',
-        'plaintext',
-        'powershell',
-        'jade',
-        'pug',
-        'python',
-        'r',
-        'razor',
-        'ruby',
-        'rust',
-        'sass',
-        'scss',
-        'shaderlab',
-        'shellscript',
-        'slim',
-        'sql',
-        'stylus',
-        'svelte',
-        'swift',
-        'toml',
-        'typescript',
-        'typescriptreact',
-        'tex',
-        'vb',
-        'vue',
-        'vue-html',
-        'xml',
-        'xsl',
-        'yaml'
-    );
+export const setOfLanguageID = exhaustiveArray<LanguageID>()([
+    'abap',
+    'bat',
+    'bibtex',
+    'clojure',
+    'coffeescript',
+    'c',
+    'cpp',
+    'csharp',
+    'dockercompose',
+    'css',
+    'cuda-cpp',
+    'd',
+    'dart',
+    'pascal',
+    'diff',
+    'dockerfile',
+    'erlang',
+    'fsharp',
+    'git-commit',
+    'git-rebase',
+    'go',
+    'groovy',
+    'handlebars',
+    'haml',
+    'haskell',
+    'html',
+    'ini',
+    'java',
+    'javascript',
+    'javascriptreact',
+    'json',
+    'jsonc',
+    'julia',
+    'latex',
+    'less',
+    'lua',
+    'makefile',
+    'markdown',
+    'objective-c',
+    'objective-cpp',
+    'ocaml',
+    'pascal',
+    'perl',
+    'perl6',
+    'php',
+    'plaintext',
+    'powershell',
+    'jade',
+    'pug',
+    'python',
+    'r',
+    'razor',
+    'ruby',
+    'rust',
+    'sass',
+    'scss',
+    'shaderlab',
+    'shellscript',
+    'slim',
+    'sql',
+    'stylus',
+    'svelte',
+    'swift',
+    'toml',
+    'typescript',
+    'typescriptreact',
+    'tex',
+    'vb',
+    'vue',
+    'vue-html',
+    'xml',
+    'xsl',
+    'yaml'
+]);
 
-export const fakerLocaleAtoms = exhaustiveArray<IFakerLocale>()(
+export const setOfFakerLocale = exhaustiveArray<FakerLocale>()([
     'af_ZA',
     'ar',
     'az',
     'base',
+    'bn_BD',
     'cs_CZ',
+    'cy',
     'da',
     'de_AT',
     'de_CH',
@@ -132,6 +133,8 @@ export const fakerLocaleAtoms = exhaustiveArray<IFakerLocale>()(
     'ja',
     'ka_GE',
     'ko',
+    'ku_ckb',
+    'ku_kmr_latin',
     'lv',
     'mk',
     'nb_NO',
@@ -145,8 +148,10 @@ export const fakerLocaleAtoms = exhaustiveArray<IFakerLocale>()(
     'ro',
     'ru',
     'sk',
+    'sl_SI',
     'sr_RS_latin',
     'sv',
+    'ta_IN',
     'th',
     'tr',
     'uk',
@@ -157,10 +162,11 @@ export const fakerLocaleAtoms = exhaustiveArray<IFakerLocale>()(
     'zh_CN',
     'zh_TW',
     'zu_ZA'
-);
+]);
 
-export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
+export const setOfApiPrimitiveKeys = exhaustiveArray<IApiPrimitiveKey>()([
     'airline.aircraftType',
+    'commerce.upc',
     'airline.flightNumber',
     'airline.recordLocator',
     'airline.seat',
@@ -238,7 +244,6 @@ export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
     'finance.ethereumAddress',
     'finance.iban',
     'finance.litecoinAddress',
-    'finance.maskedNumber',
     'finance.pin',
     'finance.routingNumber',
     'finance.transactionDescription',
@@ -268,14 +273,11 @@ export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
     'helpers.slugify',
     'image.avatar',
     'image.avatarGitHub',
-    'image.avatarLegacy',
     'image.dataUri',
     'image.personPortrait',
     'image.url',
     'image.urlLoremFlickr',
     'image.urlPicsumPhotos',
-    'image.urlPlaceholder',
-    'internet.color',
     'internet.displayName',
     'internet.domainName',
     'internet.domainSuffix',
@@ -297,7 +299,6 @@ export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
     'internet.url',
     'internet.userAgent',
     'internet.username',
-    'internet.userName',
     'location.buildingNumber',
     'location.cardinalDirection',
     'location.city',
@@ -393,22 +394,22 @@ export const fakerApiPrimitiveAtoms = exhaustiveArray<IFakerPrimitiveAtom>()(
     'word.sample',
     'word.verb',
     'word.words'
-);
+]);
 
-export const fakerApiDateAtoms = exhaustiveArray<IFakerDateAtom>()(
+export const setOfApiDateKeys = exhaustiveArray<IApiDateKey>()([
     'date.anytime',
     'date.birthdate',
     'date.future',
     'date.past',
     'date.recent',
     'date.soon'
-);
+]);
 
-export const fakerApiArrayAtoms = exhaustiveArray<IFakerArrayAtom>()(
+export const setOfApiArrayKeys = exhaustiveArray<IApiArrayKey>()([
     'location.nearbyGPSCoordinate'
-);
+]);
 
-export const fakerApiStructureAtoms = exhaustiveArray<IFakerStructureAtom>()(
+export const setOfApiStructureKeys = exhaustiveArray<IApiStructureKey>()([
     'airline.airline',
     'airline.airplane',
     'airline.airport',
@@ -416,9 +417,9 @@ export const fakerApiStructureAtoms = exhaustiveArray<IFakerStructureAtom>()(
     'location.language',
     'science.chemicalElement',
     'science.unit'
-);
+]);
 
-export const fakerApiBoundAtoms = exhaustiveArray<IFakerBoundAtom>()(
+export const setOfApiMethodKeys = exhaustiveArray<IApiMethodKey>()([
     'date.between',
     'date.betweens',
     'helpers.arrayElement',
@@ -437,12 +438,12 @@ export const fakerApiBoundAtoms = exhaustiveArray<IFakerBoundAtom>()(
     'helpers.uniqueArray',
     'helpers.weightedArrayElement',
     'string.fromCharacters'
-);
+]);
 
-export const fakerApiAtoms: IFakerAtom[] = [
-    ...fakerApiPrimitiveAtoms,
-    ...fakerApiArrayAtoms,
-    ...fakerApiDateAtoms,
-    ...fakerApiStructureAtoms,
-    ...fakerApiBoundAtoms,
+export const setOfApiKeys: IFakerFnName[] = [
+    ...setOfApiPrimitiveKeys,
+    ...setOfApiArrayKeys,
+    ...setOfApiDateKeys,
+    ...setOfApiStructureKeys,
+    ...setOfApiMethodKeys
 ];

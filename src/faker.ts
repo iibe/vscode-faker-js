@@ -1,497 +1,892 @@
 import { Faker } from '@faker-js/faker';
 import type {
-    IFakerArrayAtom,
-    IFakerAtom,
-    IFakerBoundAtom,
-    IFakerDateAtom,
-    IFakerFunction,
-    IFakerLocale,
-    IFakerPrimitiveAtom,
-    IFakerStructureAtom,
-} from './types/faker';
-
-enum Direction {
-    Up = 'Up',
-    Down = 'Down',
-    Left = 'Left',
-    Right = 'Right',
-}
+    FakerLocale,
+    FakerLocaleModule,
+    IApiArrayKey,
+    IApiDateKey,
+    IApiMethodKey,
+    IApiPrimitiveKey,
+    IApiStructureKey,
+    IFakerFn,
+    IFakerFnName
+} from './types/faker.js';
 
 /**
- * Note: With dynamic imports we get around 150 files after code splitting.
+ * Imports locale-specific Faker.js module.
+ * Note that we get around 150 files after code splitting.
  */
-export async function createFaker(atom: IFakerLocale): Promise<Faker> {
-    let _module;
+export async function importFaker(locale: FakerLocale): Promise<Faker> {
+    let module: FakerLocaleModule;
 
-    // prettier-ignore
-    switch (atom) {
-        case 'af_ZA': _module = await import("@faker-js/faker/locale/af_ZA"); break;
-        case 'ar': _module = await import("@faker-js/faker/locale/ar"); break;
-        case 'az': _module = await import("@faker-js/faker/locale/az"); break;
-        case 'base': _module = await import("@faker-js/faker/locale/base"); break;
-        case 'cs_CZ': _module = await import("@faker-js/faker/locale/cs_CZ"); break;
-        case 'da': _module = await import("@faker-js/faker/locale/da"); break;
-        case 'de_AT': _module = await import("@faker-js/faker/locale/de_AT"); break;
-        case 'de_CH': _module = await import("@faker-js/faker/locale/de_CH"); break;
-        case 'de': _module = await import("@faker-js/faker/locale/de"); break;
-        case 'dv': _module = await import("@faker-js/faker/locale/dv"); break;
-        case 'el': _module = await import("@faker-js/faker/locale/el"); break;
-        case 'en_AU_ocker': _module = await import("@faker-js/faker/locale/en_AU_ocker"); break;
-        case 'en_AU': _module = await import("@faker-js/faker/locale/en_AU"); break;
-        case 'en_BORK': _module = await import("@faker-js/faker/locale/en_BORK"); break;
-        case 'en_CA': _module = await import("@faker-js/faker/locale/en_CA"); break;
-        case 'en_GB': _module = await import("@faker-js/faker/locale/en_GB"); break;
-        case 'en_GH': _module = await import("@faker-js/faker/locale/en_GH"); break;
-        case 'en_HK': _module = await import("@faker-js/faker/locale/en_HK"); break;
-        case 'en_IE': _module = await import("@faker-js/faker/locale/en_IE"); break;
-        case 'en_IN': _module = await import("@faker-js/faker/locale/en_IN"); break;
-        case 'en_NG': _module = await import("@faker-js/faker/locale/en_NG"); break;
-        case 'en_US': _module = await import("@faker-js/faker/locale/en_US"); break;
-        case 'en_ZA': _module = await import("@faker-js/faker/locale/en_ZA"); break;
-        case 'en': _module = await import("@faker-js/faker/locale/en"); break;
-        case 'eo': _module = await import("@faker-js/faker/locale/eo"); break;
-        case 'es_MX': _module = await import("@faker-js/faker/locale/es_MX"); break;
-        case 'es': _module = await import("@faker-js/faker/locale/es"); break;
-        case 'fa': _module = await import("@faker-js/faker/locale/fa"); break;
-        case 'fi': _module = await import("@faker-js/faker/locale/fi"); break;
-        case 'fr_BE': _module = await import("@faker-js/faker/locale/fr_BE"); break;
-        case 'fr_CA': _module = await import("@faker-js/faker/locale/fr_CA"); break;
-        case 'fr_CH': _module = await import("@faker-js/faker/locale/fr_CH"); break;
-        case 'fr_LU': _module = await import("@faker-js/faker/locale/fr_LU"); break;
-        case 'fr_SN': _module = await import("@faker-js/faker/locale/fr_SN"); break;
-        case 'fr': _module = await import("@faker-js/faker/locale/fr"); break;
-        case 'he': _module = await import("@faker-js/faker/locale/he"); break;
-        case 'hr': _module = await import("@faker-js/faker/locale/hr"); break;
-        case 'hu': _module = await import("@faker-js/faker/locale/hu"); break;
-        case 'hy': _module = await import("@faker-js/faker/locale/hy"); break;
-        case 'id_ID': _module = await import("@faker-js/faker/locale/id_ID"); break;
-        case 'it': _module = await import("@faker-js/faker/locale/it"); break;
-        case 'ja': _module = await import("@faker-js/faker/locale/ja"); break;
-        case 'ka_GE': _module = await import("@faker-js/faker/locale/ka_GE"); break;
-        case 'ko': _module = await import("@faker-js/faker/locale/ko"); break;
-        case 'lv': _module = await import("@faker-js/faker/locale/lv"); break;
-        case 'mk': _module = await import("@faker-js/faker/locale/mk"); break;
-        case 'nb_NO': _module = await import("@faker-js/faker/locale/nb_NO"); break;
-        case 'ne': _module = await import("@faker-js/faker/locale/ne"); break;
-        case 'nl_BE': _module = await import("@faker-js/faker/locale/nl_BE"); break;
-        case 'nl': _module = await import("@faker-js/faker/locale/nl"); break;
-        case 'pl': _module = await import("@faker-js/faker/locale/pl"); break;
-        case 'pt_BR': _module = await import("@faker-js/faker/locale/pt_BR"); break;
-        case 'pt_PT': _module = await import("@faker-js/faker/locale/pt_PT"); break;
-        case 'ro_MD': _module = await import("@faker-js/faker/locale/ro_MD"); break;
-        case 'ro': _module = await import("@faker-js/faker/locale/ro"); break;
-        case 'ru': _module = await import("@faker-js/faker/locale/ru"); break;
-        case 'sk': _module = await import("@faker-js/faker/locale/sk"); break;
-        case 'sr_RS_latin': _module = await import("@faker-js/faker/locale/sr_RS_latin"); break;
-        case 'sv': _module = await import("@faker-js/faker/locale/sv"); break;
-        case 'th': _module = await import("@faker-js/faker/locale/th"); break;
-        case 'tr': _module = await import("@faker-js/faker/locale/tr"); break;
-        case 'uk': _module = await import("@faker-js/faker/locale/uk"); break;
-        case 'ur': _module = await import("@faker-js/faker/locale/ur"); break;
-        case 'uz_UZ_latin': _module = await import("@faker-js/faker/locale/uz_UZ_latin"); break;
-        case 'vi': _module = await import("@faker-js/faker/locale/vi"); break;
-        case 'yo_NG': _module = await import("@faker-js/faker/locale/yo_NG"); break;
-        case 'zh_CN': _module = await import("@faker-js/faker/locale/zh_CN"); break;
-        case 'zh_TW': _module = await import("@faker-js/faker/locale/zh_TW"); break;
-        case 'zu_ZA': _module = await import("@faker-js/faker/locale/zu_ZA"); break;
-        default: _module = await import("@faker-js/faker"); break;
+    // eslint-enable @typescript-eslint/switch-exhaustiveness-check
+    switch (locale) {
+        case 'af_ZA':
+            module = await import('@faker-js/faker/locale/af_ZA');
+            break;
+        case 'ar':
+            module = await import('@faker-js/faker/locale/ar');
+            break;
+        case 'az':
+            module = await import('@faker-js/faker/locale/az');
+            break;
+        case 'base':
+            module = await import('@faker-js/faker/locale/base');
+            break;
+        case 'bn_BD':
+            module = await import('@faker-js/faker/locale/bn_BD');
+            break;
+        case 'cs_CZ':
+            module = await import('@faker-js/faker/locale/cs_CZ');
+            break;
+        case 'cy':
+            module = await import('@faker-js/faker/locale/cy');
+            break;
+        case 'da':
+            module = await import('@faker-js/faker/locale/da');
+            break;
+        case 'de_AT':
+            module = await import('@faker-js/faker/locale/de_AT');
+            break;
+        case 'de_CH':
+            module = await import('@faker-js/faker/locale/de_CH');
+            break;
+        case 'de':
+            module = await import('@faker-js/faker/locale/de');
+            break;
+        case 'dv':
+            module = await import('@faker-js/faker/locale/dv');
+            break;
+        case 'el':
+            module = await import('@faker-js/faker/locale/el');
+            break;
+        case 'en_AU_ocker':
+            module = await import('@faker-js/faker/locale/en_AU_ocker');
+            break;
+        case 'en_AU':
+            module = await import('@faker-js/faker/locale/en_AU');
+            break;
+        case 'en_BORK':
+            module = await import('@faker-js/faker/locale/en_BORK');
+            break;
+        case 'en_CA':
+            module = await import('@faker-js/faker/locale/en_CA');
+            break;
+        case 'en_GB':
+            module = await import('@faker-js/faker/locale/en_GB');
+            break;
+        case 'en_GH':
+            module = await import('@faker-js/faker/locale/en_GH');
+            break;
+        case 'en_HK':
+            module = await import('@faker-js/faker/locale/en_HK');
+            break;
+        case 'en_IE':
+            module = await import('@faker-js/faker/locale/en_IE');
+            break;
+        case 'en_IN':
+            module = await import('@faker-js/faker/locale/en_IN');
+            break;
+        case 'en_NG':
+            module = await import('@faker-js/faker/locale/en_NG');
+            break;
+        case 'en_US':
+            module = await import('@faker-js/faker/locale/en_US');
+            break;
+        case 'en_ZA':
+            module = await import('@faker-js/faker/locale/en_ZA');
+            break;
+        case 'en':
+            module = await import('@faker-js/faker/locale/en');
+            break;
+        case 'eo':
+            module = await import('@faker-js/faker/locale/eo');
+            break;
+        case 'es_MX':
+            module = await import('@faker-js/faker/locale/es_MX');
+            break;
+        case 'es':
+            module = await import('@faker-js/faker/locale/es');
+            break;
+        case 'fa':
+            module = await import('@faker-js/faker/locale/fa');
+            break;
+        case 'fi':
+            module = await import('@faker-js/faker/locale/fi');
+            break;
+        case 'fr_BE':
+            module = await import('@faker-js/faker/locale/fr_BE');
+            break;
+        case 'fr_CA':
+            module = await import('@faker-js/faker/locale/fr_CA');
+            break;
+        case 'fr_CH':
+            module = await import('@faker-js/faker/locale/fr_CH');
+            break;
+        case 'fr_LU':
+            module = await import('@faker-js/faker/locale/fr_LU');
+            break;
+        case 'fr_SN':
+            module = await import('@faker-js/faker/locale/fr_SN');
+            break;
+        case 'fr':
+            module = await import('@faker-js/faker/locale/fr');
+            break;
+        case 'he':
+            module = await import('@faker-js/faker/locale/he');
+            break;
+        case 'hr':
+            module = await import('@faker-js/faker/locale/hr');
+            break;
+        case 'hu':
+            module = await import('@faker-js/faker/locale/hu');
+            break;
+        case 'hy':
+            module = await import('@faker-js/faker/locale/hy');
+            break;
+        case 'id_ID':
+            module = await import('@faker-js/faker/locale/id_ID');
+            break;
+        case 'it':
+            module = await import('@faker-js/faker/locale/it');
+            break;
+        case 'ja':
+            module = await import('@faker-js/faker/locale/ja');
+            break;
+        case 'ka_GE':
+            module = await import('@faker-js/faker/locale/ka_GE');
+            break;
+        case 'ko':
+            module = await import('@faker-js/faker/locale/ko');
+            break;
+        case 'ku_ckb':
+            module = await import('@faker-js/faker/locale/ku_ckb');
+            break;
+        case 'ku_kmr_latin':
+            module = await import('@faker-js/faker/locale/ku_kmr_latin');
+            break;
+        case 'lv':
+            module = await import('@faker-js/faker/locale/lv');
+            break;
+        case 'mk':
+            module = await import('@faker-js/faker/locale/mk');
+            break;
+        case 'nb_NO':
+            module = await import('@faker-js/faker/locale/nb_NO');
+            break;
+        case 'ne':
+            module = await import('@faker-js/faker/locale/ne');
+            break;
+        case 'nl_BE':
+            module = await import('@faker-js/faker/locale/nl_BE');
+            break;
+        case 'nl':
+            module = await import('@faker-js/faker/locale/nl');
+            break;
+        case 'pl':
+            module = await import('@faker-js/faker/locale/pl');
+            break;
+        case 'pt_BR':
+            module = await import('@faker-js/faker/locale/pt_BR');
+            break;
+        case 'pt_PT':
+            module = await import('@faker-js/faker/locale/pt_PT');
+            break;
+        case 'ro_MD':
+            module = await import('@faker-js/faker/locale/ro_MD');
+            break;
+        case 'ro':
+            module = await import('@faker-js/faker/locale/ro');
+            break;
+        case 'ru':
+            module = await import('@faker-js/faker/locale/ru');
+            break;
+        case 'sk':
+            module = await import('@faker-js/faker/locale/sk');
+            break;
+        case 'sl_SI':
+            module = await import('@faker-js/faker/locale/sl_SI');
+            break;
+        case 'sr_RS_latin':
+            module = await import('@faker-js/faker/locale/sr_RS_latin');
+            break;
+        case 'sv':
+            module = await import('@faker-js/faker/locale/sv');
+            break;
+        case 'ta_IN':
+            module = await import('@faker-js/faker/locale/ta_IN');
+            break;
+        case 'th':
+            module = await import('@faker-js/faker/locale/th');
+            break;
+        case 'tr':
+            module = await import('@faker-js/faker/locale/tr');
+            break;
+        case 'uk':
+            module = await import('@faker-js/faker/locale/uk');
+            break;
+        case 'ur':
+            module = await import('@faker-js/faker/locale/ur');
+            break;
+        case 'uz_UZ_latin':
+            module = await import('@faker-js/faker/locale/uz_UZ_latin');
+            break;
+        case 'vi':
+            module = await import('@faker-js/faker/locale/vi');
+            break;
+        case 'yo_NG':
+            module = await import('@faker-js/faker/locale/yo_NG');
+            break;
+        case 'zh_CN':
+            module = await import('@faker-js/faker/locale/zh_CN');
+            break;
+        case 'zh_TW':
+            module = await import('@faker-js/faker/locale/zh_TW');
+            break;
+        case 'zu_ZA':
+            module = await import('@faker-js/faker/locale/zu_ZA');
+            break;
+        default:
+            module = await import('@faker-js/faker');
     }
 
-    return _module.faker as unknown as Faker;
+    return module.faker; // as unknown as Faker
 }
 
 export function getFakerFunction(
-    instance: Faker,
-    atom: IFakerAtom
-): IFakerFunction | undefined {
-    // prettier-ignore
-    switch (atom as IFakerPrimitiveAtom) {
-        case 'airline.aircraftType': return instance.airline.aircraftType;
-        case 'airline.flightNumber': return instance.airline.flightNumber;
-        case 'airline.recordLocator': return instance.airline.recordLocator;
-        case 'airline.seat': return instance.airline.seat;
-        case 'animal.bear': return instance.animal.bear;
-        case 'animal.bird': return instance.animal.bird;
-        case 'animal.cat': return instance.animal.cat;
-        case 'animal.cetacean': return instance.animal.cetacean;
-        case 'animal.cow': return instance.animal.cow;
-        case 'animal.crocodilia': return instance.animal.crocodilia;
-        case 'animal.dog': return instance.animal.dog;
-        case 'animal.fish': return instance.animal.fish;
-        case 'animal.horse': return instance.animal.horse;
-        case 'animal.insect': return instance.animal.insect;
-        case 'animal.lion': return instance.animal.lion;
-        case 'animal.petName': return instance.animal.petName;
-        case 'animal.rabbit': return instance.animal.rabbit;
-        case 'animal.rodent': return instance.animal.rodent;
-        case 'animal.snake': return instance.animal.snake;
-        case 'animal.type': return instance.animal.type;
-        case 'book.author': return instance.book.author;
-        case 'book.format': return instance.book.format;
-        case 'book.genre': return instance.book.genre;
-        case 'book.publisher': return instance.book.publisher;
-        case 'book.series': return instance.book.series;
-        case 'book.title': return instance.book.title;
-        case 'color.cmyk': return instance.color.cmyk;
-        case 'color.colorByCSSColorSpace': return instance.color.colorByCSSColorSpace;
-        case 'color.cssSupportedFunction': return instance.color.cssSupportedFunction;
-        case 'color.cssSupportedSpace': return instance.color.cssSupportedSpace;
-        case 'color.hsl': return instance.color.hsl;
-        case 'color.human': return instance.color.human;
-        case 'color.hwb': return instance.color.hwb;
-        case 'color.lab': return instance.color.lab;
-        case 'color.lch': return instance.color.lch;
-        case 'color.rgb': return instance.color.rgb;
-        case 'color.space': return instance.color.space;
-        case 'commerce.department': return instance.commerce.department;
-        case 'commerce.isbn': return instance.commerce.isbn;
-        case 'commerce.price': return instance.commerce.price;
-        case 'commerce.product': return instance.commerce.product;
-        case 'commerce.productAdjective': return instance.commerce.productAdjective;
-        case 'commerce.productDescription': return instance.commerce.productDescription;
-        case 'commerce.productMaterial': return instance.commerce.productMaterial;
-        case 'commerce.productName': return instance.commerce.productName;
-        case 'company.buzzAdjective': return instance.company.buzzAdjective;
-        case 'company.buzzNoun': return instance.company.buzzNoun;
-        case 'company.buzzPhrase': return instance.company.buzzPhrase;
-        case 'company.buzzVerb': return instance.company.buzzVerb;
-        case 'company.catchPhrase': return instance.company.catchPhrase;
-        case 'company.catchPhraseAdjective': return instance.company.catchPhraseAdjective;
-        case 'company.catchPhraseDescriptor': return instance.company.catchPhraseDescriptor;
-        case 'company.catchPhraseNoun': return instance.company.catchPhraseNoun;
-        case 'company.name': return instance.company.name;
-        case 'database.collation': return instance.database.collation;
-        case 'database.column': return instance.database.column;
-        case 'database.engine': return instance.database.engine;
-        case 'database.mongodbObjectId': return instance.database.mongodbObjectId;
-        case 'database.type': return instance.database.type;
-        case 'datatype.boolean': return instance.datatype.boolean;
-        case 'date.month': return instance.date.month;
-        case 'date.timeZone': return instance.date.timeZone;
-        case 'date.weekday': return instance.date.weekday;
-        case 'finance.accountName': return instance.finance.accountName;
-        case 'finance.accountNumber': return instance.finance.accountNumber;
-        case 'finance.amount': return instance.finance.amount;
-        case 'finance.bic': return instance.finance.bic;
-        case 'finance.bitcoinAddress': return instance.finance.bitcoinAddress;
-        case 'finance.creditCardCVV': return instance.finance.creditCardCVV;
-        case 'finance.creditCardIssuer': return instance.finance.creditCardIssuer;
-        case 'finance.creditCardNumber': return instance.finance.creditCardNumber;
-        case 'finance.currencyCode': return instance.finance.currencyCode;
-        case 'finance.currencyName': return instance.finance.currencyName;
-        case 'finance.currencyNumericCode': return instance.finance.currencyNumericCode;
-        case 'finance.currencySymbol': return instance.finance.currencySymbol;
-        case 'finance.ethereumAddress': return instance.finance.ethereumAddress;
-        case 'finance.iban': return instance.finance.iban;
-        case 'finance.litecoinAddress': return instance.finance.litecoinAddress;
-        case 'finance.maskedNumber': return instance.finance.maskedNumber;
-        case 'finance.pin': return instance.finance.pin;
-        case 'finance.routingNumber': return instance.finance.routingNumber;
-        case 'finance.transactionDescription': return instance.finance.transactionDescription;
-        case 'finance.transactionType': return instance.finance.transactionType;
-        case 'food.adjective': return instance.food.adjective;
-        case 'food.description': return instance.food.description;
-        case 'food.dish': return instance.food.dish;
-        case 'food.ethnicCategory': return instance.food.ethnicCategory;
-        case 'food.fruit': return instance.food.fruit;
-        case 'food.ingredient': return instance.food.ingredient;
-        case 'food.meat': return instance.food.meat;
-        case 'food.spice': return instance.food.spice;
-        case 'food.vegetable': return instance.food.vegetable;
-        case 'git.branch': return instance.git.branch;
-        case 'git.commitDate': return instance.git.commitDate;
-        case 'git.commitEntry': return instance.git.commitEntry;
-        case 'git.commitMessage': return instance.git.commitMessage;
-        case 'git.commitSha': return instance.git.commitSha;
-        case 'hacker.abbreviation': return instance.hacker.abbreviation;
-        case 'hacker.adjective': return instance.hacker.adjective;
-        case 'hacker.ingverb': return instance.hacker.ingverb;
-        case 'hacker.noun': return instance.hacker.noun;
-        case 'hacker.phrase': return instance.hacker.phrase;
-        case 'hacker.verb': return instance.hacker.verb;
-        case 'helpers.replaceCreditCardSymbols': return instance.helpers.replaceCreditCardSymbols;
-        case 'helpers.replaceSymbols': return instance.helpers.replaceSymbols;
-        case 'helpers.slugify': return instance.helpers.slugify;
-        case 'image.avatar': return instance.image.avatar;
-        case 'image.avatarGitHub': return instance.image.avatarGitHub;
-        case 'image.avatarLegacy': return instance.image.avatarLegacy;
-        case 'image.dataUri': return instance.image.dataUri;
-        case 'image.personPortrait': return instance.image.personPortrait;
-        case 'image.url': return instance.image.url;
-        case 'image.urlLoremFlickr': return instance.image.urlLoremFlickr;
-        case 'image.urlPicsumPhotos': return instance.image.urlPicsumPhotos;
-        case 'image.urlPlaceholder': return instance.image.urlPlaceholder;
-        case 'internet.color': return instance.internet.color;
-        case 'internet.displayName': return instance.internet.displayName;
-        case 'internet.domainName': return instance.internet.domainName;
-        case 'internet.domainSuffix': return instance.internet.domainSuffix;
-        case 'internet.domainWord': return instance.internet.domainWord;
-        case 'internet.email': return instance.internet.email;
-        case 'internet.emoji': return instance.internet.emoji;
-        case 'internet.exampleEmail': return instance.internet.exampleEmail;
-        case 'internet.httpMethod': return instance.internet.httpMethod;
-        case 'internet.httpStatusCode': return instance.internet.httpStatusCode;
-        case 'internet.ip': return instance.internet.ip;
-        case 'internet.ipv4': return instance.internet.ipv4;
-        case 'internet.ipv6': return instance.internet.ipv6;
-        case 'internet.jwt': return instance.internet.jwt;
-        case 'internet.jwtAlgorithm': return instance.internet.jwtAlgorithm;
-        case 'internet.mac': return instance.internet.mac;
-        case 'internet.password': return instance.internet.password;
-        case 'internet.port': return instance.internet.port;
-        case 'internet.protocol': return instance.internet.protocol;
-        case 'internet.url': return instance.internet.url;
-        case 'internet.userAgent': return instance.internet.userAgent;
-        case 'internet.username': return instance.internet.username;
-        case 'internet.userName': return instance.internet.userName;
-        case 'location.buildingNumber': return instance.location.buildingNumber;
-        case 'location.cardinalDirection': return instance.location.cardinalDirection;
-        case 'location.city': return instance.location.city;
-        case 'location.continent': return instance.location.continent;
-        case 'location.country': return instance.location.country;
-        case 'location.countryCode': return instance.location.countryCode;
-        case 'location.county': return instance.location.county;
-        case 'location.direction': return instance.location.direction;
-        case 'location.latitude': return instance.location.latitude;
-        case 'location.longitude': return instance.location.longitude;
-        case 'location.ordinalDirection': return instance.location.ordinalDirection;
-        case 'location.secondaryAddress': return instance.location.secondaryAddress;
-        case 'location.state': return instance.location.state;
-        case 'location.street': return instance.location.street;
-        case 'location.streetAddress': return instance.location.streetAddress;
-        case 'location.timeZone': return instance.location.timeZone;
-        case 'location.zipCode': return instance.location.zipCode;
-        case 'lorem.lines': return instance.lorem.lines;
-        case 'lorem.paragraph': return instance.lorem.paragraph;
-        case 'lorem.paragraphs': return instance.lorem.paragraphs;
-        case 'lorem.sentence': return instance.lorem.sentence;
-        case 'lorem.sentences': return instance.lorem.sentences;
-        case 'lorem.slug': return instance.lorem.slug;
-        case 'lorem.text': return instance.lorem.text;
-        case 'lorem.word': return instance.lorem.word;
-        case 'lorem.words': return instance.lorem.words;
-        case 'music.album': return instance.music.album;
-        case 'music.artist': return instance.music.artist;
-        case 'music.genre': return instance.music.genre;
-        case 'music.songName': return instance.music.songName;
-        case 'number.bigInt': return instance.number.bigInt;
-        case 'number.binary': return instance.number.binary;
-        case 'number.float': return instance.number.float;
-        case 'number.hex': return instance.number.hex;
-        case 'number.int': return instance.number.int;
-        case 'number.octal': return instance.number.octal;
-        case 'number.romanNumeral': return instance.number.romanNumeral;
-        case 'person.bio': return instance.person.bio;
-        case 'person.firstName': return instance.person.firstName;
-        case 'person.fullName': return instance.person.fullName;
-        case 'person.gender': return instance.person.gender;
-        case 'person.jobArea': return instance.person.jobArea;
-        case 'person.jobDescriptor': return instance.person.jobDescriptor;
-        case 'person.jobTitle': return instance.person.jobTitle;
-        case 'person.jobType': return instance.person.jobType;
-        case 'person.lastName': return instance.person.lastName;
-        case 'person.middleName': return instance.person.middleName;
-        case 'person.prefix': return instance.person.prefix;
-        case 'person.sex': return instance.person.sex;
-        case 'person.sexType': return instance.person.sexType;
-        case 'person.suffix': return instance.person.suffix;
-        case 'person.zodiacSign': return instance.person.zodiacSign;
-        case 'phone.imei': return instance.phone.imei;
-        case 'phone.number': return instance.phone.number;
-        case 'string.alpha': return instance.string.alpha;
-        case 'string.alphanumeric': return instance.string.alphanumeric;
-        case 'string.binary': return instance.string.binary;
-        case 'string.hexadecimal': return instance.string.hexadecimal;
-        case 'string.nanoid': return instance.string.nanoid;
-        case 'string.numeric': return instance.string.numeric;
-        case 'string.octal': return instance.string.octal;
-        case 'string.sample': return instance.string.sample;
-        case 'string.symbol': return instance.string.symbol;
-        case 'string.ulid': return instance.string.ulid;
-        case 'string.uuid': return instance.string.uuid;
-        case 'system.commonFileExt': return instance.system.commonFileExt;
-        case 'system.commonFileName': return instance.system.commonFileName;
-        case 'system.commonFileType': return instance.system.commonFileType;
-        case 'system.cron': return instance.system.cron;
-        case 'system.directoryPath': return instance.system.directoryPath;
-        case 'system.fileExt': return instance.system.fileExt;
-        case 'system.fileName': return instance.system.fileName;
-        case 'system.filePath': return instance.system.filePath;
-        case 'system.fileType': return instance.system.fileType;
-        case 'system.mimeType': return instance.system.mimeType;
-        case 'system.networkInterface': return instance.system.networkInterface;
-        case 'system.semver': return instance.system.semver;
-        case 'vehicle.bicycle': return instance.vehicle.bicycle;
-        case 'vehicle.color': return instance.vehicle.color;
-        case 'vehicle.fuel': return instance.vehicle.fuel;
-        case 'vehicle.manufacturer': return instance.vehicle.manufacturer;
-        case 'vehicle.model': return instance.vehicle.model;
-        case 'vehicle.type': return instance.vehicle.type;
-        case 'vehicle.vehicle': return instance.vehicle.vehicle;
-        case 'vehicle.vin': return instance.vehicle.vin;
-        case 'vehicle.vrm': return instance.vehicle.vrm;
-        case 'word.adjective': return instance.word.adjective;
-        case 'word.adverb': return instance.word.adverb;
-        case 'word.conjunction': return instance.word.conjunction;
-        case 'word.interjection': return instance.word.interjection;
-        case 'word.noun': return instance.word.noun;
-        case 'word.preposition': return instance.word.preposition;
-        case 'word.sample': return instance.word.sample;
-        case 'word.verb': return instance.word.verb;
-        case 'word.words': return instance.word.words;
-        default: break; // needed for the next switch
+    faker: Faker,
+    atom: IFakerFnName
+): IFakerFn | undefined {
+    switch (atom as IApiPrimitiveKey) {
+        case 'airline.aircraftType':
+            return faker.airline.aircraftType;
+        case 'airline.flightNumber':
+            return faker.airline.flightNumber;
+        case 'airline.recordLocator':
+            return faker.airline.recordLocator;
+        case 'airline.seat':
+            return faker.airline.seat;
+        case 'animal.bear':
+            return faker.animal.bear;
+        case 'animal.bird':
+            return faker.animal.bird;
+        case 'animal.cat':
+            return faker.animal.cat;
+        case 'animal.cetacean':
+            return faker.animal.cetacean;
+        case 'animal.cow':
+            return faker.animal.cow;
+        case 'animal.crocodilia':
+            return faker.animal.crocodilia;
+        case 'animal.dog':
+            return faker.animal.dog;
+        case 'animal.fish':
+            return faker.animal.fish;
+        case 'animal.horse':
+            return faker.animal.horse;
+        case 'animal.insect':
+            return faker.animal.insect;
+        case 'animal.lion':
+            return faker.animal.lion;
+        case 'animal.petName':
+            return faker.animal.petName;
+        case 'animal.rabbit':
+            return faker.animal.rabbit;
+        case 'animal.rodent':
+            return faker.animal.rodent;
+        case 'animal.snake':
+            return faker.animal.snake;
+        case 'animal.type':
+            return faker.animal.type;
+        case 'book.author':
+            return faker.book.author;
+        case 'book.format':
+            return faker.book.format;
+        case 'book.genre':
+            return faker.book.genre;
+        case 'book.publisher':
+            return faker.book.publisher;
+        case 'book.series':
+            return faker.book.series;
+        case 'book.title':
+            return faker.book.title;
+        case 'color.cmyk':
+            return faker.color.cmyk;
+        case 'color.colorByCSSColorSpace':
+            return faker.color.colorByCSSColorSpace;
+        case 'color.cssSupportedFunction':
+            return faker.color.cssSupportedFunction;
+        case 'color.cssSupportedSpace':
+            return faker.color.cssSupportedSpace;
+        case 'color.hsl':
+            return faker.color.hsl;
+        case 'color.human':
+            return faker.color.human;
+        case 'color.hwb':
+            return faker.color.hwb;
+        case 'color.lab':
+            return faker.color.lab;
+        case 'color.lch':
+            return faker.color.lch;
+        case 'color.rgb':
+            return faker.color.rgb;
+        case 'color.space':
+            return faker.color.space;
+        case 'commerce.department':
+            return faker.commerce.department;
+        case 'commerce.isbn':
+            return faker.commerce.isbn;
+        case 'commerce.price':
+            return faker.commerce.price;
+        case 'commerce.product':
+            return faker.commerce.product;
+        case 'commerce.productAdjective':
+            return faker.commerce.productAdjective;
+        case 'commerce.productDescription':
+            return faker.commerce.productDescription;
+        case 'commerce.productMaterial':
+            return faker.commerce.productMaterial;
+        case 'commerce.productName':
+            return faker.commerce.productName;
+        case 'company.buzzAdjective':
+            return faker.company.buzzAdjective;
+        case 'company.buzzNoun':
+            return faker.company.buzzNoun;
+        case 'company.buzzPhrase':
+            return faker.company.buzzPhrase;
+        case 'company.buzzVerb':
+            return faker.company.buzzVerb;
+        case 'company.catchPhrase':
+            return faker.company.catchPhrase;
+        case 'company.catchPhraseAdjective':
+            return faker.company.catchPhraseAdjective;
+        case 'company.catchPhraseDescriptor':
+            return faker.company.catchPhraseDescriptor;
+        case 'company.catchPhraseNoun':
+            return faker.company.catchPhraseNoun;
+        case 'company.name':
+            return faker.company.name;
+        case 'database.collation':
+            return faker.database.collation;
+        case 'database.column':
+            return faker.database.column;
+        case 'database.engine':
+            return faker.database.engine;
+        case 'database.mongodbObjectId':
+            return faker.database.mongodbObjectId;
+        case 'database.type':
+            return faker.database.type;
+        case 'datatype.boolean':
+            return faker.datatype.boolean;
+        case 'date.month':
+            return faker.date.month;
+        case 'date.timeZone':
+            return faker.date.timeZone;
+        case 'date.weekday':
+            return faker.date.weekday;
+        case 'finance.accountName':
+            return faker.finance.accountName;
+        case 'finance.accountNumber':
+            return faker.finance.accountNumber;
+        case 'finance.amount':
+            return faker.finance.amount;
+        case 'finance.bic':
+            return faker.finance.bic;
+        case 'finance.bitcoinAddress':
+            return faker.finance.bitcoinAddress;
+        case 'finance.creditCardCVV':
+            return faker.finance.creditCardCVV;
+        case 'finance.creditCardIssuer':
+            return faker.finance.creditCardIssuer;
+        case 'finance.creditCardNumber':
+            return faker.finance.creditCardNumber;
+        case 'finance.currencyCode':
+            return faker.finance.currencyCode;
+        case 'finance.currencyName':
+            return faker.finance.currencyName;
+        case 'finance.currencyNumericCode':
+            return faker.finance.currencyNumericCode;
+        case 'finance.currencySymbol':
+            return faker.finance.currencySymbol;
+        case 'finance.ethereumAddress':
+            return faker.finance.ethereumAddress;
+        case 'finance.iban':
+            return faker.finance.iban;
+        case 'finance.litecoinAddress':
+            return faker.finance.litecoinAddress;
+        case 'finance.pin':
+            return faker.finance.pin;
+        case 'finance.routingNumber':
+            return faker.finance.routingNumber;
+        case 'finance.transactionDescription':
+            return faker.finance.transactionDescription;
+        case 'finance.transactionType':
+            return faker.finance.transactionType;
+        case 'food.adjective':
+            return faker.food.adjective;
+        case 'food.description':
+            return faker.food.description;
+        case 'food.dish':
+            return faker.food.dish;
+        case 'food.ethnicCategory':
+            return faker.food.ethnicCategory;
+        case 'food.fruit':
+            return faker.food.fruit;
+        case 'food.ingredient':
+            return faker.food.ingredient;
+        case 'food.meat':
+            return faker.food.meat;
+        case 'food.spice':
+            return faker.food.spice;
+        case 'food.vegetable':
+            return faker.food.vegetable;
+        case 'git.branch':
+            return faker.git.branch;
+        case 'git.commitDate':
+            return faker.git.commitDate;
+        case 'git.commitEntry':
+            return faker.git.commitEntry;
+        case 'git.commitMessage':
+            return faker.git.commitMessage;
+        case 'git.commitSha':
+            return faker.git.commitSha;
+        case 'hacker.abbreviation':
+            return faker.hacker.abbreviation;
+        case 'hacker.adjective':
+            return faker.hacker.adjective;
+        case 'hacker.ingverb':
+            return faker.hacker.ingverb;
+        case 'hacker.noun':
+            return faker.hacker.noun;
+        case 'hacker.phrase':
+            return faker.hacker.phrase;
+        case 'hacker.verb':
+            return faker.hacker.verb;
+        case 'helpers.replaceCreditCardSymbols':
+            return faker.helpers.replaceCreditCardSymbols;
+        case 'helpers.replaceSymbols':
+            return faker.helpers.replaceSymbols;
+        case 'helpers.slugify':
+            return faker.helpers.slugify;
+        case 'image.avatar':
+            return faker.image.avatar;
+        case 'image.avatarGitHub':
+            return faker.image.avatarGitHub;
+        case 'image.dataUri':
+            return faker.image.dataUri;
+        case 'image.personPortrait':
+            return faker.image.personPortrait;
+        case 'image.url':
+            return faker.image.url;
+        case 'image.urlLoremFlickr':
+            return faker.image.urlLoremFlickr;
+        case 'image.urlPicsumPhotos':
+            return faker.image.urlPicsumPhotos;
+        case 'internet.displayName':
+            return faker.internet.displayName;
+        case 'internet.domainName':
+            return faker.internet.domainName;
+        case 'internet.domainSuffix':
+            return faker.internet.domainSuffix;
+        case 'internet.domainWord':
+            return faker.internet.domainWord;
+        case 'internet.email':
+            return faker.internet.email;
+        case 'internet.emoji':
+            return faker.internet.emoji;
+        case 'internet.exampleEmail':
+            return faker.internet.exampleEmail;
+        case 'internet.httpMethod':
+            return faker.internet.httpMethod;
+        case 'internet.httpStatusCode':
+            return faker.internet.httpStatusCode;
+        case 'internet.ip':
+            return faker.internet.ip;
+        case 'internet.ipv4':
+            return faker.internet.ipv4;
+        case 'internet.ipv6':
+            return faker.internet.ipv6;
+        case 'internet.jwt':
+            return faker.internet.jwt;
+        case 'internet.jwtAlgorithm':
+            return faker.internet.jwtAlgorithm;
+        case 'internet.mac':
+            return faker.internet.mac;
+        case 'internet.password':
+            return faker.internet.password;
+        case 'internet.port':
+            return faker.internet.port;
+        case 'internet.protocol':
+            return faker.internet.protocol;
+        case 'internet.url':
+            return faker.internet.url;
+        case 'internet.userAgent':
+            return faker.internet.userAgent;
+        case 'internet.username':
+            return faker.internet.username;
+        case 'location.buildingNumber':
+            return faker.location.buildingNumber;
+        case 'location.cardinalDirection':
+            return faker.location.cardinalDirection;
+        case 'location.city':
+            return faker.location.city;
+        case 'location.continent':
+            return faker.location.continent;
+        case 'location.country':
+            return faker.location.country;
+        case 'location.countryCode':
+            return faker.location.countryCode;
+        case 'location.county':
+            return faker.location.county;
+        case 'location.direction':
+            return faker.location.direction;
+        case 'location.latitude':
+            return faker.location.latitude;
+        case 'location.longitude':
+            return faker.location.longitude;
+        case 'location.ordinalDirection':
+            return faker.location.ordinalDirection;
+        case 'location.secondaryAddress':
+            return faker.location.secondaryAddress;
+        case 'location.state':
+            return faker.location.state;
+        case 'location.street':
+            return faker.location.street;
+        case 'location.streetAddress':
+            return faker.location.streetAddress;
+        case 'location.timeZone':
+            return faker.location.timeZone;
+        case 'location.zipCode':
+            return faker.location.zipCode;
+        case 'lorem.lines':
+            return faker.lorem.lines;
+        case 'lorem.paragraph':
+            return faker.lorem.paragraph;
+        case 'lorem.paragraphs':
+            return faker.lorem.paragraphs;
+        case 'lorem.sentence':
+            return faker.lorem.sentence;
+        case 'lorem.sentences':
+            return faker.lorem.sentences;
+        case 'lorem.slug':
+            return faker.lorem.slug;
+        case 'lorem.text':
+            return faker.lorem.text;
+        case 'lorem.word':
+            return faker.lorem.word;
+        case 'lorem.words':
+            return faker.lorem.words;
+        case 'music.album':
+            return faker.music.album;
+        case 'music.artist':
+            return faker.music.artist;
+        case 'music.genre':
+            return faker.music.genre;
+        case 'music.songName':
+            return faker.music.songName;
+        case 'number.bigInt':
+            return faker.number.bigInt;
+        case 'number.binary':
+            return faker.number.binary;
+        case 'number.float':
+            return faker.number.float;
+        case 'number.hex':
+            return faker.number.hex;
+        case 'number.int':
+            return faker.number.int;
+        case 'number.octal':
+            return faker.number.octal;
+        case 'number.romanNumeral':
+            return faker.number.romanNumeral;
+        case 'person.bio':
+            return faker.person.bio;
+        case 'person.firstName':
+            return faker.person.firstName;
+        case 'person.fullName':
+            return faker.person.fullName;
+        case 'person.gender':
+            return faker.person.gender;
+        case 'person.jobArea':
+            return faker.person.jobArea;
+        case 'person.jobDescriptor':
+            return faker.person.jobDescriptor;
+        case 'person.jobTitle':
+            return faker.person.jobTitle;
+        case 'person.jobType':
+            return faker.person.jobType;
+        case 'person.lastName':
+            return faker.person.lastName;
+        case 'person.middleName':
+            return faker.person.middleName;
+        case 'person.prefix':
+            return faker.person.prefix;
+        case 'person.sex':
+            return faker.person.sex;
+        case 'person.sexType':
+            return faker.person.sexType;
+        case 'person.suffix':
+            return faker.person.suffix;
+        case 'person.zodiacSign':
+            return faker.person.zodiacSign;
+        case 'phone.imei':
+            return faker.phone.imei;
+        case 'phone.number':
+            return faker.phone.number;
+        case 'string.alpha':
+            return faker.string.alpha;
+        case 'string.alphanumeric':
+            return faker.string.alphanumeric;
+        case 'string.binary':
+            return faker.string.binary;
+        case 'string.hexadecimal':
+            return faker.string.hexadecimal;
+        case 'string.nanoid':
+            return faker.string.nanoid;
+        case 'string.numeric':
+            return faker.string.numeric;
+        case 'string.octal':
+            return faker.string.octal;
+        case 'string.sample':
+            return faker.string.sample;
+        case 'string.symbol':
+            return faker.string.symbol;
+        case 'string.ulid':
+            return faker.string.ulid;
+        case 'string.uuid':
+            return faker.string.uuid;
+        case 'system.commonFileExt':
+            return faker.system.commonFileExt;
+        case 'system.commonFileName':
+            return faker.system.commonFileName;
+        case 'system.commonFileType':
+            return faker.system.commonFileType;
+        case 'system.cron':
+            return faker.system.cron;
+        case 'system.directoryPath':
+            return faker.system.directoryPath;
+        case 'system.fileExt':
+            return faker.system.fileExt;
+        case 'system.fileName':
+            return faker.system.fileName;
+        case 'system.filePath':
+            return faker.system.filePath;
+        case 'system.fileType':
+            return faker.system.fileType;
+        case 'system.mimeType':
+            return faker.system.mimeType;
+        case 'system.networkInterface':
+            return faker.system.networkInterface;
+        case 'system.semver':
+            return faker.system.semver;
+        case 'vehicle.bicycle':
+            return faker.vehicle.bicycle;
+        case 'vehicle.color':
+            return faker.vehicle.color;
+        case 'vehicle.fuel':
+            return faker.vehicle.fuel;
+        case 'vehicle.manufacturer':
+            return faker.vehicle.manufacturer;
+        case 'vehicle.model':
+            return faker.vehicle.model;
+        case 'vehicle.type':
+            return faker.vehicle.type;
+        case 'vehicle.vehicle':
+            return faker.vehicle.vehicle;
+        case 'vehicle.vin':
+            return faker.vehicle.vin;
+        case 'vehicle.vrm':
+            return faker.vehicle.vrm;
+        case 'word.adjective':
+            return faker.word.adjective;
+        case 'word.adverb':
+            return faker.word.adverb;
+        case 'word.conjunction':
+            return faker.word.conjunction;
+        case 'word.interjection':
+            return faker.word.interjection;
+        case 'word.noun':
+            return faker.word.noun;
+        case 'word.preposition':
+            return faker.word.preposition;
+        case 'word.sample':
+            return faker.word.sample;
+        case 'word.verb':
+            return faker.word.verb;
+        case 'word.words':
+            return faker.word.words;
+        default:
+            break;
     }
 
-    // prettier-ignore
-    switch (atom as IFakerDateAtom) {
-        case 'date.anytime': return instance.date.anytime;
-        case 'date.birthdate': return instance.date.birthdate;
-        case 'date.future': return instance.date.future;
-        case 'date.past': return instance.date.past;
-        case 'date.recent': return instance.date.recent;
-        case 'date.soon': return instance.date.soon;
-        default: break; // needed for the next switch
+    switch (atom as IApiDateKey) {
+        case 'date.anytime':
+            return faker.date.anytime;
+        case 'date.birthdate':
+            return faker.date.birthdate;
+        case 'date.future':
+            return faker.date.future;
+        case 'date.past':
+            return faker.date.past;
+        case 'date.recent':
+            return faker.date.recent;
+        case 'date.soon':
+            return faker.date.soon;
+        default:
+            break;
     }
 
-    // prettier-ignore
-    switch (atom as IFakerArrayAtom) {
-        case 'location.nearbyGPSCoordinate': return instance.location.nearbyGPSCoordinate;
-        default: break; // needed for the next switch
+    switch (atom as IApiArrayKey) {
+        case 'location.nearbyGPSCoordinate':
+            return faker.location.nearbyGPSCoordinate;
+        default:
+            break;
     }
 
-    // prettier-ignore
-    switch (atom as IFakerStructureAtom) {
-        case 'airline.airline': return instance.airline.airline;
-        case 'airline.airplane': return instance.airline.airplane;
-        case 'airline.airport': return instance.airline.airport;
-        case 'finance.currency': return instance.finance.currency;
-        case 'location.language': return instance.location.language;
-        case 'science.chemicalElement': return instance.science.chemicalElement;
-        case 'science.unit': return instance.science.unit;
-        default: break; // needed for the next switch
+    switch (atom as IApiStructureKey) {
+        case 'airline.airline':
+            return faker.airline.airline;
+        case 'airline.airplane':
+            return faker.airline.airplane;
+        case 'airline.airport':
+            return faker.airline.airport;
+        case 'finance.currency':
+            return faker.finance.currency;
+        case 'location.language':
+            return faker.location.language;
+        case 'science.chemicalElement':
+            return faker.science.chemicalElement;
+        case 'science.unit':
+            return faker.science.unit;
+        default:
+            break;
     }
 
-    switch (atom as IFakerBoundAtom) {
+    switch (atom as IApiMethodKey) {
         case 'date.between': {
-            return instance.date.between.bind(null, {
+            const res = faker.date.between({
                 from: '2000-01-01T00:00:00.000Z',
-                to: '2030-01-01T00:00:00.000Z',
+                to: '2030-01-01T00:00:00.000Z'
             });
+            return () => res;
         }
         case 'date.betweens': {
-            return instance.date.betweens.bind(null, {
+            const res = faker.date.betweens({
                 from: '2000-01-01T00:00:00.000Z',
-                to: '2030-01-01T00:00:00.000Z',
+                to: '2030-01-01T00:00:00.000Z'
             });
+            return () => res;
         }
         case 'helpers.arrayElement': {
-            const method = instance.helpers.arrayElement<string>;
-            return method.bind(null, ['cat', 'dog', 'mouse']);
+            const res = faker.helpers.arrayElement(['cat', 'dog', 'mouse']);
+            return () => res;
         }
         case 'helpers.arrayElements': {
-            return instance.helpers.arrayElements.bind(null, [1, 2, 3, 4, 5], {
+            const res = faker.helpers.arrayElements([1, 2, 3, 4, 5], {
                 min: 2,
-                max: 4,
+                max: 4
             });
+            return () => res;
         }
         case 'helpers.enumValue': {
-            const method = instance.helpers.enumValue<typeof Direction>;
-            return method.bind(null, Direction);
+            const res = faker.helpers.enumValue({
+                Up: 'Up',
+                Down: 'Down',
+                Left: 'Left',
+                Right: 'Right'
+            });
+            return () => res;
         }
         case 'helpers.fake': {
-            return instance.helpers.fake.bind(
-                globalThis,
+            const res = faker.helpers.fake(
                 '{{person.lastName}}, {{person.firstName}} {{person.suffix}}'
             );
+            return () => res;
         }
         case 'helpers.fromRegExp': {
-            return instance.helpers.fromRegExp.bind(
-                null,
-                /[A-Z0-9]{4}-[A-Z0-9]{4}/
-            );
+            const res = faker.helpers.fromRegExp(/[A-Z0-9]{4}-[A-Z0-9]{4}/);
+            return () => res;
         }
         case 'helpers.maybe': {
-            // can't resolve with `string` (to bypass use `any`)
-            const method = instance.helpers.maybe<any>;
-            return method.bind(null, () => '50% chance', {
-                probability: 0.5,
+            const res = faker.helpers.maybe(() => '50% chance', {
+                probability: 0.5
             });
+            return (() => res) as IFakerFn;
         }
         case 'helpers.multiple': {
-            const method = instance.helpers.multiple<string>;
-            return method.bind(
-                null,
-                (_, index) => `#${index + 1}) ${instance.number.int()}`,
+            const res = faker.helpers.multiple(
+                (_, index) => `#${index + 1}) ${faker.number.int()}`,
                 {
-                    count: { min: 2, max: 3 },
+                    count: { min: 2, max: 3 }
                 }
             );
+            return () => res;
         }
         case 'helpers.mustache': {
-            return instance.helpers.mustache.bind(
-                null,
-                'Random number is {{count}}',
-                {
-                    count: () => instance.number.int().toString(),
-                }
-            );
+            const res = faker.helpers.mustache('Random number is {{count}}', {
+                count: () => faker.number.int().toString()
+            });
+            return () => res;
         }
         case 'helpers.objectEntry': {
-            return instance.helpers.objectEntry.bind(null, {
+            const res = faker.helpers.objectEntry({
                 One: 1,
                 Two: 2,
                 Three: 3,
-                Nine: 9,
+                Nine: 9
             });
+            return () => res;
         }
         case 'helpers.objectKey': {
-            return instance.helpers.objectKey.bind(null, {
+            const res = faker.helpers.objectKey({
                 One: 1,
                 Two: 2,
                 Three: 3,
-                Nine: 9,
+                Nine: 9
             });
+            return () => res;
         }
         case 'helpers.objectValue': {
-            const method = instance.helpers.objectValue<{
-                [key: string]: number;
-            }>;
-            return method.bind(null, { One: 1, Two: 2, Three: 3, Nine: 9 });
+            const res = faker.helpers.objectValue({
+                One: 1,
+                Two: 2,
+                Three: 3,
+                Nine: 9
+            });
+            return () => res;
         }
         case 'helpers.rangeToNumber': {
-            return instance.helpers.rangeToNumber.bind(null, {
+            const res = faker.helpers.rangeToNumber({
                 min: 1,
-                max: 10,
+                max: 10
             });
+            return () => res;
         }
         case 'helpers.shuffle': {
-            return instance.helpers.shuffle.bind(null, ['a', 'b', 'c'], {
-                inplace: false,
+            const res = faker.helpers.shuffle(['a', 'b', 'c'], {
+                inplace: false
             });
+            return () => res;
         }
         case 'helpers.uniqueArray': {
-            return instance.helpers.uniqueArray.bind(
-                null,
-                instance.word.sample,
-                3
-            );
+            const res = faker.helpers.uniqueArray(faker.word.sample, 3);
+            return () => res;
         }
         case 'helpers.weightedArrayElement': {
-            const method = instance.helpers.weightedArrayElement<string>;
-            return method.bind(null, [
+            const res = faker.helpers.weightedArrayElement([
                 { weight: 5, value: 'sunny' },
                 { weight: 4, value: 'rainy' },
-                { weight: 1, value: 'snowy' },
+                { weight: 1, value: 'snowy' }
             ]);
+            return () => res;
         }
         case 'string.fromCharacters': {
-            return instance.string.fromCharacters.bind(null, 'abc', {
+            const res = faker.string.fromCharacters('abc', {
                 min: 5,
-                max: 10,
+                max: 10
             });
+            return () => res;
         }
         default:
-            break; // needed for the next switch
+            break;
     }
 
     return undefined;

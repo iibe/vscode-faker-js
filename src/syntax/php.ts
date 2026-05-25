@@ -1,11 +1,10 @@
-import { Stringify } from '.';
-import { isNativeArray, isNativeObject } from '../base/data-types';
-import { assertNever } from '../base/exhaustive';
-import { ISettings } from '../types/settings';
-import { VscodeLanguageIdentifier } from '../types/vscode';
+import { assertUnreachable, isArray, isObject } from '../base/utils.js';
+import type { ISettings } from '../types/extension-config.js';
+import type { LanguageID } from '../types/vscode.js';
+import { Stringify } from './base.js';
 
 export class StringifyPhp extends Stringify {
-    protected readonly id: VscodeLanguageIdentifier = 'php';
+    protected readonly id: LanguageID = 'php';
     protected readonly syntax: ISettings['php'];
 
     protected readonly quotationMark: string;
@@ -50,7 +49,7 @@ export class StringifyPhp extends Stringify {
             case 'uppercase':
                 return 'NULL';
             default:
-                return assertNever(this.syntax.null.insertMode);
+                assertUnreachable(this.syntax.null.insertMode);
         }
     }
 
@@ -61,7 +60,7 @@ export class StringifyPhp extends Stringify {
             case 'uppercase':
                 return 'NULL';
             default:
-                return assertNever(this.syntax.null.insertMode);
+                assertUnreachable(this.syntax.null.insertMode);
         }
     }
 
@@ -72,7 +71,7 @@ export class StringifyPhp extends Stringify {
             case 'uppercase':
                 return String(value).toUpperCase();
             default:
-                return assertNever(this.syntax.boolean.insertMode);
+                assertUnreachable(this.syntax.boolean.insertMode);
         }
     }
 
@@ -94,7 +93,7 @@ export class StringifyPhp extends Stringify {
             case 'safe':
                 return this.quotationMark + value + this.quotationMark;
             default:
-                return assertNever(this.syntax.bigint.insertMode);
+                assertUnreachable(this.syntax.bigint.insertMode);
         }
     }
 
@@ -107,20 +106,20 @@ export class StringifyPhp extends Stringify {
             case 'interpolation':
                 return '"' + value + '"';
             default:
-                return assertNever(this.syntax.string.insertMode);
+                assertUnreachable(this.syntax.string.insertMode);
         }
     }
 
-    fromSymbol(value: symbol): string {
+    fromSymbol(_: symbol): string {
         return this.fromString(
             `Faker.js: Symbol() doesn't exists in '${this.id}'.`
         );
     }
 
-    fromArray(array: any[]): string {
+    fromArray(array: unknown[]): string {
         const elements = array.map((element) => {
             // avoid circular reference
-            return isNativeArray(element)
+            return isArray(element)
                 ? this.fromArray(element)
                 : this.from(element);
         });
@@ -133,7 +132,7 @@ export class StringifyPhp extends Stringify {
             let record: string =
                 this.quotationMark + key + this.quotationMark + ' => ';
             // avoid circular references
-            record += isNativeObject(value)
+            record += isObject(value)
                 ? this.fromObject(value)
                 : this.from(value);
 

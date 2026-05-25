@@ -1,11 +1,10 @@
-import { Stringify } from '.';
-import { isNativeArray, isNativeObject } from '../base/data-types';
-import { assertNever } from '../base/exhaustive';
-import { ISettings } from '../types/settings';
-import { VscodeLanguageIdentifier } from '../types/vscode';
+import { assertUnreachable, isArray, isObject } from '../base/utils.js';
+import type { ISettings } from '../types/extension-config.js';
+import type { LanguageID } from '../types/vscode.js';
+import { Stringify } from './base.js';
 
 export class StringifyJavaScript extends Stringify {
-    protected readonly id: VscodeLanguageIdentifier = 'javascript';
+    protected readonly id: LanguageID = 'javascript';
     protected readonly syntax: ISettings['javascript'];
 
     protected readonly quotationMark: string;
@@ -58,7 +57,7 @@ export class StringifyJavaScript extends Stringify {
             case 'wrapper':
                 return 'BigInt(' + value + ')';
             default:
-                return assertNever(this.syntax.bigint.insertMode);
+                assertUnreachable(this.syntax.bigint.insertMode);
         }
     }
 
@@ -71,7 +70,7 @@ export class StringifyJavaScript extends Stringify {
             case 'interpolation':
                 return '`' + value + '`';
             default:
-                return assertNever(this.syntax.string.insertMode);
+                assertUnreachable(this.syntax.string.insertMode);
         }
     }
 
@@ -81,10 +80,10 @@ export class StringifyJavaScript extends Stringify {
             : 'Symbol()';
     }
 
-    fromArray(array: any[]): string {
+    fromArray(array: unknown[]): string {
         const elements = array.map((element) => {
             // avoid circular reference
-            return isNativeArray(element)
+            return isArray(element)
                 ? this.fromArray(element)
                 : this.from(element);
         });
@@ -97,7 +96,7 @@ export class StringifyJavaScript extends Stringify {
             let record: string =
                 this.quotationMark + key + this.quotationMark + ': ';
             // avoid circular references
-            record += isNativeObject(value)
+            record += isObject(value)
                 ? this.fromObject(value)
                 : this.from(value);
 

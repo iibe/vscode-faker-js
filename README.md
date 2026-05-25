@@ -47,7 +47,7 @@
 
 ```json
 {
-  "faker-js.locale": "en"
+    "faker-js.locale": "en"
 }
 ```
 
@@ -57,7 +57,7 @@ Specifies a syntax of fake data. If set to `*`, the serialization changes dynami
 
 ```json
 {
-  "faker-js.syntax": "*"
+    "faker-js.syntax": "*"
 }
 ```
 
@@ -67,292 +67,290 @@ Following options provide additional control over how to insert data. This can b
 
 ```json
 {
-  "faker-js.go.bigint.insertMode": "...",
-  "faker-js.go.string.quotationMark": "...",
-  "faker-js.go.string.insertMode": "...",
-  "faker-js.go.array.insertMode": "...",
-  "faker-js.javascript.bigint.insertMode": "...",
-  "faker-js.javascript.string.quotationMark": "...",
-  "faker-js.javascript.string.insertMode": "...",
-  "faker-js.php.null.insertMode": "...",
-  "faker-js.php.boolean.insertMode": "...",
-  "faker-js.php.bigint.insertMode": "...",
-  "faker-js.php.string.quotationMark": "...",
-  "faker-js.php.string.insertMode": "...",
-  "faker-js.php.array.insertMode": "...",
-  "faker-js.python.bigint.insertMode": "...",
-  "faker-js.python.string.quotationMark": "...",
-  "faker-js.python.string.insertMode": "...",
-  "faker-js.ruby.bigint.insertMode": "...",
-  "faker-js.ruby.string.quotationMark": "...",
-  "faker-js.ruby.string.insertMode": "..."
+    "faker-js.go.bigint.insertMode": "...",
+    "faker-js.go.string.quotationMark": "...",
+    "faker-js.go.string.insertMode": "...",
+    "faker-js.go.array.insertMode": "...",
+    "faker-js.javascript.bigint.insertMode": "...",
+    "faker-js.javascript.string.quotationMark": "...",
+    "faker-js.javascript.string.insertMode": "...",
+    "faker-js.php.null.insertMode": "...",
+    "faker-js.php.boolean.insertMode": "...",
+    "faker-js.php.bigint.insertMode": "...",
+    "faker-js.php.string.quotationMark": "...",
+    "faker-js.php.string.insertMode": "...",
+    "faker-js.php.array.insertMode": "...",
+    "faker-js.python.bigint.insertMode": "...",
+    "faker-js.python.string.quotationMark": "...",
+    "faker-js.python.string.insertMode": "...",
+    "faker-js.ruby.bigint.insertMode": "...",
+    "faker-js.ruby.string.quotationMark": "...",
+    "faker-js.ruby.string.insertMode": "..."
 }
 ```
 
 ## Faker.js API
 
-1. airline.aircraftType
-1. airline.airline (object)
-1. airline.airplane (object)
-1. airline.airport (object)
-1. airline.flightNumber
-1. airline.recordLocator
-1. airline.seat
-1. animal.bear
-1. animal.bird
-1. animal.cat
-1. animal.cetacean
-1. animal.cow
-1. animal.crocodilia
-1. animal.dog
-1. animal.fish
-1. animal.horse
-1. animal.insect
-1. animal.lion
-1. animal.petName
-1. animal.rabbit
-1. animal.rodent
-1. animal.snake
-1. animal.type
-1. book.author
-1. book.format
-1. book.genre
-1. book.publisher
-1. book.series
-1. book.title
-1. color.cmyk
-1. color.colorByCSSColorSpace
-1. color.cssSupportedFunction
-1. color.cssSupportedSpace
-1. color.hsl
-1. color.human
-1. color.hwb
-1. color.lab
-1. color.lch
-1. color.rgb
-1. color.space
-1. commerce.department
-1. commerce.isbn
-1. commerce.price
-1. commerce.product
-1. commerce.productAdjective
-1. commerce.productDescription
-1. commerce.productMaterial
-1. commerce.productName
-1. company.buzzAdjective
-1. company.buzzNoun
-1. company.buzzPhrase
-1. company.buzzVerb
-1. company.catchPhrase
-1. company.catchPhraseAdjective
-1. company.catchPhraseDescriptor
-1. company.catchPhraseNoun
-1. company.name
-1. database.collation
-1. database.column
-1. database.engine
-1. database.mongodbObjectId
-1. database.type
-1. datatype.boolean
-1. date.anytime (date)
-1. date.between (binding)
-1. date.betweens (binding)
-1. date.birthdate (date)
-1. date.future (date)
-1. date.month
-1. date.past (date)
-1. date.recent (date)
-1. date.soon (date)
-1. date.timeZone
-1. date.weekday
-1. finance.accountName
-1. finance.accountNumber
-1. finance.amount
-1. finance.bic
-1. finance.bitcoinAddress
-1. finance.creditCardCVV
-1. finance.creditCardIssuer
-1. finance.creditCardNumber
-1. finance.currency (object)
-1. finance.currencyCode
-1. finance.currencyName
-1. finance.currencyNumericCode
-1. finance.currencySymbol
-1. finance.ethereumAddress
-1. finance.iban
-1. finance.litecoinAddress
-1. finance.maskedNumber (deprecated)
-1. finance.pin
-1. finance.routingNumber
-1. finance.transactionDescription
-1. finance.transactionType
-1. food.adjective
-1. food.description
-1. food.dish
-1. food.ethnicCategory
-1. food.fruit
-1. food.ingredient
-1. food.meat
-1. food.spice
-1. food.vegetable
-1. git.branch
-1. git.commitDate
-1. git.commitEntry
-1. git.commitMessage
-1. git.commitSha
-1. hacker.abbreviation
-1. hacker.adjective
-1. hacker.ingverb
-1. hacker.noun
-1. hacker.phrase
-1. hacker.verb
-1. helpers.arrayElement (binding)
-1. helpers.arrayElements (binding)
-1. helpers.enumValue (binding)
-1. helpers.fake (binding)
-1. helpers.fromRegExp (binding)
-1. helpers.maybe (binding)
-1. helpers.multiple (binding)
-1. helpers.mustache (binding)
-1. helpers.objectEntry (binding)
-1. helpers.objectKey (binding)
-1. helpers.objectValue (binding)
-1. helpers.rangeToNumber (binding)
-1. helpers.replaceCreditCardSymbols
-1. helpers.replaceSymbols
-1. helpers.shuffle (binding)
-1. helpers.slugify
-1. helpers.uniqueArray (binding)
-1. helpers.weightedArrayElement (binding)
-1. image.avatar
-1. image.avatarGitHub
-1. image.avatarLegacy
-1. image.dataUri
-1. image.personPortrait
-1. image.url
-1. image.urlLoremFlickr
-1. image.urlPicsumPhotos
-1. image.urlPlaceholder (deprecated)
-1. internet.color
-1. internet.displayName
-1. internet.domainName
-1. internet.domainSuffix
-1. internet.domainWord
-1. internet.email
-1. internet.emoji
-1. internet.exampleEmail
-1. internet.httpMethod
-1. internet.httpStatusCode
-1. internet.ip
-1. internet.ipv4
-1. internet.ipv6
-1. internet.jwt
-1. internet.jwtAlgorithm
-1. internet.mac
-1. internet.password
-1. internet.port
-1. internet.protocol
-1. internet.url
-1. internet.userAgent
-1. internet.userName (deprecated)
-1. internet.username
-1. location.buildingNumber
-1. location.cardinalDirection
-1. location.city
-1. location.continent
-1. location.country
-1. location.countryCode
-1. location.county
-1. location.direction
-1. location.language (object)
-1. location.latitude
-1. location.longitude
-1. location.nearbyGPSCoordinate (array)
-1. location.ordinalDirection
-1. location.secondaryAddress
-1. location.state
-1. location.street
-1. location.streetAddress
-1. location.timeZone
-1. location.zipCode
-1. lorem.lines
-1. lorem.paragraph
-1. lorem.paragraphs
-1. lorem.sentence
-1. lorem.sentences
-1. lorem.slug
-1. lorem.text
-1. lorem.word
-1. lorem.words
-1. music.album
-1. music.artist
-1. music.genre
-1. music.songName
-1. number.bigInt
-1. number.binary
-1. number.float
-1. number.hex
-1. number.int
-1. number.octal
-1. number.romanNumeral
-1. person.bio
-1. person.firstName
-1. person.fullName
-1. person.gender
-1. person.jobArea
-1. person.jobDescriptor
-1. person.jobTitle
-1. person.jobType
-1. person.lastName
-1. person.middleName
-1. person.prefix
-1. person.sex
-1. person.sexType
-1. person.suffix
-1. person.zodiacSign
-1. phone.imei
-1. phone.number
-1. science.chemicalElement (object)
-1. science.unit (object)
-1. string.alpha
-1. string.alphanumeric
-1. string.binary
-1. string.fromCharacters (binding)
-1. string.hexadecimal
-1. string.nanoid
-1. string.numeric
-1. string.octal
-1. string.sample
-1. string.symbol
-1. string.ulid
-1. string.uuid
-1. system.commonFileExt
-1. system.commonFileName
-1. system.commonFileType
-1. system.cron
-1. system.directoryPath
-1. system.fileExt
-1. system.fileName
-1. system.filePath
-1. system.fileType
-1. system.mimeType
-1. system.networkInterface
-1. system.semver
-1. vehicle.bicycle
-1. vehicle.color
-1. vehicle.fuel
-1. vehicle.manufacturer
-1. vehicle.model
-1. vehicle.type
-1. vehicle.vehicle
-1. vehicle.vin
-1. vehicle.vrm
-1. word.adjective
-1. word.adverb
-1. word.conjunction
-1. word.interjection
-1. word.noun
-1. word.preposition
-1. word.sample
-1. word.verb
-1. word.words
+| No. | Function                         | Return type |
+| --- | -------------------------------- | ----------- |
+| 1   | airline.aircraftType             | Primitive   |
+| 2   | airline.airline                  | Structure   |
+| 3   | airline.airplane                 | Structure   |
+| 4   | airline.airport                  | Structure   |
+| 5   | airline.flightNumber             | Primitive   |
+| 6   | airline.recordLocator            | Primitive   |
+| 7   | airline.seat                     | Primitive   |
+| 8   | animal.bear                      | Primitive   |
+| 9   | animal.bird                      | Primitive   |
+| 10  | animal.cat                       | Primitive   |
+| 11  | animal.cetacean                  | Primitive   |
+| 12  | animal.cow                       | Primitive   |
+| 13  | animal.crocodilia                | Primitive   |
+| 14  | animal.dog                       | Primitive   |
+| 15  | animal.fish                      | Primitive   |
+| 16  | animal.horse                     | Primitive   |
+| 17  | animal.insect                    | Primitive   |
+| 18  | animal.lion                      | Primitive   |
+| 19  | animal.petName                   | Primitive   |
+| 20  | animal.rabbit                    | Primitive   |
+| 21  | animal.rodent                    | Primitive   |
+| 22  | animal.snake                     | Primitive   |
+| 23  | animal.type                      | Primitive   |
+| 24  | book.author                      | Primitive   |
+| 25  | book.format                      | Primitive   |
+| 26  | book.genre                       | Primitive   |
+| 27  | book.publisher                   | Primitive   |
+| 28  | book.series                      | Primitive   |
+| 29  | book.title                       | Primitive   |
+| 30  | color.cmyk                       | Primitive   |
+| 31  | color.colorByCSSColorSpace       | Primitive   |
+| 32  | color.cssSupportedFunction       | Primitive   |
+| 33  | color.cssSupportedSpace          | Primitive   |
+| 34  | color.hsl                        | Primitive   |
+| 35  | color.human                      | Primitive   |
+| 36  | color.hwb                        | Primitive   |
+| 37  | color.lab                        | Primitive   |
+| 38  | color.lch                        | Primitive   |
+| 39  | color.rgb                        | Primitive   |
+| 40  | color.space                      | Primitive   |
+| 41  | commerce.department              | Primitive   |
+| 42  | commerce.isbn                    | Primitive   |
+| 43  | commerce.price                   | Primitive   |
+| 44  | commerce.product                 | Primitive   |
+| 45  | commerce.productAdjective        | Primitive   |
+| 46  | commerce.productDescription      | Primitive   |
+| 47  | commerce.productMaterial         | Primitive   |
+| 48  | commerce.productName             | Primitive   |
+| 49  | commerce.upc                     | Primitive   |
+| 50  | company.buzzAdjective            | Primitive   |
+| 51  | company.buzzNoun                 | Primitive   |
+| 52  | company.buzzPhrase               | Primitive   |
+| 53  | company.buzzVerb                 | Primitive   |
+| 54  | company.catchPhrase              | Primitive   |
+| 55  | company.catchPhraseAdjective     | Primitive   |
+| 56  | company.catchPhraseDescriptor    | Primitive   |
+| 57  | company.catchPhraseNoun          | Primitive   |
+| 58  | company.name                     | Primitive   |
+| 59  | database.collation               | Primitive   |
+| 60  | database.column                  | Primitive   |
+| 61  | database.engine                  | Primitive   |
+| 62  | database.mongodbObjectId         | Primitive   |
+| 63  | database.type                    | Primitive   |
+| 64  | datatype.boolean                 | Primitive   |
+| 65  | date.anytime                     | Date        |
+| 66  | date.between                     | Function    |
+| 67  | date.betweens                    | Function    |
+| 68  | date.birthdate                   | Date        |
+| 69  | date.future                      | Date        |
+| 70  | date.month                       | Primitive   |
+| 71  | date.past                        | Date        |
+| 72  | date.recent                      | Date        |
+| 73  | date.soon                        | Date        |
+| 74  | date.timeZone                    | Primitive   |
+| 75  | date.weekday                     | Primitive   |
+| 76  | finance.accountName              | Primitive   |
+| 77  | finance.accountNumber            | Primitive   |
+| 78  | finance.amount                   | Primitive   |
+| 79  | finance.bic                      | Primitive   |
+| 80  | finance.bitcoinAddress           | Primitive   |
+| 81  | finance.creditCardCVV            | Primitive   |
+| 82  | finance.creditCardIssuer         | Primitive   |
+| 83  | finance.creditCardNumber         | Primitive   |
+| 84  | finance.currency                 | Structure   |
+| 85  | finance.currencyCode             | Primitive   |
+| 86  | finance.currencyName             | Primitive   |
+| 87  | finance.currencyNumericCode      | Primitive   |
+| 88  | finance.currencySymbol           | Primitive   |
+| 89  | finance.ethereumAddress          | Primitive   |
+| 90  | finance.iban                     | Primitive   |
+| 91  | finance.litecoinAddress          | Primitive   |
+| 92  | finance.pin                      | Primitive   |
+| 93  | finance.routingNumber            | Primitive   |
+| 94  | finance.transactionDescription   | Primitive   |
+| 95  | finance.transactionType          | Primitive   |
+| 96  | food.adjective                   | Primitive   |
+| 97  | food.description                 | Primitive   |
+| 98  | food.dish                        | Primitive   |
+| 99  | food.ethnicCategory              | Primitive   |
+| 100 | food.fruit                       | Primitive   |
+| 101 | food.ingredient                  | Primitive   |
+| 102 | food.meat                        | Primitive   |
+| 103 | food.spice                       | Primitive   |
+| 104 | food.vegetable                   | Primitive   |
+| 105 | git.branch                       | Primitive   |
+| 106 | git.commitDate                   | Primitive   |
+| 107 | git.commitEntry                  | Primitive   |
+| 108 | git.commitMessage                | Primitive   |
+| 109 | git.commitSha                    | Primitive   |
+| 110 | hacker.abbreviation              | Primitive   |
+| 111 | hacker.adjective                 | Primitive   |
+| 112 | hacker.ingverb                   | Primitive   |
+| 113 | hacker.noun                      | Primitive   |
+| 114 | hacker.phrase                    | Primitive   |
+| 115 | hacker.verb                      | Primitive   |
+| 116 | helpers.arrayElement             | Function    |
+| 117 | helpers.arrayElements            | Function    |
+| 118 | helpers.enumValue                | Function    |
+| 119 | helpers.fake                     | Function    |
+| 120 | helpers.fromRegExp               | Function    |
+| 121 | helpers.maybe                    | Function    |
+| 122 | helpers.multiple                 | Function    |
+| 123 | helpers.mustache                 | Function    |
+| 124 | helpers.objectEntry              | Function    |
+| 125 | helpers.objectKey                | Function    |
+| 126 | helpers.objectValue              | Function    |
+| 127 | helpers.rangeToNumber            | Function    |
+| 128 | helpers.replaceCreditCardSymbols | Primitive   |
+| 129 | helpers.replaceSymbols           | Primitive   |
+| 130 | helpers.shuffle                  | Function    |
+| 131 | helpers.slugify                  | Primitive   |
+| 132 | helpers.uniqueArray              | Function    |
+| 133 | helpers.weightedArrayElement     | Function    |
+| 134 | image.avatar                     | Primitive   |
+| 135 | image.avatarGitHub               | Primitive   |
+| 136 | image.dataUri                    | Primitive   |
+| 137 | image.personPortrait             | Primitive   |
+| 138 | image.url                        | Primitive   |
+| 139 | image.urlLoremFlickr             | Primitive   |
+| 140 | image.urlPicsumPhotos            | Primitive   |
+| 141 | internet.displayName             | Primitive   |
+| 142 | internet.domainName              | Primitive   |
+| 143 | internet.domainSuffix            | Primitive   |
+| 144 | internet.domainWord              | Primitive   |
+| 145 | internet.email                   | Primitive   |
+| 146 | internet.emoji                   | Primitive   |
+| 147 | internet.exampleEmail            | Primitive   |
+| 148 | internet.httpMethod              | Primitive   |
+| 149 | internet.httpStatusCode          | Primitive   |
+| 150 | internet.ip                      | Primitive   |
+| 151 | internet.ipv4                    | Primitive   |
+| 152 | internet.ipv6                    | Primitive   |
+| 153 | internet.jwt                     | Primitive   |
+| 154 | internet.jwtAlgorithm            | Primitive   |
+| 155 | internet.mac                     | Primitive   |
+| 156 | internet.password                | Primitive   |
+| 157 | internet.port                    | Primitive   |
+| 158 | internet.protocol                | Primitive   |
+| 159 | internet.url                     | Primitive   |
+| 160 | internet.userAgent               | Primitive   |
+| 161 | internet.username                | Primitive   |
+| 162 | location.buildingNumber          | Primitive   |
+| 163 | location.cardinalDirection       | Primitive   |
+| 164 | location.city                    | Primitive   |
+| 165 | location.continent               | Primitive   |
+| 166 | location.country                 | Primitive   |
+| 167 | location.countryCode             | Primitive   |
+| 168 | location.county                  | Primitive   |
+| 169 | location.direction               | Primitive   |
+| 170 | location.language                | Structure   |
+| 171 | location.latitude                | Primitive   |
+| 172 | location.longitude               | Primitive   |
+| 173 | location.nearbyGPSCoordinate     | Array       |
+| 174 | location.ordinalDirection        | Primitive   |
+| 175 | location.secondaryAddress        | Primitive   |
+| 176 | location.state                   | Primitive   |
+| 177 | location.street                  | Primitive   |
+| 178 | location.streetAddress           | Primitive   |
+| 179 | location.timeZone                | Primitive   |
+| 180 | location.zipCode                 | Primitive   |
+| 181 | lorem.lines                      | Primitive   |
+| 182 | lorem.paragraph                  | Primitive   |
+| 183 | lorem.paragraphs                 | Primitive   |
+| 184 | lorem.sentence                   | Primitive   |
+| 185 | lorem.sentences                  | Primitive   |
+| 186 | lorem.slug                       | Primitive   |
+| 187 | lorem.text                       | Primitive   |
+| 188 | lorem.word                       | Primitive   |
+| 189 | lorem.words                      | Primitive   |
+| 190 | music.album                      | Primitive   |
+| 191 | music.artist                     | Primitive   |
+| 192 | music.genre                      | Primitive   |
+| 193 | music.songName                   | Primitive   |
+| 194 | number.bigInt                    | Primitive   |
+| 195 | number.binary                    | Primitive   |
+| 196 | number.float                     | Primitive   |
+| 197 | number.hex                       | Primitive   |
+| 198 | number.int                       | Primitive   |
+| 199 | number.octal                     | Primitive   |
+| 200 | number.romanNumeral              | Primitive   |
+| 201 | person.bio                       | Primitive   |
+| 202 | person.firstName                 | Primitive   |
+| 203 | person.fullName                  | Primitive   |
+| 204 | person.gender                    | Primitive   |
+| 205 | person.jobArea                   | Primitive   |
+| 206 | person.jobDescriptor             | Primitive   |
+| 207 | person.jobTitle                  | Primitive   |
+| 208 | person.jobType                   | Primitive   |
+| 209 | person.lastName                  | Primitive   |
+| 210 | person.middleName                | Primitive   |
+| 211 | person.prefix                    | Primitive   |
+| 212 | person.sex                       | Primitive   |
+| 213 | person.sexType                   | Primitive   |
+| 214 | person.suffix                    | Primitive   |
+| 215 | person.zodiacSign                | Primitive   |
+| 216 | phone.imei                       | Primitive   |
+| 217 | phone.number                     | Primitive   |
+| 218 | science.chemicalElement          | Structure   |
+| 219 | science.unit                     | Structure   |
+| 220 | string.alpha                     | Primitive   |
+| 221 | string.alphanumeric              | Primitive   |
+| 222 | string.binary                    | Primitive   |
+| 223 | string.fromCharacters            | Function    |
+| 224 | string.hexadecimal               | Primitive   |
+| 225 | string.nanoid                    | Primitive   |
+| 226 | string.numeric                   | Primitive   |
+| 227 | string.octal                     | Primitive   |
+| 228 | string.sample                    | Primitive   |
+| 229 | string.symbol                    | Primitive   |
+| 230 | string.ulid                      | Primitive   |
+| 231 | string.uuid                      | Primitive   |
+| 232 | system.commonFileExt             | Primitive   |
+| 233 | system.commonFileName            | Primitive   |
+| 234 | system.commonFileType            | Primitive   |
+| 235 | system.cron                      | Primitive   |
+| 236 | system.directoryPath             | Primitive   |
+| 237 | system.fileExt                   | Primitive   |
+| 238 | system.fileName                  | Primitive   |
+| 239 | system.filePath                  | Primitive   |
+| 240 | system.fileType                  | Primitive   |
+| 241 | system.mimeType                  | Primitive   |
+| 242 | system.networkInterface          | Primitive   |
+| 243 | system.semver                    | Primitive   |
+| 244 | vehicle.bicycle                  | Primitive   |
+| 245 | vehicle.color                    | Primitive   |
+| 246 | vehicle.fuel                     | Primitive   |
+| 247 | vehicle.manufacturer             | Primitive   |
+| 248 | vehicle.model                    | Primitive   |
+| 249 | vehicle.type                     | Primitive   |
+| 250 | vehicle.vehicle                  | Primitive   |
+| 251 | vehicle.vin                      | Primitive   |
+| 252 | vehicle.vrm                      | Primitive   |
+| 253 | word.adjective                   | Primitive   |
+| 254 | word.adverb                      | Primitive   |
+| 255 | word.conjunction                 | Primitive   |
+| 256 | word.interjection                | Primitive   |
+| 257 | word.noun                        | Primitive   |
+| 258 | word.preposition                 | Primitive   |
+| 259 | word.sample                      | Primitive   |
+| 260 | word.verb                        | Primitive   |
+| 261 | word.words                       | Primitive   |

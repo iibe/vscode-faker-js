@@ -1,2 +1,4 @@
-catalog:
-  '@faker-js/faker': '9.6.0'
+allowBuilds:
+  '@vscode/vsce-sign': true
+  esbuild: true
+  keytar: true

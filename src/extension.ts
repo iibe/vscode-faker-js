@@ -1,52 +1,71 @@
-import type { ExtensionContext } from 'vscode';
-import { commands, Range, window } from 'vscode';
-import { fakerApiAtoms } from './base/atoms';
-import { createFaker, getFakerFunction } from './faker';
-import { getSettings } from './settings';
-import { createStringify } from './syntax';
-import type { ICommandId } from './types/manifest';
-import type { VscodeLanguageIdentifier } from './types/vscode';
+import * as vscode from 'vscode';
+import { setOfApiKeys } from './base/atoms.js';
+import { getConfigOpt } from './extension-config.js';
+import { getFakerFunction, importFaker } from './faker.js';
+import { createStringify } from './syntax/factory.js';
+import { IConfigOption } from './types/extension-config.js';
+import type { ICommandId } from './types/extension-manifest.js';
+import type { FakerLocale, IFakerFnName } from './types/faker.js';
+import type { LanguageID } from './types/vscode.js';
 
-export function activate(context: ExtensionContext) {
-    for (const atom of fakerApiAtoms) {
-        const command: ICommandId = `vscode-faker-js.${atom}`;
+function registerCommand(cmdName: IFakerFnName): vscode.Disposable {
+    const cmd: ICommandId = `vscode-faker-js.${cmdName}`;
 
-        const disposable = commands.registerCommand(command, async () => {
-            const editor = window.activeTextEditor;
+    return vscode.commands.registerCommand(cmd, async () => {
+        const editor = vscode.window.activeTextEditor;
 
-            if (!editor) {
-                return;
-            }
+        if (!editor) {
+            return;
+        }
 
-            const settings = getSettings();
-            const faker = await createFaker(settings.locale);
+        const settings = getConfigurationAll();
+        const faker = await importFaker(settings.locale);
 
-            const fn = getFakerFunction(faker, atom);
+        const fn = getFakerFunction(faker, cmdName);
 
-            if (typeof fn !== 'function') {
-                return;
-            }
+        if (typeof fn !== 'function') {
+            return;
+        }
 
-            const languageId = editor.document
-                .languageId as VscodeLanguageIdentifier;
-            const language =
-                settings.syntax === '*' ? languageId : settings.syntax;
-            const stringify = createStringify(language, settings);
+        const languageId = editor.document.languageId as LanguageID;
+        const language = settings.syntax === '*' ? languageId : settings.syntax;
+        const stringify = createStringify(language, settings);
 
-            editor.edit((editBuilder) => {
-                editor.selections.forEach(({ start, end }) => {
-                    const range = new Range(start, end);
-                    // @ts-ignore
-                    // [TS2349]: Signatures of union doesn't compatible with each other
-                    const data = fn();
+        editor.edit((editBuilder) => {
+            editor.selections.forEach(({ start, end }) => {
+                const range = new vscode.Range(start, end);
 
-                    editBuilder.replace(range, stringify.from(data));
-                });
+                // @ts-ignore
+                // [TS2349]: Signatures of union doesn't compatible with each other
+                const data = fn();
+
+                editBuilder.replace(range, stringify.from(data));
             });
         });
+    });
+}
 
-        context.subscriptions.push(disposable);
+const onDidChangeConfiguration = vscode.workspace.onDidChangeConfiguration(
+    async (evt) => {
+        if (evt.affectsConfiguration('faker-js.locale')) {
+        }
     }
+);
+
+export function activate(ctx: vscode.ExtensionContext) {
+    let config = vscode.workspace.getConfiguration('faker-js');
+    let locale: FakerLocale = getConfigOpt<IConfigOption>(
+        config,
+        'locale',
+        'en'
+    );
+
+    for (const atom of setOfApiKeys) {
+        const command = registerCommand(atom);
+        ctx.subscriptions.push(command);
+    }
+
+    ctx.subscriptions.push(onDidChangeConfiguration);
 }
 
 export function deactivate() {}

@@ -1,64 +1,65 @@
-# EditorConfig master configuration.
-# Note that `root = true` ignores `.editorconfig` in subdirectories.
 # See: https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
+# Please delete following options in `.prettierrc` file:
+# - endOfLine (end_of_line);
+# - printWidth (max_line_length);
+# - tabWidth (indent_size);
+# - useTabs (indent_style);
 
 root = true
 
 [*]
 charset = utf-8
+max_line_length = 80
 
-# Supported by VSCode and Prettier.
-# Make sure to remove `endOfLine`, `tabWidth`, and `useTabs` in `.prettierrc`.
-indent_size = 4
 indent_style = space
-end_of_line = lf
+indent_size = 4
+tab_width = 4
 
-# Supported by VSCode (on save).
+end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# Limited support.
-# Make sure to remove `printWidth` in `.prettierrc`.
-max_line_length = 80
+[*.{bat,cmd}]
+end_of_line = crlf
 
-# ------------------------------------------------------------------------------
-# Domain-Specific Languages
-# ------------------------------------------------------------------------------
+[*.{json,jsonc}]
+indent_style = space
+indent_size = 2
+[binding.gyp]
+indent_style = space
+indent_size = 2
 
-# Language: GNU Make
-# Comments: Tabs are required and 4 spaces-per-tab is recommended.
+[*.{html,rss,svg,xhtml,xml}]
+indent_style = space
+indent_size = 2
+
+[*.go]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+
+[*.{md,mdx}]
+max_line_length = unset
+trim_trailing_whitespace = false
 
 [*.mk]
+indent_style = tab
 [Makefile]
-indent_size = 4
 indent_style = tab
 
-# Language: Unix shell
-# Comments: 3 spaces is recommended.
-
 [*.sh]
-indent_size = 3
-indent_style = space
-
-# Language: Markdown
-# Comments: 2 spaces are required and other properties are for better view.
-
-[*.md]
-indent_size = 2
-indent_style = space
-trim_trailing_whitespace = false
-max_line_length = unset
-
-# Language: TOML
-# Comments: 2 spaces are recommended.
+end_of_line = lf
 
 [*.toml]
-indent_size = 2
 indent_style = space
-
-# Language: YAML
-# Comments: 2 spaces are required.
+indent_size = 2
 
 [*.{yaml,yml}]
-indent_size = 2
 indent_style = space
+indent_size = 2
+[{.clangd,.clang-format,.clang-tidy}]
+indent_style = space
+indent_size = 2
+[erlang_ls.config]
+indent_style = space
+indent_size = 2

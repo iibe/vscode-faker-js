@@ -1,8 +1,6 @@
 .history/
 .vscode-test/
-artifacts/
 dist/
+generated/
 node_modules/
 out/
-
-*.vsix

@@ -1,10 +1,12 @@
 abap
+amodio
 bibtex
 cmyk
 codegen
 crocodilia
 cuda
 cutover
+dbaeumer
 dockercompose
 evenodd
 Flickr
