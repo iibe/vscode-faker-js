@@ -1,4 +1,4 @@
 .vscode-test.mjs -linguist-detectable
-eslint.config.js -linguist-detectable
+eslint.config.mjs -linguist-detectable
 Makefile -linguist-detectable
 Makefile.mk -linguist-detectable
